@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj": {}
+    "C:\\Users\\micha\\Source\\Repos\\RaskTripSource\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj": {}
   },
   "projects": {
-    "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj": {
+    "C:\\Users\\micha\\Source\\Repos\\RaskTripSource\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj",
+        "projectUniqueName": "C:\\Users\\micha\\Source\\Repos\\RaskTripSource\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj",
         "projectName": "RaskTrip.BusinessObjects",
-        "projectPath": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj",
+        "projectPath": "C:\\Users\\micha\\Source\\Repos\\RaskTripSource\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj",
         "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip.BusinessObjects\\obj\\",
+        "outputPath": "C:\\Users\\micha\\Source\\Repos\\RaskTripSource\\RaskTrip.BusinessObjects\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

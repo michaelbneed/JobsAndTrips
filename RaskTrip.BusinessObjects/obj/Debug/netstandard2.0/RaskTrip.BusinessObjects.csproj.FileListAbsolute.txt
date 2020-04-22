@@ -12,3 +12,11 @@ C:\Users\micha\Source\Repos\RaskTrip2\RaskTrip.BusinessObjects\obj\Debug\netstan
 C:\Users\micha\Source\Repos\RaskTrip2\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.AssemblyInfo.cs
 C:\Users\micha\Source\Repos\RaskTrip2\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.dll
 C:\Users\micha\Source\Repos\RaskTrip2\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.pdb
+C:\Users\micha\Source\Repos\RaskTripSource\RaskTrip.BusinessObjects\bin\Debug\netstandard2.0\RaskTrip.BusinessObjects.deps.json
+C:\Users\micha\Source\Repos\RaskTripSource\RaskTrip.BusinessObjects\bin\Debug\netstandard2.0\RaskTrip.BusinessObjects.dll
+C:\Users\micha\Source\Repos\RaskTripSource\RaskTrip.BusinessObjects\bin\Debug\netstandard2.0\RaskTrip.BusinessObjects.pdb
+C:\Users\micha\Source\Repos\RaskTripSource\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.csprojAssemblyReference.cache
+C:\Users\micha\Source\Repos\RaskTripSource\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.AssemblyInfoInputs.cache
+C:\Users\micha\Source\Repos\RaskTripSource\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.AssemblyInfo.cs
+C:\Users\micha\Source\Repos\RaskTripSource\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.dll
+C:\Users\micha\Source\Repos\RaskTripSource\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.pdb
