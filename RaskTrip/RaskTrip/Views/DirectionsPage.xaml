@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RaskTrip.Views.DirectionsPage"
+             Title="Driving">
+    <StackLayout Margin="10">
+        <Grid x:Name="grdCurrentSite">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout x:Name="s1" BackgroundColor="White" Grid.Row="0" Grid.Column="0" BindingContext="{x:Reference Name=s1}"  >
+                <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="R.A.S.K. - Operations Center" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Phone: (317) 123-1234" />
+                    <ImageButton x:Name="BtnCall" Source="callIcon.png" Clicked="BtnCall_Click" BackgroundColor="White" HorizontalOptions="CenterAndExpand" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout x:Name="s2" BackgroundColor="White" Grid.Row="0" Grid.Column="1" BindingContext="{x:Reference Name=s2}">
+                <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Text="PROPERTY: Agave Bar and Grill" />
+                <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Text="31 E MAIN ST CARMEL IN 46032" />
+            </StackLayout>
+            <StackLayout x:Name="s3" BackgroundColor="White" Grid.Row="0" Grid.Column="2" BindingContext="{x:Reference Name=s3}">
+                <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Acct Mgr: John Doe" />
+                <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="SERVICE: STANDARD AFTER PLOW 2-inch"/>
+                <Button Clicked="ButtonSiteMapClick"></Button>
+            </StackLayout>
+        </Grid>
+
+        <ActivityIndicator x:Name="progress" IsRunning="true" Color="DarkGray" />
+        <WebView x:Name="webView" 
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand"
+                    Navigating="webOnNavigating" Navigated="webOnEndNavigating" />
+    </StackLayout>
+</ContentPage>

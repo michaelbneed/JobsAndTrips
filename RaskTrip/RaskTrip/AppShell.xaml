@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       mc:Ignorable="d"
+       xmlns:local="clr-namespace:RaskTrip.Views"
+       Title="RaskTrip"
+       x:Class="RaskTrip.AppShell">
+
+    <!-- 
+        Styles and Resources 
+    -->
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="NavigationPrimary">#7f1424</Color>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar>
+        <Tab Title="Drive" Icon="tab_geo.png">
+            <ShellContent ContentTemplate="{DataTemplate local:DirectionsPage}" />
+        </Tab>
+        <Tab Title="Site Map" Icon="tab_photo.png">
+            <ShellContent ContentTemplate="{DataTemplate local:SiteMapPage}" />
+        </Tab>
+    </TabBar>
+    
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <StackLayout>
+                <Button x:Name="btnSiteMap" Text="Site Map" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="DarkRed" 
+                        TextColor="White" Clicked="ButtonSiteMapClick" ImageSource="tab_geo.png" WidthRequest="200"></Button>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+</Shell>

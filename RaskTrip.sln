@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaskTrip.Android", "RaskTrip\RaskTrip.Android\RaskTrip.Android.csproj", "{1B2E99D7-43AD-4B2B-B194-F9C139AC7E3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaskTrip", "RaskTrip\RaskTrip\RaskTrip.csproj", "{542A6FFF-5CA2-4FAE-9BF2-B6E20886B0FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaskTrip.API", "RaskTrip.API\RaskTrip.API.csproj", "{42C1142A-B62D-4F2F-80C4-14714DD6CE92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaskTrip.BusinessObjects", "RaskTrip.BusinessObjects\RaskTrip.BusinessObjects.csproj", "{16DF2586-B114-465F-8C53-6C04DE9F0798}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaskTrip.ApiClient", "RaskTrip.ApiClient\RaskTrip.ApiClient.csproj", "{79E50AAA-8EA6-48AE-87A6-38506A94F9AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B2E99D7-43AD-4B2B-B194-F9C139AC7E3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B2E99D7-43AD-4B2B-B194-F9C139AC7E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B2E99D7-43AD-4B2B-B194-F9C139AC7E3E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1B2E99D7-43AD-4B2B-B194-F9C139AC7E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B2E99D7-43AD-4B2B-B194-F9C139AC7E3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B2E99D7-43AD-4B2B-B194-F9C139AC7E3E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{542A6FFF-5CA2-4FAE-9BF2-B6E20886B0FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{542A6FFF-5CA2-4FAE-9BF2-B6E20886B0FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{542A6FFF-5CA2-4FAE-9BF2-B6E20886B0FF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{542A6FFF-5CA2-4FAE-9BF2-B6E20886B0FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{542A6FFF-5CA2-4FAE-9BF2-B6E20886B0FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{542A6FFF-5CA2-4FAE-9BF2-B6E20886B0FF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{42C1142A-B62D-4F2F-80C4-14714DD6CE92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42C1142A-B62D-4F2F-80C4-14714DD6CE92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42C1142A-B62D-4F2F-80C4-14714DD6CE92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42C1142A-B62D-4F2F-80C4-14714DD6CE92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16DF2586-B114-465F-8C53-6C04DE9F0798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16DF2586-B114-465F-8C53-6C04DE9F0798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16DF2586-B114-465F-8C53-6C04DE9F0798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16DF2586-B114-465F-8C53-6C04DE9F0798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E50AAA-8EA6-48AE-87A6-38506A94F9AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E50AAA-8EA6-48AE-87A6-38506A94F9AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E50AAA-8EA6-48AE-87A6-38506A94F9AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E50AAA-8EA6-48AE-87A6-38506A94F9AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {197DD0CB-DAB3-4DF7-839E-006DF5205849}
+	EndGlobalSection
+EndGlobal

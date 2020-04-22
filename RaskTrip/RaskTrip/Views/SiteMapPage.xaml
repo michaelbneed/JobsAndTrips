@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"  
+x:Class="RaskTrip.Views.SiteMapPage" Title="Site Map">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid x:Name="grdCurrentSite" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <StackLayout x:Name="s1" BackgroundColor="White" Grid.Row="0" Grid.Column="0" BindingContext="{x:Reference Name=s1}"  >
+                    <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="R.A.S.K. - Operations Center" />
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                        <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Phone: (317) 123-1234" />
+                        <ImageButton x:Name="BtnCall" Source="callIcon.png" Clicked="BtnCall_Click" BackgroundColor="White" HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout x:Name="s2" BackgroundColor="White" Grid.Row="0" Grid.Column="1" BindingContext="{x:Reference Name=s2}">
+                    <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Text="PROPERTY: Agave Bar and Grill" />
+                    <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Text="31 E MAIN ST CARMEL IN 46032" />
+                    
+                </StackLayout>
+                <StackLayout x:Name="s3" BackgroundColor="White" Grid.Row="0" Grid.Column="2" BindingContext="{x:Reference Name=s3}">
+                    <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Acct Mgr: John Doe" />
+                    <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="SERVICE: STANDARD AFTER PLOW 2-inch"/>
+                </StackLayout>
+            </Grid>
+
+            <Grid x:Name="grdSiteComplete" IsVisible="False" Margin="100" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*" x:Name="firstRowComplete" />
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                
+                <StackLayout x:Name="stkBtnConfirm" BackgroundColor="White" Grid.Row="0" Grid.Column="1" BindingContext="{x:Reference Name=stkBtnConfirm}">
+
+                    <Label x:Name="lblServiceConfirmMsg" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="Fill" Text="Did you perform the STANDARD AFTER PLOW 2-inch service?" FontSize="Large" />
+                    <Label Text="" FontSize="Large" />
+
+                    <Button Text="Yes" FontSize="Large" BackgroundColor="Green" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Clicked="ButtonConfirmServiceClicked"></Button>
+                    <Label Text="" FontSize="Large" />
+                    <Button Text="No" FontSize="Large" BackgroundColor="DarkOrange" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Clicked="ButtonDenyServiceClicked"></Button>
+                </StackLayout>
+                
+                <StackLayout x:Name="stkServiceChoices" BackgroundColor="White" Grid.Row="0" Grid.Column="1" BindingContext="{x:Reference Name=stkBtnConfirm}" IsVisible="False">
+                    
+                    <Label x:Name="lblServiceChoices" TextColor="Black" HorizontalOptions="CenterAndExpand" VerticalOptions="Fill" Text="What service did you perform?" FontSize="Large"  />
+                    <Label Text="" FontSize="Large" />
+                    <Button Text="Standard" FontSize="Large" BackgroundColor="Black" TextColor="White"  VerticalOptions="FillAndExpand" Clicked="ButtonCompleteUnfinishedJobClick"></Button>
+                    <Label Text="" FontSize="Large" />
+                    <Button Text="Full" FontSize="Large" BackgroundColor="Black" TextColor="White"  VerticalOptions="FillAndExpand" Clicked="ButtonCompleteUnfinishedJobClick"></Button>
+                    <Label Text="" FontSize="Large" />
+                    <Button Text="Skipped - No Access" FontSize="Large" BackgroundColor="Black" TextColor="White"  VerticalOptions="FillAndExpand" Clicked="ButtonCompleteUnfinishedJobClick"></Button>
+                    <Label Text="" FontSize="Large" />
+                    <Button Text="Skipped - Not Plowed" FontSize="Large" BackgroundColor="Black" TextColor="White"  VerticalOptions="FillAndExpand" Clicked="ButtonCompleteUnfinishedJobClick"></Button>
+                    
+                </StackLayout>
+                
+            </Grid>
+
+            <StackLayout x:Name="lblSpcInstructions" BackgroundColor="LightGray" Grid.Row="1" Grid.Column="1" BindingContext="{x:Reference Name=lblSpcInstructions}">
+                <Label TextColor="Black" FontSize="Large" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="SPECIAL INSTRUCTIONS: KEY CODE: 9999*"/>
+            </StackLayout>
+
+            <StackLayout x:Name="stkWebViewSiteMap" Grid.Row="1" Grid.Column="1" Margin="-5" BindingContext="{x:Reference Name=stkWebViewSiteMap}" VerticalOptions="FillAndExpand">
+                <WebView x:Name="webView" WidthRequest="500" HeightRequest="500" VerticalOptions="FillAndExpand"  Source="" />
+            </StackLayout>
+
+            <StackLayout x:Name="btnClockIn" BackgroundColor="White" Grid.Row="2" Grid.Column="1" Margin="-5" BindingContext="{x:Reference Name=btnClockIn}" IsVisible="True">
+                <Button x:Name="btnClockInClick" Text="Clock In" BackgroundColor="Green" TextColor="White"  Clicked="OnClockInOutClicked" />
+            </StackLayout>
+            <Label x:Name="lblServiceCompleteMsg" TextColor="DarkGreen" HorizontalOptions="CenterAndExpand" VerticalOptions="Fill" Text="Complete" FontSize="Large" IsVisible="False"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

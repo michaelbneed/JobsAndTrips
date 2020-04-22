@@ -1,0 +1,5 @@
+C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\bin\Debug\RaskTrip.Business.dll
+C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\bin\Debug\RaskTrip.Business.pdb
+C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\obj\Debug\RaskTrip.Business.dll
+C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\obj\Debug\RaskTrip.Business.pdb
+C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\obj\Debug\RaskTrip.Business.csprojAssemblyReference.cache
