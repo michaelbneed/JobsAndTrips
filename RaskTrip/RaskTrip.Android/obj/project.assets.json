@@ -2509,11 +2509,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip\\RaskTrip.Android\\RaskTrip.Android.csproj",
+      "projectUniqueName": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip\\RaskTrip.Android\\RaskTrip.Android.csproj",
       "projectName": "RaskTrip.Android",
-      "projectPath": "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip\\RaskTrip.Android\\RaskTrip.Android.csproj",
+      "projectPath": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip\\RaskTrip.Android\\RaskTrip.Android.csproj",
       "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip\\RaskTrip.Android\\obj\\",
+      "outputPath": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip\\RaskTrip.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -2534,8 +2534,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip\\RaskTrip\\RaskTrip.csproj": {
-              "projectPath": "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip\\RaskTrip\\RaskTrip.csproj"
+            "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip\\RaskTrip\\RaskTrip.csproj": {
+              "projectPath": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip\\RaskTrip\\RaskTrip.csproj"
             }
           }
         }

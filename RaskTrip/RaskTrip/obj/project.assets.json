@@ -996,11 +996,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip\\RaskTrip\\RaskTrip.csproj",
+      "projectUniqueName": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip\\RaskTrip\\RaskTrip.csproj",
       "projectName": "RaskTrip",
-      "projectPath": "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip\\RaskTrip\\RaskTrip.csproj",
+      "projectPath": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip\\RaskTrip\\RaskTrip.csproj",
       "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip\\RaskTrip\\obj\\",
+      "outputPath": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip\\RaskTrip\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -1021,11 +1021,11 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip.ApiClient\\RaskTrip.ApiClient.csproj": {
-              "projectPath": "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip.ApiClient\\RaskTrip.ApiClient.csproj"
+            "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip.ApiClient\\RaskTrip.ApiClient.csproj": {
+              "projectPath": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip.ApiClient\\RaskTrip.ApiClient.csproj"
             },
-            "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj": {
-              "projectPath": "C:\\Users\\micha\\source\\repos\\RaskTrip\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj"
+            "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj": {
+              "projectPath": "C:\\Users\\micha\\Source\\Repos\\RaskTrip2\\RaskTrip.BusinessObjects\\RaskTrip.BusinessObjects.csproj"
             }
           }
         }
