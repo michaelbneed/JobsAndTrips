@@ -1,0 +1,11 @@
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\bin\Debug\RaskTrip.DataAccess.dll.config
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\bin\Debug\RaskTrip.DataAccess.dll
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\bin\Debug\RaskTrip.DataAccess.pdb
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\obj\Debug\RaskTrip.DataAccess.csproj.CopyComplete
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\obj\Debug\RaskTrip.DataAccess.dll
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\obj\Debug\RaskTrip.DataAccess.pdb
+C:\Users\micha\source\repos\RaskTripClean\RaskTrip.DataAccess\obj\Debug\RaskTrip.DataAccess.csprojAssemblyReference.cache

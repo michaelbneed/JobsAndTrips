@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="31502dc835ca47e899afeefa39099996" Name="Diagram1">
+        <EntityTypeShape EntityType="RaskTrip_DataModel.AccumulationType" Width="1.5" PointX="10.25" PointY="82.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.AddressType" Width="1.5" PointX="0.75" PointY="80.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ApplicationError" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Company" Width="1.5" PointX="0.75" PointY="89" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.CompanyAddress" Width="1.5" PointX="3" PointY="83.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.CompanyProperty" Width="1.5" PointX="12.75" PointY="99.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.CompanyType" Width="1.5" PointX="1.5" PointY="76.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ConfigParameter" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ContactType" Width="1.5" PointX="7.5" PointY="120.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.DynamicLink" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Equipment" Width="1.5" PointX="24" PointY="119.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.EquipmentCategory" Width="1.5" PointX="21.75" PointY="119.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.EquipmentOwnerType" Width="1.5" PointX="21.75" PointY="122.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.FrequencyType" Width="1.5" PointX="13.5" PointY="82.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.GeneralTime" Width="1.5" PointX="5.25" PointY="95" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Inventory" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.InventoryTransaction" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.InventoryType" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.InvoiceDeliveryType" Width="1.5" PointX="10.5" PointY="118.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Job" Width="1.5" PointX="18" PointY="106.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.LotSaltTime" Width="1.5" PointX="26.25" PointY="107.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Notification" Width="1.5" PointX="3" PointY="104.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.NotificationType" Width="1.5" PointX="0.75" PointY="104.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.NotificationVendor" Width="1.5" PointX="5.25" PointY="90.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PaymentTerm" Width="1.5" PointX="13.5" PointY="119.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PrecipitationType" Width="1.5" PointX="12.5" PointY="78.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Property" Width="1.5" PointX="7.5" PointY="97.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PropertyAddress" Width="1.5" PointX="9.75" PointY="92" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PropertyContact" Width="1.5" PointX="9.75" PointY="103" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PropertyContract" Width="1.5" PointX="12.75" PointY="93.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PropertyDocument" Width="1.5" PointX="9.75" PointY="114.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PropertyFeeRate" Width="1.5" PointX="21" PointY="101.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PropertyFlatRate" Width="1.5" PointX="23" PointY="85.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PropertyInvoiceDelivery" Width="1.5" PointX="12.75" PointY="103.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PropertyWorkType" Width="1.5" PointX="15.75" PointY="99.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Proposal" Width="1.5" PointX="15.75" PointY="104.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ProposalAddress" Width="1.5" PointX="18" PointY="95.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ProposalAddressType" Width="1.5" PointX="15.75" PointY="85.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ProposalContact" Width="1.5" PointX="21" PointY="106.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ProposalFeeRate" Width="1.5" PointX="21" PointY="111.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ProposalFlatRate" Width="1.5" PointX="24" PointY="106.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ProposalInvoiceDelivery" Width="1.5" PointX="24" PointY="101.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ProposalStatu" Width="1.5" PointX="13.5" PointY="122.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.ProposalWorkType" Width="1.5" PointX="24" PointY="111.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PushTimeTicket" Width="1.5" PointX="10.25" PointY="98" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.PushTimeTicketProperty" Width="1.5" PointX="21" PointY="95.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Role" Width="1.5" PointX="5.25" PointY="120.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Season" Width="1.5" PointX="10.25" PointY="78.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.SidewalkTime" Width="1.5" PointX="24" PointY="91.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.SidewalkTimeEquipment" Width="1.5" PointX="26.25" PointY="92.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.State" Width="1.5" PointX="0.75" PointY="84" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.SurfaceType" Width="1.5" PointX="15.5" PointY="78.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Territory" Width="1.5" PointX="5.25" PointY="100.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.TerritoryArea" Width="1.5" PointX="7.5" PointY="105.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.TimeTicket" Width="1.5" PointX="12.75" PointY="107.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.TimeTicketProperty" Width="1.5" PointX="24" PointY="97.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Trip" Width="1.5" PointX="14.75" PointY="113.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.TripRoute" Width="1.5" PointX="27" PointY="101.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.TripStatu" Width="1.5" PointX="24.75" PointY="115.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Truck" Width="1.5" PointX="10.5" PointY="108.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.UserRole" Width="1.5" PointX="7.5" PointY="116.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.User" Width="1.5" PointX="5.25" PointY="113.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.Vendor" Width="1.5" PointX="3" PointY="90.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.VendorEquipment" Width="1.5" PointX="7.5" PointY="91.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.VendorFeeRate" Width="1.5" PointX="8.25" PointY="87.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.VendorForeman" Width="1.5" PointX="5.25" PointY="124.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.VendorProperty" Width="1.5" PointX="15.75" PointY="93.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.VendorPropertyRoute" Width="1.5" PointX="18" PointY="102.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.VendorRoute" Width="1.5" PointX="7.5" PointY="110" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.VendorStatu" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.VendorWorker" Width="1.5" PointX="5.25" PointY="128.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.VendorWorkType" Width="1.5" PointX="5.25" PointY="86.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.WeatherEvent" Width="1.5" PointX="12.5" PointY="86.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.WeatherEventPrecipitation" Width="1.5" PointX="14.75" PointY="88.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.WeatherEventSurface" Width="1.5" PointX="17.75" PointY="88.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.WindType" Width="1.5" PointX="10.25" PointY="74" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.WorkEvent" Width="1.5" PointX="20.75" PointY="89.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.WorkType" Width="1.5" PointX="20.75" PointY="84" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.C__TerritoryPushForeman" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RaskTrip_DataModel.vwForemanAlia" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WeatherEvent_AccumulationType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_CompanyAddress_AddressType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyAddress_AddressType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Company_CompanyType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_CompanyAddress_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_CompanyProperty_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Proposal_Company_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Proposal_Company_Owner" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_CompanyAddress_State" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalAddress_CompanyAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_CompanyProperty_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyContact_ContactType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalContact_ContactType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Equipment_EquipmentCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Equipment_EquipmentOwnerType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Equipment_WorkType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_GeneralTime_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_LotSaltTime_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyFeeRate_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalFeeRate_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PushTimeTicket_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_SidewalkTimeEquipment_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Truck_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorEquipment_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorFeeRate_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalWorkType_FrequencyType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TripRoute_FrequencyType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorProperty_FrequencyType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_GeneralTime_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_GeneralTime_WorkEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Inventory_InventoryType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_InventoryTransaction_InventoryType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyInvoiceDelivery_InvoiceDeliveryType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalInvoiceDelivery_InvoiceDeliveryType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_ActualPropertyFlatRate" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_DefaultPropertyFlatRate" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_JobPropertyFlatRate" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_LotSaltTime" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_OperationsUser" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_PropertyAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_PropertyWorkType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_SalesRepUser" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_TripRoute" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_TripStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_VendorProperty" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_VendorRoute" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_VendorWorker" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Job_WorkEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_LotSaltTime_PropertyFlatRate" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_LotSaltTime_VendorProperty" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_LotSaltTime_VendorWorker" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_LotSaltTime_WorkEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_NotifiationVendor_Notification" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Notification_NotificationType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_NotificationVendor_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyContract_PaymentTerm" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Proposal_PaymentTerm" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WeatherEventPrecipitation_PrecipitationType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Property_Territory" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyAddress_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyContact_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyContract_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyDocument_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyInvoiceDelivery_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyWorkType_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Proposal_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorProperty_Property" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyAddress_State" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalAddress_PropertyAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalContact_PropertyContact" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyFeeRate_PropertyContract" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyFlatRate_PropertyContract" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyFlatRate_WorkType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PropertyWorkType_WorkType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Proposal_ProposalStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Proposal_Territory" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalAddress_Proposal" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalContact_Proposal" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalFeeRate_Proposal" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalFlatRate_Proposal" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalInvoiceDelivery_Proposal" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalWorkType_Proposal" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalAddress_ProposalAddressType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalAddress_State" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalFlatRate_WorkType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_ProposalWorkType_WorkType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PushTimeTicket_TimeTicket" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PushTimeTicket_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PushTimeTicket_WorkEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PushTimeTicketProperty_PushTimeTicket" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PushTimeTicketProperty_TimeTicketProperty" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_PushTimeTicketProperty_VendorProperty" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_UserRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TimeTicket_Season" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WeatherEvent_Season" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_SidewalkTime_VendorProperty" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_SidewalkTime_WorkEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_SidewalkTimeEquipment_SidewalkTime" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Vendor_State" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WeatherEventSurface_SurfaceType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Territory_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TerritoryArea_Territory" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorEquipment_Territory" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorRoute_Territory" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WeatherEvent_Territory" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TimeTicket_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TimeTicket_VendorRoute" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TimeTicketProperty_TimeTicket" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TimeTicketProperty_VendorProperty" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Trip_Truck" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Trip_VendorWorker" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Trip_WeatherEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Trip_WorkType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TripRoute_Trip" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TripRoute_TripStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TripRoute_VendorRoute" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_TripRoute_WeatherEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Truck_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Truck_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_UserRole_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_Users_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorEquipment_Vendor_ForemanId" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorEquipment_Vendor_VendorId" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorFeeRate_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorForeman_ForemanId" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorForeman_VendorId" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorProperty_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorRoute_Vendor_AssignedVendorId" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorRoute_Vendor_VendorId" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorWorker_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorWorkType_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WeatherEvent_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WorkEvent_Vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorProperty_WorkType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorPropertyRoute_VendorProperty" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorPropertyRoute_VendorRoute" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorRoute_VendorWorker" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_VendorWorkType_WorkType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WeatherEvent_WindType" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WeatherEventPrecipitation_WeatherEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WeatherEventSurface_WeatherEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WorkEvent_WeatherEvent" ManuallyRouted="false" />
+        <AssociationConnector Association="RaskTrip_DataModel.FK_WorkEvent_WorkType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

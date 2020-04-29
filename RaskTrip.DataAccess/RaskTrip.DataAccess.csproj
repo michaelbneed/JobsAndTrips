@@ -1,0 +1,1981 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3985FA19-47FA-4B8F-868B-14927B2E36F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RaskTrip.DataAccess</RootNamespace>
+    <AssemblyName>RaskTrip.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccumulationType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccumulationType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccumulationType_GetByAccumulationTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccumulationType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccumulationType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AddressType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AddressType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AddressType_GetByAddressTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AddressType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AddressType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationError.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationError_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationError_GetByApplicationErrorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationError_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyAddress.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyAddress_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyAddress_GetByAddressTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyAddress_GetByCompanyAddressId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyAddress_GetByCompanyIdAddressTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyAddress_GetByCompanyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyAddress_GetByStateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyAddress_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyProperty.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyProperty_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyProperty_GetByCompanyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyProperty_GetByCompanyPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyProperty_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyProperty_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyType_GetByCompanyTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompanyType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company_GetByCompanyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company_GetByCompanyTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Company_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigParameter.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigParameter_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigParameter_GetByConfigParameterId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigParameter_GetByParamName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigParameter_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContactType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContactType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContactType_GetByContactTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContactType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContactType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__TerritoryPushForeman.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="DynamicLink.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DynamicLink_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DynamicLink_GetByDynamicLinkId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DynamicLink_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentCategory.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentCateGOry_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentCateGOry_GetByEquipmentCateGOryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentCateGOry_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentCateGOry_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentOwnerType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentOwnerType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentOwnerType_GetByEquipmentOwnerTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentOwnerType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EquipmentOwnerType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment_GetByEquipmentCateGOryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment_GetByEquipmentOwnerTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fn_GetSeparateValues_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FrequencyType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FrequencyType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FrequencyType_GetByCode_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FrequencyType_GetByFrequencyTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FrequencyType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FrequencyType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_CompanyAddress_GetByCompanyIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_CompanyProperty_GetByCompanyIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_CompanyProperty_GetByPropertyIdCompanyTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_CompanyProperty_GetByPropertyIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Company_GetActiveByCompanyTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Company_GetQbCompanyInfo_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Company_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_CustomerContract_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_CustomerProperty_PushReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_CustomerProperty_SidewalkReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Customer_PropertyReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_DynamicLink_GetActiveOnly_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Equipment_GetActive_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Equipment_GetByTerritoryIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Equipment_GetCurrentByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Equipment_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_GeneralTime_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Inventory_GetAllDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_LotSaltTime_Entry_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_LotSaltTime_GetByWorkEventIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_LotSaltTime_GetDetails_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_LotSaltTime_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_NotificationVendor_GetBySelection_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_NotificationVendor_GetNotAcknowledgedByUsername_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_NotificationVendor_GetNotAcknowledgedByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_NotificationVendor_GetNotAcknowledgedSummary_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_NotificationVendor_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyAddress_GetByPropertyIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyAddress_GetLocationByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyAddress_GetLocationByVendorPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyContact_GetByPropertyIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyContract_GetByPropertyIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyContract_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyDocument_GetByPropertyIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyFeeRate_GetByPropertyContractIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyFeeRate_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyFlatRate_GetByPropertyContractIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyFlatRate_GetCurrentByWorkTypeIdPropertyIdServiceDate_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PropertyWorkType_GetByPropertyIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_AllFrequencies_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_ContractForPdf_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_FeeRateReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_FlatRateSheetReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_GetByPropertyContract_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_GetByTerritoryIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_GetCurrentBillingAddressByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_GetCurrent_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_GetForPushTime_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_GetForSiteInspectionReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_GetQbPropertyInfo_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_GetVendorInfoByForemanId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_InvoiceMethods_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_Push_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Property_Sidewalk_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Proposal_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PushTimeTicketProperty_Entry_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_PushTimeTicket_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Role_GetByUsername_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_SidewalkTime_GetByWorkEventIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_SidewalkTime_GetDetails_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_SidewalkTime_GetForVendors_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_SidewalkTime_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_TerritoryArea_GetByTerritoryIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Territory_GetForProperty_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Territory_GetForVendor_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Territory_GetOnlyForVendor_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Territory_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_TimeTicket_GetByVendorIdSeasonIdTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_TimeTicket_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_TimeTicket_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Users_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorEquipment_GetByTerritoryIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorEquipment_GetByVendorIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorFeeRate_GetByVendorIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorForeman_GetByVendorIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorPropertyRoute_GetAssignedByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorPropertyRoute_GetByVendorRouteIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorPropertyRoute_GetForGenerateTicket_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorProperty_DriverRouteReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorProperty_GetActivePropertyList_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorProperty_GetActiveProperty_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorProperty_GetByPropertyIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorProperty_GetCurrentByVendorRouteId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorProperty_RestrictedServiceReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorRoute_GetActiveByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorRoute_GetByVendorIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorRoute_GetByVendorIdServiceDate_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorRoute_GetByVendorRouteIdServiceDate_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorRoute_GetSidewalkByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorTerritory_GetByVendorIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorWorker_GetByVendorIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorWorker_GetCurrentByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_VendorWorkType_GetByUsername_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_EquipmentRatesReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_FeeRateReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetActive_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetAssignedByTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetAssignedByVendorIdTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetAssignedByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetAssignedEquipmentCountsByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetAvailablePushForeman_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetByPropertyIdWorkTypeIdDate_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetByPropertyIdWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetCurrentAssignedByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetCurrentForemanByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetForemanAvailable_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetForemanList_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetForeman_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetForPush_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_GetQbVendorInfo_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_LocalOnlyReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_OutlyingOnlyReport_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_Report_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_Vendor_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WeatherEvent_GetByVendorIdDisplay_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WeatherEvent_GetByVendorIdSeasonIdTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WeatherEvent_GetByVendorIdSeasonId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WeatherEvent_Search_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WorkEvent_GetByServiceDate_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WorkEvent_GetByWorkTypeIdVendorIdServiceDateWeatherEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WorkEvent_GetQuickbooksCheckList_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WorkEvent_GetQuickbooksGeneralTimeList_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WorkEvent_GetQuickbooksInvoiceList_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="f_WorkType_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralTime.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralTime_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralTime_GetByDriverId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralTime_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralTime_GetByGeneralTimeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralTime_GetByWorkEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralTime_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryTransaction.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryTransaction_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryTransaction_GetByInventoryTransactionId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryTransaction_GetByInventoryTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryTransaction_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryType_GetByInventoryTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory_GetByInventoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory_GetByInventoryTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDeliveryType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDeliveryType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDeliveryType_GetByInvoiceDeliveryTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDeliveryType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDeliveryType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByActualDriverVendorWorkerId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByActualPropertyFlatRateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByDefaultPropertyFlatRateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByJobId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByJobPropertyFlatRateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByLotSaltTimeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByOperationsUserId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByPropertyAddressId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByPropertyWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetBySalesRepUserId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByTripRouteId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByTripStatusId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByVendorPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByVendorRouteId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_GetByWorkEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LotSaltTime.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LotSaltTime_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LotSaltTime_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LotSaltTime_GetByLotSaltTimeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LotSaltTime_GetByPropertyFlatRateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LotSaltTime_GetByVendorPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LotSaltTime_GetByVendorWorkerId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LotSaltTime_GetByWorkEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LotSaltTime_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notification.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationType_GetByNotificationTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationVendor.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationVendor_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationVendor_GetByNotificationId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationVendor_GetByNotificationVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationVendor_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationVendor_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notification_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notification_GetByNotificationId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notification_GetByNotificationTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notification_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentTerm.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentTerm_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentTerm_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentTerm_GetByPaymentTermId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentTerm_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrecipitationType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrecipitationType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrecipitationType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrecipitationType_GetByPrecipitationTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PrecipitationType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Property.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyAddress.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyAddress_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyAddress_GetByAddressTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyAddress_GetByPropertyAddressId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyAddress_GetByPropertyIdAddressTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyAddress_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyAddress_GetByStateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyAddress_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContact.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContact_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContact_GetByContactTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContact_GetByPropertyContactId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContact_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContact_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContract.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContract_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContract_GetByPaymentTermId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContract_GetByPropertyContractId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContract_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyContract_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyDocument.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyDocument_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyDocument_GetByPropertyDocumentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyDocument_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyDocument_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFeeRate.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFeeRate_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFeeRate_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFeeRate_GetByPropertyContractIdEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFeeRate_GetByPropertyContractId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFeeRate_GetByPropertyFeeRateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFeeRate_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFlatRate.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFlatRate_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFlatRate_GetByPropertyContractId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFlatRate_GetByPropertyFlatRateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFlatRate_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyFlatRate_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyInvoiceDelivery.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyInvoiceDelivery_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyInvoiceDelivery_GetByInvoiceDeliveryTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyInvoiceDelivery_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyInvoiceDelivery_GetByPropertyInvoiceDeliveryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyInvoiceDelivery_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyWorkType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyWorkType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyWorkType_GetByPropertyIdWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyWorkType_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyWorkType_GetByPropertyWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyWorkType_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyWorkType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Property_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Property_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Property_GetByTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Property_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddress.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddressType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddressType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddressType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddressType_GetByProposalAddressTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddressType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddress_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddress_GetByCompanyAddressId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddress_GetByPropertyAddressId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddress_GetByProposalAddressId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddress_GetByProposalAddressTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddress_GetByProposalId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddress_GetByStateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalAddress_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalContact.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalContact_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalContact_GetByContactTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalContact_GetByPropertyContactId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalContact_GetByProposalContactId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalContact_GetByProposalId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalContact_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFeeRate.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFeeRate_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFeeRate_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFeeRate_GetByProposalFeeRateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFeeRate_GetByProposalId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFeeRate_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFlatRate.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFlatRate_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFlatRate_GetByProposalFlatRateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFlatRate_GetByProposalId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFlatRate_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalFlatRate_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalInvoiceDelivery.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalInvoiceDelivery_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalInvoiceDelivery_GetByInvoiceDeliveryTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalInvoiceDelivery_GetByProposalId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalInvoiceDelivery_GetByProposalInvoiceDeliveryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalInvoiceDelivery_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalStatu.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalStatus_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalStatus_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalStatus_GetByProposalStatusId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalStatus_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalWorkType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalWorkType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalWorkType_GetByFrequencyTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalWorkType_GetByProposalIdWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalWorkType_GetByProposalId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalWorkType_GetByProposalWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalWorkType_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProposalWorkType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal_GetByManagerCompanyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal_GetByOwnerCompanyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal_GetByPaymentTermId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal_GetByProposalId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal_GetByProposalStatusId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal_GetByTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicket.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicketProperty.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicketProperty_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicketProperty_GetByPushTimeTicketId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicketProperty_GetByPushTimeTicketPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicketProperty_GetByTimeTicketPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicketProperty_GetByVendorPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicketProperty_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicket_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicket_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicket_GetByPushTimeTicketId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicket_GetByTimeTicketId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicket_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicket_GetByWorkEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PushTimeTicket_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RaskDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RaskDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RaskDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RaskDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RaskDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role_GetByRoleId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Season.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Season_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Season_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Season_GetBySeasonId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Season_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTime.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTimeEquipment.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTimeEquipment_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTimeEquipment_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTimeEquipment_GetBySidewalkTimeEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTimeEquipment_GetBySidewalkTimeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTimeEquipment_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTime_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTime_GetBySidewalkTimeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTime_GetByVendorPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTime_GetByWorkEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SidewalkTime_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="State.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="State_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="State_GetByStateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="State_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurfaceType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurfaceType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurfaceType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurfaceType_GetBySurfaceTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurfaceType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Territory.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TerritoryArea.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TerritoryArea_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TerritoryArea_GetByTerritoryAreaId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TerritoryArea_GetByTerritoryIdZipCode_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TerritoryArea_GetByTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TerritoryArea_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Territory_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Territory_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Territory_GetByPushForemanId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Territory_GetByTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Territory_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicket.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicketProperty.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicketProperty_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicketProperty_GetByTimeTicketId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicketProperty_GetByTimeTicketPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicketProperty_GetByVendorPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicketProperty_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicket_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicket_GetBySeasonIdVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicket_GetBySeasonId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicket_GetByTimeTicketId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicket_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicket_GetByVendorRouteId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TimeTicket_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trip.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute_GetByFilterByFrequencyTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute_GetByTripId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute_GetByTripRouteId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute_GetByTripStatusId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute_GetByVendorRouteId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute_GetByWeatherEventIdVendorRouteIdSplitRange_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute_GetByWeatherEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripRoute_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripStatu.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripStatus_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripStatus_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripStatus_GetByTripStatusId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TripStatus_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trip_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trip_GetByDriverVendorWorkerId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trip_GetByTripId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trip_GetByTruckId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trip_GetByWeatherEventIdTruckId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trip_GetByWeatherEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trip_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Trip_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Truck.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Truck_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Truck_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Truck_GetByTripApiUserId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Truck_GetByTruckId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Truck_GetByVendorIdEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Truck_GetByVendorIdTruckNumber_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Truck_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Truck_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole_GetByRoleId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole_GetByUserIdRoleId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole_GetByUserId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole_GetByUserRoleId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users_GetByEmailAddress_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users_GetByUserId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users_GetByUsername_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vendor.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorEquipment.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorEquipment_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorEquipment_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorEquipment_GetByForemanId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorEquipment_GetByTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorEquipment_GetByVendorEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorEquipment_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorEquipment_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorFeeRate.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorFeeRate_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorFeeRate_GetByEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorFeeRate_GetByVendorFeeRateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorFeeRate_GetByVendorIdEquipmentId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorFeeRate_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorFeeRate_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorForeman.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorForeman_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorForeman_GetByForemanId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorForeman_GetByVendorForemanId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorForeman_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorForeman_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorProperty.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorPropertyRoute.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorPropertyRoute_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorPropertyRoute_GetByVendorPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorPropertyRoute_GetByVendorPropertyRouteId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorPropertyRoute_GetByVendorRouteId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorPropertyRoute_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorProperty_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorProperty_GetByFrequencyTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorProperty_GetByPropertyIdWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorProperty_GetByPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorProperty_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorProperty_GetByVendorPropertyId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorProperty_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorProperty_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorRoute.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorRoute_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorRoute_GetByAssignedVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorRoute_GetByTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorRoute_GetByVendorIdRouteName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorRoute_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorRoute_GetByVendorRouteId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorRoute_GetByVendorWorkerId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorRoute_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorStatu.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorStatus_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorStatus_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorStatus_GetByVendorStatusId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorStatus_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorker.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorker_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorker_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorker_GetByVendorWorkerId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorker_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorkType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorkType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorkType_GetByVendorIdWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorkType_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorkType_GetByVendorWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorkType_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VendorWorkType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vendor_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vendor_GetByStateId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vendor_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vendor_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwForemanAlia.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEvent.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventPrecipitation.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventPrecipitation_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventPrecipitation_GetByPrecipitationTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventPrecipitation_GetByWeatherEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventPrecipitation_GetByWeatherEventPrecipitationId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventPrecipitation_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventSurface.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventSurface_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventSurface_GetBySurfaceTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventSurface_GetByWeatherEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventSurface_GetByWeatherEventSurfaceId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEventSurface_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEvent_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEvent_GetByAccumulationTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEvent_GetBySeasonId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEvent_GetByTerritoryId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEvent_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEvent_GetByWeatherEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEvent_GetByWindTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WeatherEvent_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WindType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WindType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WindType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WindType_GetByWindTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WindType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkEvent.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkEvent_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkEvent_GetByVendorId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkEvent_GetByWeatherEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkEvent_GetByWorkEventId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkEvent_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkEvent_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkType.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkType_Find_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkType_GetByName_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkType_GetByWorkTypeId_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WorkType_Get_List_Result.cs">
+      <DependentUpon>RaskDataModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="RaskDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RaskDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+    <None Include="RaskDataModel.edmx.diagram">
+      <DependentUpon>RaskDataModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RaskDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RaskDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>RaskDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="RaskDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RaskDataModel.edmx</DependentUpon>
+      <LastGenOutput>RaskDataModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

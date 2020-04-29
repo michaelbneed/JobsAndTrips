@@ -10,82 +10,44 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Net.Security;
 
-// TODO: Move into Client project - class lib
+
 namespace RaskTrip.ApiClient
 {
 	public class Client
 	{
-		static HttpClient client = new HttpClient();
+		//static HttpClient httpClient = new HttpClient();
 
-		public async Task<Job> GetNextJob(TruckRegistration truckRegistration)
+		HttpClient httpClient = new HttpClient();
+
+		public Job GetNextJob(Truck truckRegistration)
 		{
 			var intTruckId = Convert.ToInt32(truckRegistration.TruckId);
-			
-			string url = $"https://localhost:44357/api/"; // base uri
-			//string url = $https://localhost:44357/api/Jobs/GetNextJob?truckId=1234"; // what will my api url look like - move to config file
 
-			Job newJob = new Job();
+			string url = $"http://localhost:56596/api/Jobs/";
+			//string ssl url = $"https://localhost:44357/api/Jobs/"; 
 
-			try
+			// TEST IN BROWSER -  http://localhost:56596/api/Jobs/GetNextJob?truckId=1
+
+			Job job = new Job();
+
+			using (var client = new HttpClient())
 			{
-				client.BaseAddress = new Uri(url);
-				//client.DefaultRequestHeaders.Accept.Clear();
-				//client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				httpClient.BaseAddress = new Uri(url);
+				var response = httpClient.GetStringAsync($"GetNextJob?truckId={intTruckId}").Result;
 
-				using (var response = await client.GetAsync("Jobs"))
-				{
-					var resonseCode = response.StatusCode;
-					newJob = await response.Content.ReadAsAsync<Job>();
-
-					if (response.IsSuccessStatusCode)
-					{
-						newJob = await response.Content.ReadAsAsync<Job>();
-
-					}
-				}
-			}
-			catch (HttpRequestException ex)
-			{
-				ex.Message.ToString();
+				job = JsonConvert.DeserializeObject<Job>(response);
 			}
 
-			//using (var client = new HttpClient())
-			//{
-			//	try
-			//	{
-			//		client.BaseAddress = new Uri(url);
-			//		client.DefaultRequestHeaders.Accept.Clear(); 
-			//		client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-			//		HttpResponseMessage response = client.PostAsync(url, new StringContent(intTruckId.ToString())).Result;
-			//		var resonseCode = response.StatusCode;
-			//		newJob = await response.Content.ReadAsAsync<Job>();
-
-			//		if (response.IsSuccessStatusCode)
-			//		{
-			//			newJob = await response.Content.ReadAsAsync<Job>();
-						
-			//		}
-			//	}
-			//	catch (HttpRequestException ex)
-			//	{
-			//		ex.Message.ToString();
-			//	}
-				
-			//}
-
-			return newJob;
-
-
+			return job;
 		}
 
-		public async Task<bool> PostRegisterTruck(TruckRegistration truckRegistration)
+		public async Task<bool> PostRegisterTruck(Truck truckRegistration)
 		{
 			string url = $"https://localhost:44357/api/Jobs/PostRegisterTruck"; // what will my api url look like - move to config file	
 			
 			var jsonTruckRegistration = JsonConvert.SerializeObject(truckRegistration);
 			var data = new StringContent(jsonTruckRegistration, Encoding.UTF8, "application/json");
-			var response = await client.PostAsync(url, data);
+			var response = await httpClient.PostAsync(url, data);
 
 			var result = response.Content.IsHttpResponseMessageContent();
 			return result;
@@ -97,7 +59,7 @@ namespace RaskTrip.ApiClient
 			
 			var jsonJob = JsonConvert.SerializeObject(job);
 			var data = new StringContent(jsonJob, Encoding.UTF8, "application/json");
-			var response = await client.PostAsync(url, data);
+			var response = await httpClient.PostAsync(url, data);
 
 			var result = response.Content.IsHttpResponseMessageContent();
 			return result;
@@ -109,7 +71,7 @@ namespace RaskTrip.ApiClient
 
 			var jsonJob = JsonConvert.SerializeObject(job);
 			var data = new StringContent(jsonJob, Encoding.UTF8, "application/json");
-			var response = await client.PostAsync(url, data);
+			var response = await httpClient.PostAsync(url, data);
 
 			var result = response.Content.IsHttpResponseMessageContent();
 			return result;

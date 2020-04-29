@@ -88,15 +88,12 @@ namespace RaskTrip.Views
 		{
 			//await Navigation.PushAsync(new SiteMapPage());
 
+			// Test Code -- TODO: REMOVE hardcoded value, get from data
 			Job nextJob = new Job();
-
-			TruckRegistration truckRegistration = new TruckRegistration();
-			truckRegistration.TruckId = 1234;
-			truckRegistration.ApiKey = "abcd";
-			truckRegistration.DriverId = 1;
-
+			Truck truckRegistration = new Truck();
+			truckRegistration.TruckId = 1;
 			Client client = new Client();
-			nextJob = client.GetNextJob(truckRegistration).Result;
+			nextJob = client.GetNextJob(truckRegistration);
 		}
 
 		private void BtnCall_Click(object sender, EventArgs e)
