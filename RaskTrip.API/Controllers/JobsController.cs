@@ -30,25 +30,25 @@ namespace RaskTrip.API.Controllers
 		}
 
 		[HttpPost]
-		public IHttpActionResult PostRegisterTruck(Truck truckRegistration)
+		public IHttpActionResult PostRegisterTruck(StringContent truckRegistration)
 		{
 			// EF 6 insert a new truck registration and return status
 			// this is an object to return
 			return Ok(truckRegistration);
 		}
 
-		[HttpPost]
-		public void PostClockIn(StringContent jobData)
-		{
-			var clockInTime = DateTime.Now;
-			// Work with team/Dave P on data points
-		}
+		//[HttpPost]
+		//public void PostClockIn(StringContent jobData)
+		//{
+		//	var clockInTime = DateTime.Now;
+		//	// Work with team/Dave P on data points
+		//}
 
-		[HttpPost]
-		public void PostClockOut(StringContent jobData)
-		{
-			var clockOutTime = DateTime.Now;
-			// Work with team/Dave P on data points
-		}
+		//[HttpPost]
+		//public void PostClockOut(StringContent jobData)
+		//{
+		//	var clockOutTime = DateTime.Now;
+		//	// Work with team/Dave P on data points
+		//}
 	}
 }

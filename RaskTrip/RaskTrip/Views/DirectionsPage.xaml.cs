@@ -87,13 +87,15 @@ namespace RaskTrip.Views
 		private void ButtonSiteMapClick(object sender, EventArgs e)
 		{
 			//await Navigation.PushAsync(new SiteMapPage());
-
 			// Test Code -- TODO: REMOVE hardcoded value, get from data
+
 			Job nextJob = new Job();
 			Truck truckRegistration = new Truck();
 			truckRegistration.TruckId = 1;
 			Client client = new Client();
 			nextJob = client.GetNextJob(truckRegistration);
+
+			lblCompanyTitle.Text = nextJob.ActualTruckId.ToString();
 		}
 
 		private void BtnCall_Click(object sender, EventArgs e)

@@ -9,7 +9,6 @@
     ".NETStandard,Version=v2.0/": {
       "RaskTrip/1.0.0": {
         "dependencies": {
-          "Microsoft.AspNet.WebApi.Client": "5.2.7",
           "NETStandard.Library": "2.0.3",
           "Newtonsoft.Json": "12.0.3",
           "RaskTrip.ApiClient": "1.0.0",

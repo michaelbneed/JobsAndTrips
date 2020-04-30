@@ -14,7 +14,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <StackLayout x:Name="s1" BackgroundColor="White" Grid.Row="0" Grid.Column="0" BindingContext="{x:Reference Name=s1}"  >
-                <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="R.A.S.K. - Operations Center" />
+                <Label x:Name ="lblCompanyTitle" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Data" />
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                     <Label TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Phone: (317) 123-1234" />
                     <ImageButton x:Name="BtnCall" Source="callIcon.png" Clicked="BtnCall_Click" BackgroundColor="White" HorizontalOptions="CenterAndExpand" />
