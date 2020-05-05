@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RaskTrip.Views.RegisterLoginPage"
+             Title="Driving">
+    <StackLayout Margin="10">
+        <Grid x:Name="grdLogin">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <!--Column One-->
+            <StackLayout x:Name="s2" BackgroundColor="White" Grid.Row="0" Grid.Column="1" BindingContext="{x:Reference Name=s2}">
+                <!--Form elements
+                Three or four text boxes, two buttons
+                Click events -->
+            </StackLayout>
+           <!--Column3-->
+        </Grid>
+    </StackLayout>
+</ContentPage>

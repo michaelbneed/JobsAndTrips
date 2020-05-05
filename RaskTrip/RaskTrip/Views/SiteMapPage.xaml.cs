@@ -2,14 +2,15 @@
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Threading.Tasks;
-using System.Timers;
-using System.Drawing;
-using Color = Xamarin.Forms.Color;
+using RaskTrip.ViewModels;
 using Xamarin.Essentials;
-using System.Diagnostics;
+using Xamarin.Forms.Maps;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Plugin.Messaging;
-using RaskTrip.BusinessObjects;
+using RaskTrip.ApiClient;
+using RaskTrip.BusinessObjects.Models;
 
 namespace RaskTrip.Views
 {
@@ -21,6 +22,26 @@ namespace RaskTrip.Views
 			InitializeComponent();
 			webView.Source = $"https://www.sitefotos.com/vpics/guestmapdev?y3v7h0";
 			btnClockInClick.Text = "Clock In \n (" + DateTime.Now + ")";
+
+			JobDto nextJob = new JobDto();
+			Truck truckRegistration = new Truck();
+			truckRegistration.TruckId = 1;
+			ApiClient.ApiClient client = new ApiClient.ApiClient();
+
+			nextJob = client.GetNextJob(truckRegistration);
+
+			lblCompanyTitle.Text = nextJob.PropertyName.ToString();
+
+			lblPropertyAddress.Text = nextJob.Street1.ToString() + " " + nextJob.Street2.ToString() + "n\n" +
+				" " + nextJob.City.ToString() + ", " + nextJob.State.ToString() + " " + nextJob.ZipCode.ToString();
+
+			lblPropertyPhone.Text = nextJob.PropertyContactPhone.ToString();
+
+			lblServiceName.Text = nextJob.JobServiceName.ToString();
+
+			lblAccountManager.Text = nextJob.PropertyContactName.ToString();
+
+			lblPropertyName.Text = nextJob.PropertyName.ToString();
 		}
 
 		public void OnClockInOutClicked(object sender, EventArgs e)

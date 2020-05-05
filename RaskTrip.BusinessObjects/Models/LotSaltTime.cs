@@ -28,7 +28,7 @@ namespace RaskTrip.BusinessObjects.Models
 
 		public virtual Equipment Equipment { get; set; }
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<Job> Jobs { get; set; }
+		public virtual ICollection<JobDto> Jobs { get; set; }
 		public virtual PropertyFlatRate PropertyFlatRate { get; set; }
 		public virtual VendorProperty VendorProperty { get; set; }
 		public virtual VendorWorker VendorWorker { get; set; }

@@ -12,7 +12,6 @@ using Plugin.Messaging;
 using RaskTrip.ApiClient;
 using RaskTrip.BusinessObjects.Models;
 
-
 namespace RaskTrip.Views
 {
 	public partial class DirectionsPage : ContentPage
@@ -31,15 +30,25 @@ namespace RaskTrip.Views
 			// TODO: remove this:
 			webView.Source = $"https://www.google.com/maps/dir/?q= 39.9220717, -85.9815329";
 
-			//Job nextJob = new Job();
+			JobDto nextJob = new JobDto();
+			Truck truckRegistration = new Truck();
+			truckRegistration.TruckId = 1;
+			ApiClient.ApiClient client = new ApiClient.ApiClient();
 
-			//TruckRegistration truckRegistration = new TruckRegistration();
-			//truckRegistration.TruckId = 1234;
-			//truckRegistration.ApiKey = "abcd";
-			//truckRegistration.DriverId = 1;
+			nextJob = client.GetNextJob(truckRegistration);
 
-			//Client client = new Client();
-			//nextJob = client.GetNextJob(truckRegistration).Result;
+			lblCompanyTitle.Text = nextJob.PropertyName.ToString();
+
+			lblPropertyAddress.Text = nextJob.Street1.ToString() + " " + nextJob.Street2.ToString() + "n\n" +
+				" " + nextJob.City.ToString() + ", " + nextJob.State.ToString() + " " + nextJob.ZipCode.ToString();
+
+			lblPropertyPhone.Text = nextJob.PropertyContactPhone.ToString();
+
+			lblServiceName.Text = nextJob.JobServiceName.ToString();
+
+			lblAccountManager.Text = nextJob.PropertyContactName.ToString();
+
+			lblPropertyName.Text = nextJob.PropertyName.ToString();
 		}
 
 		public async Task<Position> GetLocationAsync()
@@ -82,20 +91,10 @@ namespace RaskTrip.Views
 				webView.GoForward();
 			}
 		}
-
-
-		private void ButtonSiteMapClick(object sender, EventArgs e)
+		
+		private async void ButtonSiteMapClick(object sender, EventArgs e)
 		{
-			//await Navigation.PushAsync(new SiteMapPage());
-			// Test Code -- TODO: REMOVE hardcoded value, get from data
-
-			Job nextJob = new Job();
-			Truck truckRegistration = new Truck();
-			truckRegistration.TruckId = 1;
-			Client client = new Client();
-			nextJob = client.GetNextJob(truckRegistration);
-
-			lblCompanyTitle.Text = nextJob.ActualTruckId.ToString();
+			await Navigation.PushAsync(new SiteMapPage());
 		}
 
 		private void BtnCall_Click(object sender, EventArgs e)
@@ -103,7 +102,10 @@ namespace RaskTrip.Views
 			var call = CrossMessaging.Current.PhoneDialer;
 			if (call.CanMakePhoneCall)
 			{
-				call.MakePhoneCall("317-123-1234");
+				if (lblPropertyPhone.Text != string.Empty)
+				{
+					call.MakePhoneCall(lblPropertyPhone.Text);
+				}
 			}
 		}
 	}

@@ -26,8 +26,8 @@ namespace RaskTrip.BusinessObjects.Models
 
 		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<Job> Jobs { get; set; }
-		public virtual Property Property { get; set; }
+		public virtual ICollection<JobDto> Jobs { get; set; }
+		public virtual PropertyDto Property { get; set; }
 		
 	}
 }

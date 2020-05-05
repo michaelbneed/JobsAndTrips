@@ -27,3 +27,10 @@ C:\Users\micha\source\repos\RaskTripClean\RaskTrip.BusinessObjects\obj\Debug\net
 C:\Users\micha\source\repos\RaskTripClean\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.AssemblyInfo.cs
 C:\Users\micha\source\repos\RaskTripClean\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.dll
 C:\Users\micha\source\repos\RaskTripClean\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.pdb
+C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\bin\Debug\netstandard2.0\RaskTrip.BusinessObjects.deps.json
+C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\bin\Debug\netstandard2.0\RaskTrip.BusinessObjects.dll
+C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\bin\Debug\netstandard2.0\RaskTrip.BusinessObjects.pdb
+C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.AssemblyInfoInputs.cache
+C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.AssemblyInfo.cs
+C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.dll
+C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.pdb

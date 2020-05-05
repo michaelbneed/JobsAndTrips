@@ -19,7 +19,7 @@ namespace RaskTrip.BusinessObjects.Models
 		public Nullable<System.DateTime> UpdatedOn { get; set; }
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<Job> Jobs { get; set; }
+		public virtual ICollection<JobDto> Jobs { get; set; }
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 		public virtual ICollection<LotSaltTime> LotSaltTimes { get; set; }
 		

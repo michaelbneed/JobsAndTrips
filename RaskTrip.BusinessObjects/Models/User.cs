@@ -29,9 +29,9 @@ namespace RaskTrip.BusinessObjects.Models
 		public string MobilePhone { get; set; }
 
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<Job> Jobs { get; set; }
+		public virtual ICollection<JobDto> Jobs { get; set; }
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<Job> Jobs1 { get; set; }
+		public virtual ICollection<JobDto> Jobs1 { get; set; }
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 		public virtual ICollection<Truck> Trucks { get; set; }
 		
