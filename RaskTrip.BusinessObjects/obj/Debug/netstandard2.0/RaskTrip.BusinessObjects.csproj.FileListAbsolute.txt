@@ -34,3 +34,4 @@ C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\obj\Debug
 C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.AssemblyInfo.cs
 C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.dll
 C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.pdb
+C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.BusinessObjects\obj\Debug\netstandard2.0\RaskTrip.BusinessObjects.csprojAssemblyReference.cache

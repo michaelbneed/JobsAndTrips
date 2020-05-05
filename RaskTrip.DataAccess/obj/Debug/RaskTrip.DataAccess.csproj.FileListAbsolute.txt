@@ -18,3 +18,4 @@ C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.DataAccess\bin\Debug\Enti
 C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.DataAccess\obj\Debug\RaskTrip.DataAccess.csproj.CopyComplete
 C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.DataAccess\obj\Debug\RaskTrip.DataAccess.dll
 C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.DataAccess\obj\Debug\RaskTrip.DataAccess.pdb
+C:\Users\micha\source\repos\RaskTripRefreshed\RaskTrip.DataAccess\obj\Debug\RaskTrip.DataAccess.csprojAssemblyReference.cache
