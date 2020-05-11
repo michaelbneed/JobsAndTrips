@@ -31,7 +31,7 @@ namespace RaskTrip.Views
 			webView.Source = $"https://www.google.com/maps/dir/?q= 39.9220717, -85.9815329";
 
 			JobDto nextJob = new JobDto();
-			Truck truckRegistration = new Truck();
+			TruckDto truckRegistration = new TruckDto();
 			truckRegistration.TruckId = 1;
 			ApiClient.ApiClient client = new ApiClient.ApiClient();
 
@@ -95,6 +95,11 @@ namespace RaskTrip.Views
 		private async void ButtonSiteMapClick(object sender, EventArgs e)
 		{
 			await Navigation.PushAsync(new SiteMapPage());
+		}
+
+		private async void ButtonRegisterTruckClick(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new RegisterLoginPage());
 		}
 
 		private void BtnCall_Click(object sender, EventArgs e)

@@ -18,6 +18,7 @@
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                     <Label x:Name="lblPropertyPhone" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="" />
                     <ImageButton x:Name="BtnCall" Source="callIcon.png" Clicked="BtnCall_Click" BackgroundColor="White" HorizontalOptions="CenterAndExpand" />
+                    <Button Clicked="ButtonRegisterTruckClick"></Button>
                 </StackLayout>
             </StackLayout>
             <StackLayout x:Name="s2" BackgroundColor="White" Grid.Row="0" Grid.Column="1" BindingContext="{x:Reference Name=s2}">

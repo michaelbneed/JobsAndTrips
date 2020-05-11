@@ -36,14 +36,14 @@ namespace RaskTrip.BusinessObjects.Models
 		public virtual ICollection<JobDto> Jobs { get; set; }
 		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<PropertyAddress> PropertyAddresses { get; set; }
+		public virtual ICollection<PropertyAddressDto> PropertyAddresses { get; set; }
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<PropertyContact> PropertyContacts { get; set; }
+		public virtual ICollection<PropertyContactDto> PropertyContacts { get; set; }
 		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<PropertyWorkType> PropertyWorkTypes { get; set; }
+		public virtual ICollection<PropertyWorkTypeDto> PropertyWorkTypes { get; set; }
 		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<VendorProperty> VendorProperties { get; set; }
+		public virtual ICollection<VendorPropertyDto> VendorProperties { get; set; }
 	}
 }

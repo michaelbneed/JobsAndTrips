@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 using Plugin.Messaging;
 using RaskTrip.ApiClient;
 using RaskTrip.BusinessObjects.Models;
-
+using RaskTrip.Helpers;
+using System.Text;
 
 namespace RaskTrip.Views
 {
@@ -21,6 +22,21 @@ namespace RaskTrip.Views
 		{
 			InitializeComponent();
 
+		}
+
+		private void ButtonRegisterTruck(object sender, EventArgs e)
+		{
+			ApiClient.ApiClient client = new ApiClient.ApiClient();
+
+			TruckDto newTruck = new TruckDto();
+
+			newTruck.TruckNumber = usernameEntry.Text;
+			byte[] pwBytes = Encoding.ASCII.GetBytes(passwordEntry.Text);
+
+			var passwordToSave = PasswordHelper.EncryptPassword(pwBytes, true);
+			//newTruck.ApiKey = passwordEntry.Text;  -- // Change data type
+
+			client.PostRegisterTruckAsync(newTruck);
 		}
 	}
 }

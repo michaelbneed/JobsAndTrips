@@ -24,7 +24,7 @@ namespace RaskTrip.Views
 			btnClockInClick.Text = "Clock In \n (" + DateTime.Now + ")";
 
 			JobDto nextJob = new JobDto();
-			Truck truckRegistration = new Truck();
+			TruckDto truckRegistration = new TruckDto();
 			truckRegistration.TruckId = 1;
 			ApiClient.ApiClient client = new ApiClient.ApiClient();
 

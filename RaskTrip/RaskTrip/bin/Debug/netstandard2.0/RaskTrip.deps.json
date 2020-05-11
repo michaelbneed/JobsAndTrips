@@ -69,6 +69,14 @@
           }
         }
       },
+      "NLog/4.7.0": {
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.7.0.11381"
+          }
+        }
+      },
       "System.Numerics.Vectors/4.5.0": {
         "runtime": {
           "lib/netstandard2.0/System.Numerics.Vectors.dll": {
@@ -184,6 +192,7 @@
       "RaskTrip.ApiClient/1.0.0": {
         "dependencies": {
           "Microsoft.AspNet.WebApi.Client": "5.2.7",
+          "NLog": "4.7.0",
           "Newtonsoft.Json": "12.0.3",
           "RaskTrip.BusinessObjects": "1.0.0"
         },
@@ -245,6 +254,13 @@
       "sha512": "sha512-5PYT/IqQ+UK31AmZiSS102R6EsTo+LGTSI8bp7WAUqDKaF4wHXD8U9u4WxTI1vc64tYi++8p3dk3WWNqPFgldw==",
       "path": "newtonsoft.json.bson/1.0.1",
       "hashPath": "newtonsoft.json.bson.1.0.1.nupkg.sha512"
+    },
+    "NLog/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ch4piF/ifV6ZapFx5Vj8MGaiCZkztHwTMFghJJSOkA/LeWcNdvqW8VzRw7ZMvS8anUmsH81FV334Vay6+ja4Kg==",
+      "path": "nlog/4.7.0",
+      "hashPath": "nlog.4.7.0.nupkg.sha512"
     },
     "System.Numerics.Vectors/4.5.0": {
       "type": "package",

@@ -7,6 +7,8 @@ using RaskTrip.BusinessObjects.Models;
 using System.Linq;
 using System.Data.Entity;
 using Newtonsoft.Json;
+using System.Net;
+using NLog;
 
 namespace RaskTrip.API.Controllers
 {
@@ -44,12 +46,43 @@ namespace RaskTrip.API.Controllers
 			return result;
 		}
 
-		[HttpPost]
-		public IHttpActionResult PostRegisterTruck(StringContent truckRegistration)
+		//[HttpPost]
+		//[AllowAnonymous]
+		public IHttpActionResult PostRegisterTruck([FromBody]object content)
 		{
-			// EF 6 insert a new truck registration and return status
-			// this is an object to return
-			return Ok(truckRegistration);
+			Truck truck = new Truck();
+			User user = new User();
+			var truckDto = JsonConvert.DeserializeObject<TruckDto>(content.ToString());
+
+			try
+			{
+				//var truckDataConverted = JsonConvert.DeserializeObject<TruckDto>(truckDto.ToString());
+
+				if (truckDto != null)
+				{
+					if (!String.IsNullOrEmpty(truckDto.TruckNumber))
+					{
+						user = db.Users.FirstOrDefault(u => u.Username.Equals(truckDto.TruckNumber));
+
+						truck.TruckNumber = truckDto.TruckNumber;
+						user.Password = truckDto.ApiKey;
+					}
+				}
+			}
+			catch (Exception)
+			{
+				//Loggerlog(ex);  - put in a helper
+				throw;
+			}
+			
+			
+			db.Trucks.Add(truck);
+			
+			db.SaveChanges();
+			
+			var response = Request.CreateResponse<TruckDto>(HttpStatusCode.Created, truckDto);
+
+			return Ok(response);
 		}
 
 		//[HttpPost]
