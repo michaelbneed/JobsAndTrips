@@ -1,5 +1,0 @@
-C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\bin\Release\RaskTrip.Business.dll
-C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\bin\Release\RaskTrip.Business.pdb
-C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\obj\Release\RaskTrip.Business.csprojAssemblyReference.cache
-C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\obj\Release\RaskTrip.Business.dll
-C:\Users\micha\source\repos\RaskTrip\RaskTrip.Business\obj\Release\RaskTrip.Business.pdb
