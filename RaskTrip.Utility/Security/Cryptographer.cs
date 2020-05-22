@@ -10,7 +10,7 @@ using System.Text;
 
 #endregion
 
-namespace RaskTrip.Helpers
+namespace RaskTrip.Utility.Security
 {
     public class Cryptographer
     {

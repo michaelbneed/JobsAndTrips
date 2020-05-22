@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 #endregion
 
-namespace RaskTrip.Helpers
+namespace RaskTrip.Utility.Security
 {
     /// <summary>
     /// Common string formatting and conversion utility functions

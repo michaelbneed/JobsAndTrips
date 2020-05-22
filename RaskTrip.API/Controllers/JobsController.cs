@@ -9,38 +9,54 @@ using System.Data.Entity;
 using Newtonsoft.Json;
 using System.Net;
 using NLog;
+using Swashbuckle.Swagger.Annotations;
+using System.Web;
+using System.Text;
+using RaskTrip.Utility.Security;
 
 namespace RaskTrip.API.Controllers
 {
 	public class JobsController : ApiController
 	{
 		RaskTrip_Entities db = new RaskTrip_Entities();
-		
+
+		[SwaggerResponse(HttpStatusCode.OK, Type = typeof(JobDto))]
+		[SwaggerResponse(HttpStatusCode.Unauthorized)]
 		[HttpGet]
 		public IHttpActionResult GetNextJob(int truckId)
 		{
 			db.Configuration.ProxyCreationEnabled = false;
-			
+			// TODO: verify the auth header in the HttpRequest.
+			// TODO: Include TripRoute and Trip
+			// TODO: where s.TripRoute.Trip.TruckId == truckId && s.TripRoute.TripStatusId <= TripStatusEnum.InProcess.GetHashCode() && s.TripRoute.IsPublished
+			// TODO:  && s.TripStatusId <= TripStatusEnum.InProcess.GetHashCode()
+			// TODO: order by s.TripRoute.TripRouteOrder, s.JobStopOrder
 			var job =  db.Jobs.Include("Property").Include("PropertyAddress").FirstOrDefault(s => s.ActualTruckId == truckId);
 			JobDto jobDto = new JobDto();
-
-			jobDto.JobServiceName = job.JobServiceName;
-			jobDto.PropertyName = job.PropertyName;
-			var propertyContact = db.PropertyContacts.FirstOrDefault(n => n.PropertyId == job.PropertyId);
-			jobDto.PropertyContactName = propertyContact.Name;
-			jobDto.PropertyContactPhone = propertyContact.WorkPhoneNumber;
-			jobDto.JobId = job.JobId;
-			jobDto.Street1 = job.PropertyAddress.Street1;
-			jobDto.Street2 = job.PropertyAddress.Street2;
-			jobDto.City = job.PropertyAddress.City;
-			jobDto.State = db.States.FirstOrDefault(s => s.StateId == job.PropertyAddress.StateId).StateName;
-			jobDto.ZipCode = job.PropertyAddress.ZipCode;
-
-			if (job == null)
+			if (job != null)
+			{
+				jobDto.JobId = job.JobId;
+				jobDto.JobServiceName = job.JobServiceName;
+				jobDto.PropertyName = job.PropertyName;
+				// TODO: do not use PropertyContact. if (job.SalesRepUserId.HasValue) { var salesRep =  db.Users.FirstOrDefault(u => u.UserId == job.SalesRepUserId.Value);
+				//var propertyContact = db.PropertyContacts.FirstOrDefault(n => n.PropertyId == job.PropertyId);
+				//jobDto.PropertyContactName = propertyContact.Name; // TODO: = salesRep.FirstName + " " + salesRep.LastName;
+				//jobDto.PropertyContactPhone = propertyContact.WorkPhoneNumber; // TODO: = salesRep.MobilePhone
+				// TODO: if (job.SalesRepUserId.HasValue) { var salesRep =  db.Users.FirstOrDefault(u => u.UserId == job.SalesRepUserId.Value);
+				// TODO: set jobDto.SalesRepContactName and jobDto.SalesRepMobilePhone
+				jobDto.JobId = job.JobId;
+				jobDto.Street1 = job.PropertyAddress.Street1;
+				jobDto.Street2 = job.PropertyAddress.Street2;
+				jobDto.City = job.PropertyAddress.City;
+				jobDto.State = db.States.FirstOrDefault(s => s.StateId == job.PropertyAddress.StateId).StateName;
+				jobDto.ZipCode = job.PropertyAddress.ZipCode;
+				// TODO: in the same manner as salesRep was handled above, get the OperationsUser and populate OperationsContactName and OperationsContactPhone in the dto.
+			}
+			else
 			{
 				return NotFound();
 			}
-
+			// TODO: update the job.TripStatusId = TripStatusEnum.Dispatched.GetHashCode(); and save.
 			var result = Ok(jobDto);
 
 			return result;
@@ -48,41 +64,54 @@ namespace RaskTrip.API.Controllers
 
 		//[HttpPost]
 		//[AllowAnonymous]
-		public IHttpActionResult PostRegisterTruck([FromBody]object content)
+		public HttpResponseMessage PostRegisterTruck([FromBody] TruckDto truckDto)
 		{
-			Truck truck = new Truck();
-			User user = new User();
-			var truckDto = JsonConvert.DeserializeObject<TruckDto>(content.ToString());
-
+			Truck truck = null;
+			User user = null;
+			HttpResponseMessage message = new HttpResponseMessage();
 			try
 			{
-				//var truckDataConverted = JsonConvert.DeserializeObject<TruckDto>(truckDto.ToString());
-
 				if (truckDto != null)
 				{
-					if (!String.IsNullOrEmpty(truckDto.TruckNumber))
+					if (!String.IsNullOrEmpty(truckDto.TruckNumber) && !String.IsNullOrEmpty(truckDto.ApiKey))
 					{
-						user = db.Users.FirstOrDefault(u => u.Username.Equals(truckDto.TruckNumber));
+						var username = $"TRUCK_{truckDto.TruckNumber}";
+						truck = db.Trucks.FirstOrDefault(t => t.TruckNumber == truckDto.TruckNumber);
 
-						truck.TruckNumber = truckDto.TruckNumber;
-						user.Password = truckDto.ApiKey;
+						if (truck != null && VerifyAuthentication(username, truckDto.ApiKey, truck.TruckId))
+						{
+							user = db.Users.FirstOrDefault(u => u.UserId == truck.TripApiUserId.Value);
+							if (user != null)
+							{
+								user.LastLoginDate = DateTime.Now;
+								user.FailedPasswordAttemptCount = 0;
+								db.SaveChanges();
+								truckDto.TruckId = truck.TruckId;
+								truckDto.Message = "Successful Registration";
+								message = Request.CreateResponse<TruckDto>(HttpStatusCode.Created, truckDto);
+								//return Ok(response);
+							}
+						}
+						else
+						{
+							message.StatusCode = HttpStatusCode.Unauthorized;
+							message.ReasonPhrase = "Registration for this truck failed. Verify your Truck Number and API Key.";
+						}
+					}
+					else
+					{
+						message.StatusCode = HttpStatusCode.BadRequest;
+						message.ReasonPhrase = "Please provide a Truck Number and Api Key";
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				//Loggerlog(ex);  - put in a helper
-				throw;
+				message.StatusCode = HttpStatusCode.InternalServerError;
+				message.ReasonPhrase = "The registration request is either invalid or the system encountered an error when processing it";
 			}
-			
-			
-			db.Trucks.Add(truck);
-			
-			db.SaveChanges();
-			
-			var response = Request.CreateResponse<TruckDto>(HttpStatusCode.Created, truckDto);
-
-			return Ok(response);
+			return message;
 		}
 
 		//[HttpPost]
@@ -90,6 +119,13 @@ namespace RaskTrip.API.Controllers
 		//{
 		//	var clockInTime = DateTime.Now;
 		//	// Work with team/Dave P on data points
+		// TODO: verify basic authentication from http header (write a common method to do this)
+		// TODO: get the job from the database identified by the jobDto.JobId  -- include TripRoute and Trip
+		// TODO: verify that it's OK to update the job: if job.TripStatusId == TripStatusEnum.Dispatched.GetHashCode() and the job is for this truckId
+		// TODO: update the following job properties: 
+		// TODO: ActualDriverVendorWorkerId (from Trip.DriverVendorWorkerId)
+		// TODO: update ActualClockIn, if (JobRequiresWeighIn) update ActualWeightInOut, update TripStatusId = TripStatusEnum.InProcess
+		// TODO: save the job.
 		//}
 
 		//[HttpPost]
@@ -97,6 +133,54 @@ namespace RaskTrip.API.Controllers
 		//{
 		//	var clockOutTime = DateTime.Now;
 		//	// Work with team/Dave P on data points
+		// TODO: I would create a smaller, ClockOutDto that has only the properties necessary to complete this transaction...
+		// TODO: verify basic authentication from http header (write a common method to do this)
+		// TODO: get the job from the database identified by the jobDto.JobId  -- include TripRoute and Trip
+		// TODO: verify that it's OK to update the job: if job.TripStatusId == TripStatusEnum.InProcess.GetHashCode() and the job is for this truckId
+		// TODO: Find the PropertyFlatRate corresponding to the JobPropertyFlatRateId.  Lookup the "sibling" if the Dto's JobServiceName is different
+		// TODO: determine which TripStatusId to use: SkippedNotPlowed, SkippedNoAccess, or Completed
+		// TODO: update the following job properties:
+		// TODO: ActualClockOut, ActualWeightOut and compute ActualTonnage (ifJobRequiresWeighInOut), ActualPropertyFlatRateId, TripStatusId
+		// TODO: save the job.
 		//}
+
+		/// <summary>
+		/// Verifies the basic authentication credentials passed in the HttpRequest header. The format of the basic auth is illustrated by the 
+		/// following code, which a client would use to add the header to a request:
+		/// request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(UserName + ":" + Password)));
+		/// </summary>
+		/// <param name="truckId"></param>
+		/// <returns></returns>
+		private bool VerifyBasicAuthCredentials(int truckId)
+		{
+			bool result = false;
+			var request = HttpContext.Current.Request;
+			if (request.Headers.HasKeys() && !String.IsNullOrEmpty(request.Headers.Get("Authorization")))
+			{
+				string basicAuthHeader = request.Headers.Get("Authorization");
+				string basicAuthBase64 = (!String.IsNullOrEmpty(basicAuthHeader) && basicAuthHeader.StartsWith("Basic ")) ? basicAuthHeader.Replace("Basic ", "") : String.Empty;
+				var basicAuthBinary = Convert.FromBase64String(basicAuthBase64);
+				var basicAuth = ASCIIEncoding.ASCII.GetString(basicAuthBinary);
+				var username = basicAuth.Split(':')[0];
+				var password = basicAuth.Split(':')[1];
+				return VerifyAuthentication(username, password, truckId);
+			}
+			return result;
+		}
+
+		private bool VerifyAuthentication(string username, string password, int truckId)
+		{
+			bool result = false;
+			var user = db.Users.FirstOrDefault(u => u.Username == username && u.IsActive && !u.IsLockedOut);
+			if (user != null)
+			{
+				var clearPassword = PasswordHelper.DecryptPassword(user.Password);
+				result = clearPassword == password;
+
+				var truck = db.Trucks.FirstOrDefault(t => t.TripApiUserId == user.UserId);
+				result = result && truck != null && truck.TruckId == truckId;
+			}
+			return result;
+		}
 	}
 }

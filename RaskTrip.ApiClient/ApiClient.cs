@@ -9,7 +9,7 @@ using RaskTrip.BusinessObjects.Models;
 using System.IO;
 using Newtonsoft.Json;
 using System.Net.Security;
-using NLog;
+
 
 namespace RaskTrip.ApiClient
 {

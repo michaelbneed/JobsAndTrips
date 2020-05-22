@@ -8,12 +8,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaskTrip", "RaskTrip\RaskTrip\RaskTrip.csproj", "{542A6FFF-5CA2-4FAE-9BF2-B6E20886B0FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaskTrip.API", "RaskTrip.API\RaskTrip.API.csproj", "{42C1142A-B62D-4F2F-80C4-14714DD6CE92}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2040687E-3964-42D4-A3D6-A5357AA22603} = {2040687E-3964-42D4-A3D6-A5357AA22603}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaskTrip.BusinessObjects", "RaskTrip.BusinessObjects\RaskTrip.BusinessObjects.csproj", "{16DF2586-B114-465F-8C53-6C04DE9F0798}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaskTrip.ApiClient", "RaskTrip.ApiClient\RaskTrip.ApiClient.csproj", "{79E50AAA-8EA6-48AE-87A6-38506A94F9AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaskTrip.DataAccess", "RaskTrip.DataAccess\RaskTrip.DataAccess.csproj", "{3985FA19-47FA-4B8F-868B-14927B2E36F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaskTrip.Utility", "RaskTrip.Utility\RaskTrip.Utility.csproj", "{2040687E-3964-42D4-A3D6-A5357AA22603}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +54,10 @@ Global
 		{3985FA19-47FA-4B8F-868B-14927B2E36F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3985FA19-47FA-4B8F-868B-14927B2E36F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3985FA19-47FA-4B8F-868B-14927B2E36F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2040687E-3964-42D4-A3D6-A5357AA22603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2040687E-3964-42D4-A3D6-A5357AA22603}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2040687E-3964-42D4-A3D6-A5357AA22603}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2040687E-3964-42D4-A3D6-A5357AA22603}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

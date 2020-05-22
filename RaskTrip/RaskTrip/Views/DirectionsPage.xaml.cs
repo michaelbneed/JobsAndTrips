@@ -42,11 +42,11 @@ namespace RaskTrip.Views
 			lblPropertyAddress.Text = nextJob.Street1.ToString() + " " + nextJob.Street2.ToString() + "n\n" +
 				" " + nextJob.City.ToString() + ", " + nextJob.State.ToString() + " " + nextJob.ZipCode.ToString();
 
-			lblPropertyPhone.Text = nextJob.PropertyContactPhone.ToString();
+			lblPropertyPhone.Text = nextJob.SalesRepPhone.ToString();
 
 			lblServiceName.Text = nextJob.JobServiceName.ToString();
 
-			lblAccountManager.Text = nextJob.PropertyContactName.ToString();
+			lblAccountManager.Text = nextJob.SalesRepContactName.ToString();
 
 			lblPropertyName.Text = nextJob.PropertyName.ToString();
 		}

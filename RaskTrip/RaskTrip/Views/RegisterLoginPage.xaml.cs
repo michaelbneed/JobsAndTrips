@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using Plugin.Messaging;
 using RaskTrip.ApiClient;
 using RaskTrip.BusinessObjects.Models;
-using RaskTrip.Helpers;
 using System.Text;
 
 namespace RaskTrip.Views
@@ -31,12 +30,10 @@ namespace RaskTrip.Views
 			TruckDto newTruck = new TruckDto();
 
 			newTruck.TruckNumber = usernameEntry.Text;
-			byte[] pwBytes = Encoding.ASCII.GetBytes(passwordEntry.Text);
-
-			var passwordToSave = PasswordHelper.EncryptPassword(pwBytes, true);
-			//newTruck.ApiKey = passwordEntry.Text;  -- // Change data type
-
-			client.PostRegisterTruckAsync(newTruck);
+			newTruck.ApiKey = passwordEntry.Text;
+			var result = client.PostRegisterTruckAsync(newTruck);
+			// TODO: if the call is successful, then store the TruckId, TruckNumber, and ApiKey in Essentials KeyValuePair storage
+			// TODO: failure:  display a message and stay on this page.
 		}
 	}
 }
