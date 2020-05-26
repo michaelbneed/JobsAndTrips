@@ -138,19 +138,19 @@ namespace RaskTrip.API.Controllers
 			return message;
 		}
 
-		//[HttpPost]
-		//public void PostClockIn(StringContent jobData)
-		//{
-		//	var clockInTime = DateTime.Now;
-		//	// Work with team/Dave P on data points
-		// TODO: verify basic authentication from http header (write a common method to do this)
-		// TODO: get the job from the database identified by the jobDto.JobId  -- include TripRoute and Trip
-		// TODO: verify that it's OK to update the job: if job.TripStatusId == TripStatusEnum.Dispatched.GetHashCode() and the job is for this truckId
-		// TODO: update the following job properties: 
-		// TODO: ActualDriverVendorWorkerId (from Trip.DriverVendorWorkerId)
-		// TODO: update ActualClockIn, if (JobRequiresWeighIn) update ActualWeightInOut, update TripStatusId = TripStatusEnum.InProcess
-		// TODO: save the job.
-		//}
+		[HttpPost]
+		public void PostClockIn(StringContent jobData)
+		{
+			var clockInTime = DateTime.Now;
+			// Work with team/Dave P on data points
+			// TODO: verify basic authentication from http header (write a common method to do this)
+			// TODO: get the job from the database identified by the jobDto.JobId  -- include TripRoute and Trip
+			// TODO: verify that it's OK to update the job: if job.TripStatusId == TripStatusEnum.Dispatched.GetHashCode() and the job is for this truckId
+			// TODO: update the following job properties: 
+			// TODO: ActualDriverVendorWorkerId (from Trip.DriverVendorWorkerId)
+			// TODO: update ActualClockIn, if (JobRequiresWeighIn) update ActualWeightInOut, update TripStatusId = TripStatusEnum.InProcess
+			// TODO: save the job.
+		}
 
 		//[HttpPost]
 		//public void PostClockOut(StringContent jobData)

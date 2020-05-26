@@ -15,7 +15,7 @@ namespace RaskTrip.ApiClient
 {
 	public class ApiClient
 	{
-		public JobDto GetNextJob(TruckDto truckRegistration)
+		public async Task<JobDto> GetNextJob(TruckDto truckRegistration)
 		{
 			var intTruckId = Convert.ToInt32(truckRegistration.TruckId);
 
@@ -31,10 +31,12 @@ namespace RaskTrip.ApiClient
 				using (var client = new HttpClient())
 				{
 					client.BaseAddress = new Uri(url);
-					var response = client.GetStringAsync($"GetNextJob?truckId={intTruckId}");
+					
+					var response = await client.GetAsync($"GetNextJob?truckId={intTruckId}");
+					response.EnsureSuccessStatusCode();
+					string content = await response.Content.ReadAsStringAsync();
 
-					job = JsonConvert.DeserializeObject<JobDto>(response.Result);
-
+					return await Task.FromResult(job);
 				}
 			}
 			catch (HttpRequestException ex)
