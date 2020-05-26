@@ -23,7 +23,7 @@ namespace RaskTrip.Views
 			webView.Source = $"https://www.sitefotos.com/vpics/guestmapdev?y3v7h0";
 			btnClockInClick.Text = "Clock In \n (" + DateTime.Now + ")";
 
-			// Get data from storage
+			// TODO: Get data from storage
 			JobDto nextJob = new JobDto();
 			TruckDto truckRegistration = new TruckDto();
 			truckRegistration.TruckId = 1;

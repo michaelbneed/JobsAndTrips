@@ -30,7 +30,7 @@ namespace RaskTrip.Views
 			// TODO: remove this:
 			webView.Source = $"https://www.google.com/maps/dir/?q= 39.9220717, -85.9815329";
 
-			// Get data from storage
+			// TODO: Get data from storage
 			JobDto nextJob = new JobDto();
 			TruckDto truckRegistration = new TruckDto();
 			truckRegistration.TruckId = 1;
