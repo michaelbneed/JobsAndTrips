@@ -27,30 +27,54 @@ namespace RaskTrip.API.Controllers
 		{
 			db.Configuration.ProxyCreationEnabled = false;
 			// TODO: verify the auth header in the HttpRequest.
-			// TODO: Include TripRoute and Trip
-			// TODO: where s.TripRoute.Trip.TruckId == truckId && s.TripRoute.TripStatusId <= TripStatusEnum.InProcess.GetHashCode() && s.TripRoute.IsPublished
-			// TODO:  && s.TripStatusId <= TripStatusEnum.InProcess.GetHashCode()
-			// TODO: order by s.TripRoute.TripRouteOrder, s.JobStopOrder
-			var job =  db.Jobs.Include("Property").Include("PropertyAddress").FirstOrDefault(s => s.ActualTruckId == truckId);
+			// TODO: Create an ENUM for the TripRouteStatus values...
+			const int TripRouteStatusEnumInProcess = 3;
+			var job = db.Jobs.Include("Property").Include("PropertyAddress").Include("PropertyWorkType").Include("TripRoute.Trip")
+				.OrderBy(r => r.TripRoute.TripRouteOrder).ThenBy(o => o.JobStopOrder)
+				.Where(q => q.TripRoute.Trip.TruckId == truckId && q.TripRoute.IsPublished 
+						&& q.TripRoute.TripStatusId <= TripRouteStatusEnumInProcess  && q.TripStatusId <= TripRouteStatusEnumInProcess)
+				.FirstOrDefault(j => j.ActualTruckId == truckId);
 			JobDto jobDto = new JobDto();
 			if (job != null)
 			{
 				jobDto.JobId = job.JobId;
 				jobDto.JobServiceName = job.JobServiceName;
 				jobDto.PropertyName = job.PropertyName;
-				// TODO: do not use PropertyContact. if (job.SalesRepUserId.HasValue) { var salesRep =  db.Users.FirstOrDefault(u => u.UserId == job.SalesRepUserId.Value);
-				//var propertyContact = db.PropertyContacts.FirstOrDefault(n => n.PropertyId == job.PropertyId);
-				//jobDto.PropertyContactName = propertyContact.Name; // TODO: = salesRep.FirstName + " " + salesRep.LastName;
-				//jobDto.PropertyContactPhone = propertyContact.WorkPhoneNumber; // TODO: = salesRep.MobilePhone
-				// TODO: if (job.SalesRepUserId.HasValue) { var salesRep =  db.Users.FirstOrDefault(u => u.UserId == job.SalesRepUserId.Value);
-				// TODO: set jobDto.SalesRepContactName and jobDto.SalesRepMobilePhone
-				jobDto.JobId = job.JobId;
 				jobDto.Street1 = job.PropertyAddress.Street1;
 				jobDto.Street2 = job.PropertyAddress.Street2;
 				jobDto.City = job.PropertyAddress.City;
 				jobDto.State = db.States.FirstOrDefault(s => s.StateId == job.PropertyAddress.StateId).StateName;
 				jobDto.ZipCode = job.PropertyAddress.ZipCode;
-				// TODO: in the same manner as salesRep was handled above, get the OperationsUser and populate OperationsContactName and OperationsContactPhone in the dto.
+				jobDto.GpsLatitude = (job.PropertyAddress.GpsLatitude.HasValue) ? job.PropertyAddress.GpsLatitude.Value : 0.0;
+				jobDto.GpsLongitude = (job.PropertyAddress.GpsLongitude.HasValue) ? job.PropertyAddress.GpsLongitude.Value : 0.0;
+				jobDto.GpsRadius = (job.PropertyAddress.GpsRadius.HasValue) ? job.PropertyAddress.GpsRadius.Value : 0.0;
+				jobDto.JobRequiresWeighInOut = job.JobRequiresWeighInOut;
+				jobDto.SiteFotosUrl = job.Property.SitefotosUrl;
+
+				if (job.SalesRepUserId.HasValue)
+				{
+					var salesRep = db.Users.FirstOrDefault(u => u.UserId == job.SalesRepUserId.Value);
+					if (salesRep != null)
+					{
+						jobDto.SalesRepContactName = salesRep.FirstName + " " + salesRep.LastName;
+						jobDto.SalesRepPhone = salesRep.MobilePhone;
+					}
+				}
+
+				if (job.OperationsUserId.HasValue)
+				{
+					var operationsUser = db.Users.FirstOrDefault(u => u.UserId == job.OperationsUserId.Value);
+					if (operationsUser != null)
+					{
+						jobDto.OperationsContactName = operationsUser.FirstName + " " + operationsUser.LastName;
+						jobDto.OperationsContactPhone = operationsUser.MobilePhone;
+					}
+				}
+
+				if (job.PropertyWorkType != null && !string.IsNullOrEmpty(job.PropertyWorkType.Notes))
+					jobDto.SpecialInstructions = job.PropertyWorkType.Notes;
+				else
+					jobDto.SpecialInstructions = "";
 			}
 			else
 			{
