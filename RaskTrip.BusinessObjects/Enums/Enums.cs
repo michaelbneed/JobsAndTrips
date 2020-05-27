@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RaskTrip.Utility.Helpers
+namespace RaskTrip.BusinessObjects.Enums
 {
 	public class Enums
 	{
 		public enum TripStatusEnum
 		{
-			NotStarted,
-			Dispatched,
-			InProcess,
-			SkippedNotPlowed,
-			SkippedNoAccess,
-			Completed
+			NotStarted = 1,
+			Dispatched = 2,
+			InProcess = 3,
+			SkippedNotPlowed = 4,
+			SkippedNoAccess = 5,
+			Completed = 6
 		}
 	}
 }

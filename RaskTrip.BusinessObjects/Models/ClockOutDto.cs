@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RaskTrip.BusinessObjects.Models
 {
-    class ClockOutDto
+    public class ClockOutDto
     {
         public long JobId { get; set; }
 

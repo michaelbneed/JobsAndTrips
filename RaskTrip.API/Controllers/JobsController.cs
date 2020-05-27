@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using RaskTrip.DataAccess;
 using RaskTrip.BusinessObjects.Models;
+using RaskTrip.BusinessObjects.Enums;
 using System.Linq;
 using System.Data.Entity;
 using Newtonsoft.Json;
@@ -19,6 +20,7 @@ namespace RaskTrip.API.Controllers
 	public class JobsController : ApiController
 	{
 		RaskTrip_Entities db = new RaskTrip_Entities();
+		Enums enums = new Enums();
 
 		[SwaggerResponse(HttpStatusCode.OK, Type = typeof(JobDto))]
 		[SwaggerResponse(HttpStatusCode.Unauthorized)]
@@ -139,17 +141,40 @@ namespace RaskTrip.API.Controllers
 		}
 
 		[HttpPost]
-		public void PostClockIn(StringContent jobData)
+		public IHttpActionResult PostClockIn([FromBody] ClockInDto clockIn)
 		{
-			var clockInTime = DateTime.Now;
-			// Work with team/Dave P on data points
 			// TODO: verify basic authentication from http header (write a common method to do this)
-			// TODO: get the job from the database identified by the jobDto.JobId  -- include TripRoute and Trip
-			// TODO: verify that it's OK to update the job: if job.TripStatusId == TripStatusEnum.Dispatched.GetHashCode() and the job is for this truckId
-			// TODO: update the following job properties: 
-			// TODO: ActualDriverVendorWorkerId (from Trip.DriverVendorWorkerId)
-			// TODO: update ActualClockIn, if (JobRequiresWeighIn) update ActualWeightInOut, update TripStatusId = TripStatusEnum.InProcess
-			// TODO: save the job.
+			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockIn.JobId));
+						
+			if (job != null
+				&& job.TripRoute.TripStatusId == Enums.TripStatusEnum.Dispatched.GetHashCode()
+				&& job.TripStatusId == Enums.TripStatusEnum.Dispatched.GetHashCode())
+			{
+				if (job.JobId == clockIn.JobId)
+				{
+					try
+					{
+						job.ActualClockIn = DateTime.Now;
+						job.ActualDriverVendorWorkerId = job.TripRoute.Trip.DriverVendorWorkerId;
+						job.TripRoute.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
+						job.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
+
+						if (job.JobRequiresWeighInOut)
+						{
+							job.ActualWeightIn = clockIn.ActualWeightIn;
+						}
+
+						db.SaveChanges();
+						return Ok(clockIn);
+					}
+					catch (Exception ex)
+					{
+						//Logger ex.????;
+						return NotFound();
+					}
+				}
+			}
+			return NotFound();
 		}
 
 		//[HttpPost]
