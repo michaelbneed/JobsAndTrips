@@ -2,7 +2,7 @@
 
 namespace RaskTrip.BusinessObjects.Models
 {
-    class ClockInDto
+    public class ClockInDto
     {
         public long JobId { get; set; }
         /// <summary>

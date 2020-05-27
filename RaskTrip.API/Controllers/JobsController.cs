@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using RaskTrip.DataAccess;
 using RaskTrip.BusinessObjects.Models;
+using RaskTrip.BusinessObjects.Enums;
 using System.Linq;
 using System.Data.Entity;
 using Newtonsoft.Json;
@@ -13,12 +14,14 @@ using Swashbuckle.Swagger.Annotations;
 using System.Web;
 using System.Text;
 using RaskTrip.Utility.Security;
+using NLog.Fluent;
 
 namespace RaskTrip.API.Controllers
 {
 	public class JobsController : ApiController
 	{
 		RaskTrip_Entities db = new RaskTrip_Entities();
+		Enums enums = new Enums();
 
 		[SwaggerResponse(HttpStatusCode.OK, Type = typeof(JobDto))]
 		[SwaggerResponse(HttpStatusCode.Unauthorized)]
@@ -35,59 +38,70 @@ namespace RaskTrip.API.Controllers
 						&& q.TripRoute.TripStatusId <= TripRouteStatusEnumInProcess  && q.TripStatusId <= TripRouteStatusEnumInProcess)
 				.FirstOrDefault(j => j.ActualTruckId == truckId);
 			JobDto jobDto = new JobDto();
-			if (job != null)
+
+			try
 			{
-				jobDto.JobId = job.JobId;
-				jobDto.JobServiceName = job.JobServiceName;
-				jobDto.PropertyName = job.PropertyName;
-				jobDto.Street1 = job.PropertyAddress.Street1;
-				jobDto.Street2 = job.PropertyAddress.Street2;
-				jobDto.City = job.PropertyAddress.City;
-				jobDto.State = db.States.FirstOrDefault(s => s.StateId == job.PropertyAddress.StateId).StateName;
-				jobDto.ZipCode = job.PropertyAddress.ZipCode;
-				jobDto.GpsLatitude = (job.PropertyAddress.GpsLatitude.HasValue) ? job.PropertyAddress.GpsLatitude.Value : 0.0;
-				jobDto.GpsLongitude = (job.PropertyAddress.GpsLongitude.HasValue) ? job.PropertyAddress.GpsLongitude.Value : 0.0;
-				jobDto.GpsRadius = (job.PropertyAddress.GpsRadius.HasValue) ? job.PropertyAddress.GpsRadius.Value : 0.0;
-				jobDto.JobRequiresWeighInOut = job.JobRequiresWeighInOut;
-				jobDto.SiteFotosUrl = job.Property.SitefotosUrl;
-
-				if (job.SalesRepUserId.HasValue)
+				if (job != null)
 				{
-					var salesRep = db.Users.FirstOrDefault(u => u.UserId == job.SalesRepUserId.Value);
-					if (salesRep != null)
-					{
-						jobDto.SalesRepContactName = salesRep.FirstName + " " + salesRep.LastName;
-						jobDto.SalesRepPhone = salesRep.MobilePhone;
-					}
-				}
+					jobDto.JobId = job.JobId;
+					jobDto.JobServiceName = job.JobServiceName;
+					jobDto.PropertyName = job.PropertyName;
+					jobDto.Street1 = job.PropertyAddress.Street1;
+					jobDto.Street2 = job.PropertyAddress.Street2;
+					jobDto.City = job.PropertyAddress.City;
+					jobDto.State = db.States.FirstOrDefault(s => s.StateId == job.PropertyAddress.StateId).StateName;
+					jobDto.ZipCode = job.PropertyAddress.ZipCode;
+					jobDto.GpsLatitude = (job.PropertyAddress.GpsLatitude.HasValue) ? job.PropertyAddress.GpsLatitude.Value : 0.0;
+					jobDto.GpsLongitude = (job.PropertyAddress.GpsLongitude.HasValue) ? job.PropertyAddress.GpsLongitude.Value : 0.0;
+					jobDto.GpsRadius = (job.PropertyAddress.GpsRadius.HasValue) ? job.PropertyAddress.GpsRadius.Value : 0.0;
+					jobDto.JobRequiresWeighInOut = job.JobRequiresWeighInOut;
+					jobDto.SiteFotosUrl = job.Property.SitefotosUrl;
 
-				if (job.OperationsUserId.HasValue)
-				{
-					var operationsUser = db.Users.FirstOrDefault(u => u.UserId == job.OperationsUserId.Value);
-					if (operationsUser != null)
+					if (job.SalesRepUserId.HasValue)
 					{
-						jobDto.OperationsContactName = operationsUser.FirstName + " " + operationsUser.LastName;
-						jobDto.OperationsContactPhone = operationsUser.MobilePhone;
+						var salesRep = db.Users.FirstOrDefault(u => u.UserId == job.SalesRepUserId.Value);
+						if (salesRep != null)
+						{
+							jobDto.SalesRepContactName = salesRep.FirstName + " " + salesRep.LastName;
+							jobDto.SalesRepPhone = salesRep.MobilePhone;
+						}
 					}
-				}
 
-				if (job.PropertyWorkType != null && !string.IsNullOrEmpty(job.PropertyWorkType.Notes))
-					jobDto.SpecialInstructions = job.PropertyWorkType.Notes;
+					if (job.OperationsUserId.HasValue)
+					{
+						var operationsUser = db.Users.FirstOrDefault(u => u.UserId == job.OperationsUserId.Value);
+						if (operationsUser != null)
+						{
+							jobDto.OperationsContactName = operationsUser.FirstName + " " + operationsUser.LastName;
+							jobDto.OperationsContactPhone = operationsUser.MobilePhone;
+						}
+					}
+
+					if (job.PropertyWorkType != null && !string.IsNullOrEmpty(job.PropertyWorkType.Notes))
+						jobDto.SpecialInstructions = job.PropertyWorkType.Notes;
+					else
+						jobDto.SpecialInstructions = "";
+
+					job.TripRoute.TripStatusId = Enums.TripStatusEnum.Dispatched.GetHashCode();
+					job.TripStatusId = Enums.TripStatusEnum.Dispatched.GetHashCode();
+					db.SaveChanges();
+				}
 				else
-					jobDto.SpecialInstructions = "";
+				{
+					Log.Info("JobID: " + job.JobId + "Failed to find a qualified job!");
+					return NotFound();
+				}
+				
+				return Ok(jobDto);
 			}
-			else
+			catch (Exception ex)
 			{
-				return NotFound();
+				Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
+				throw;
 			}
-			// TODO: update the job.TripStatusId = TripStatusEnum.Dispatched.GetHashCode(); and save.
-			var result = Ok(jobDto);
-
-			return result;
 		}
 
-		//[HttpPost]
-		//[AllowAnonymous]
+		[HttpPost]
 		public HttpResponseMessage PostRegisterTruck([FromBody] TruckDto truckDto)
 		{
 			Truck truck = null;
@@ -118,12 +132,14 @@ namespace RaskTrip.API.Controllers
 						}
 						else
 						{
+							Log.Info(HttpStatusCode.Unauthorized + " " + "Registration for this truck failed.");
 							message.StatusCode = HttpStatusCode.Unauthorized;
 							message.ReasonPhrase = "Registration for this truck failed. Verify your Truck Number and API Key.";
 						}
 					}
 					else
 					{
+						Log.Info(HttpStatusCode.BadRequest + " " + "Bad Truck Number (" + truckDto.TruckNumber + ") or API Key.");
 						message.StatusCode = HttpStatusCode.BadRequest;
 						message.ReasonPhrase = "Please provide a Truck Number and Api Key";
 					}
@@ -131,42 +147,107 @@ namespace RaskTrip.API.Controllers
 			}
 			catch (Exception ex)
 			{
-				//Loggerlog(ex);  - put in a helper
+				Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
 				message.StatusCode = HttpStatusCode.InternalServerError;
 				message.ReasonPhrase = "The registration request is either invalid or the system encountered an error when processing it";
 			}
 			return message;
 		}
 
-		//[HttpPost]
-		//public void PostClockIn(StringContent jobData)
-		//{
-		//	var clockInTime = DateTime.Now;
-		//	// Work with team/Dave P on data points
-		// TODO: verify basic authentication from http header (write a common method to do this)
-		// TODO: get the job from the database identified by the jobDto.JobId  -- include TripRoute and Trip
-		// TODO: verify that it's OK to update the job: if job.TripStatusId == TripStatusEnum.Dispatched.GetHashCode() and the job is for this truckId
-		// TODO: update the following job properties: 
-		// TODO: ActualDriverVendorWorkerId (from Trip.DriverVendorWorkerId)
-		// TODO: update ActualClockIn, if (JobRequiresWeighIn) update ActualWeightInOut, update TripStatusId = TripStatusEnum.InProcess
-		// TODO: save the job.
-		//}
+		[HttpPost]
+		public IHttpActionResult PostClockIn([FromBody] ClockInDto clockIn)
+		{
+			// TODO: verify basic authentication from http header (write a common method to do this)
 
-		//[HttpPost]
-		//public void PostClockOut(StringContent jobData)
-		//{
-		//	var clockOutTime = DateTime.Now;
-		//	// Work with team/Dave P on data points
-		// TODO: I would create a smaller, ClockOutDto that has only the properties necessary to complete this transaction...
-		// TODO: verify basic authentication from http header (write a common method to do this)
-		// TODO: get the job from the database identified by the jobDto.JobId  -- include TripRoute and Trip
-		// TODO: verify that it's OK to update the job: if job.TripStatusId == TripStatusEnum.InProcess.GetHashCode() and the job is for this truckId
-		// TODO: Find the PropertyFlatRate corresponding to the JobPropertyFlatRateId.  Lookup the "sibling" if the Dto's JobServiceName is different
-		// TODO: determine which TripStatusId to use: SkippedNotPlowed, SkippedNoAccess, or Completed
-		// TODO: update the following job properties:
-		// TODO: ActualClockOut, ActualWeightOut and compute ActualTonnage (ifJobRequiresWeighInOut), ActualPropertyFlatRateId, TripStatusId
-		// TODO: save the job.
-		//}
+			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockIn.JobId));
+						
+			if (job != null
+				&& job.TripRoute.TripStatusId == Enums.TripStatusEnum.Dispatched.GetHashCode()
+				&& job.TripStatusId == Enums.TripStatusEnum.Dispatched.GetHashCode())
+			{
+				if (job.JobId == clockIn.JobId)
+				{
+					try
+					{
+						job.ActualClockIn = DateTime.Now;
+						job.ActualDriverVendorWorkerId = job.TripRoute.Trip.DriverVendorWorkerId;
+						job.TripRoute.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
+						job.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
+
+						if (job.JobRequiresWeighInOut)
+						{
+							job.ActualWeightIn = clockIn.ActualWeightIn;
+						}
+
+						db.SaveChanges();
+						return Ok(clockIn);
+					}
+					catch (Exception ex)
+					{
+						Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
+						return NotFound();
+					}
+				}
+			}
+			return NotFound();
+		}
+
+		[HttpPost]
+		public IHttpActionResult PostClockOut([FromBody] ClockOutDto clockOut)
+		{
+			// TODO: verify basic authentication from http header (write a common method to do this)
+
+			var clockOutTime = DateTime.Now;
+			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockOut.JobId));
+
+			if (job != null
+				&& job.TripRoute.TripStatusId == Enums.TripStatusEnum.InProcess.GetHashCode()
+				&& job.TripStatusId == Enums.TripStatusEnum.InProcess.GetHashCode())
+			{
+				if (job.JobId == clockOut.JobId)
+				{
+					try
+					{
+						job.ActualClockOut = DateTime.Now;
+						// TODO: Find the PropertyFlatRate corresponding to the JobPropertyFlatRateId.  Lookup the "sibling" if the Dto's JobServiceName is different??
+						// Clarify this TODO with David. Why do we need this here??				
+						var propertyFlatRate = db.PropertyFlatRates.FirstOrDefault(p => p.PropertyFlatRateId.Equals(job.JobPropertyFlatRateId));
+						
+						if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNotPlowed.ToString())
+						{
+							job.TripRoute.TripStatusId = Enums.TripStatusEnum.SkippedNotPlowed.GetHashCode();
+							job.TripStatusId = Enums.TripStatusEnum.SkippedNotPlowed.GetHashCode();
+						}
+						else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNoAccess.ToString())
+						{
+							job.TripRoute.TripStatusId = Enums.TripStatusEnum.SkippedNoAccess.GetHashCode();
+							job.TripStatusId = Enums.TripStatusEnum.SkippedNoAccess.GetHashCode();
+						}
+						else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.Completed.ToString())
+						{
+							job.TripRoute.TripStatusId = Enums.TripStatusEnum.Completed.GetHashCode();
+							job.TripStatusId = Enums.TripStatusEnum.Completed.GetHashCode();
+						}
+						
+						if (job.JobRequiresWeighInOut)
+						{
+							job.ActualWeightOut = clockOut.ActualWeightOut;
+							job.ActualTonnage = job.ActualWeightIn = clockOut.ActualWeightOut;
+						}
+
+						db.SaveChanges();
+						return Ok(clockOut);
+					}
+					catch (Exception ex)
+					{
+						Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
+						return NotFound();
+					}
+				}
+			}
+			return NotFound();
+		}
+
 
 		/// <summary>
 		/// Verifies the basic authentication credentials passed in the HttpRequest header. The format of the basic auth is illustrated by the 
