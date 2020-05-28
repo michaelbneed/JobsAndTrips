@@ -15,7 +15,7 @@ namespace RaskTrip.ApiClient
 {
 	public class ApiClient
 	{
-		private string TripApiUrlBase = "http://dev3.adaptivesys.com/RaskTripApi-DEV/api/Jobs/";
+		private string TripApiUrlBase = "https://dev3.adaptivesys.com/RaskTripApi-DEV/api/Jobs/";
 		// private string TripApiUrlBase = "http://10.0.2.2:56596/api/Jobs/";
 		// private string TripApiUrlBase = "https://10.0.2.2:56596/api/Jobs/";
 
@@ -73,12 +73,9 @@ namespace RaskTrip.ApiClient
 				{
 					client.BaseAddress = new Uri(TripApiUrlBase);
 					var request = GetRequestHeaders(HttpMethod.Post, "PostRegisterTruck");
-					//client.DefaultRequestHeaders.Add("ContentType", "application/json");
-					//var json = JsonConvert.SerializeObject(truckRegistration);
-					//var content = new StringContent(json, Encoding.UTF8, "application/json");
 					SetRequestContent<TruckDto>(request, truckRegistration);
 					var result = client.SendAsync(request).Result;
-					//var result = await client.PostAsync($"PostRegisterTruck", content);
+					
 					if (result.IsSuccessStatusCode)
 					{
 						string serializedJson = result.Content.ReadAsStringAsync().Result;
@@ -98,91 +95,8 @@ namespace RaskTrip.ApiClient
 				truckRegistration.TruckId = 0;
 			}
 			return truckRegistration;
-
-			//using (var client = new HttpClient())
-			//{
-			//	client.PostAsJsonAsync(url, truckRegistration);
-
-			//	//var content = new StringContent(truckRegistration.ToString(), Encoding.UTF8, "application/json");
-			//	//content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-			//	//var result = client.PostAsync(url, content).Result;
-
-			//	//var content = new StringContent(JsonConvert.SerializeObject(jsonTruckRegistration), System.Text.Encoding.UTF8, "application/json");
-
-			//	// content = new HttpContent(truckRegistration);
-
-			//	//var result = client.PostAsJsonAsync(url, truckRegistration).Result;
-			//	return truckRegistration;
-
-
-			//	//using (var content = new StringContent(JsonConvert.SerializeObject(jsonTruckRegistration), System.Text.Encoding.UTF8, "application/json"))
-			//	//{
-			//	//	try
-			//	//	{
-			//	//		HttpResponseMessage result = client.PostAsync(url, content).Result;
-
-			//	//		if (result.StatusCode == System.Net.HttpStatusCode.Created)
-			//	//			return truckRegistration;
-
-			//	//		string returnValue = result.Content.ReadAsStringAsync().Result;
-
-			//	//		throw new Exception($"Failed to POST data: ({result.StatusCode}): {returnValue}");
-			//	//	}
-			//	//	catch (Exception ex)
-			//	//	{
-			//	//		var error = ex.Message;
-			//	//		throw;
-			//	//	}
-			//	//}
-			//}				
 		}
         #endregion
-
-        //public async Task<bool> PostLoginTruck(TruckDto truckRegistration)
-        //{
-        //	//string url = $"https://localhost:44357/api/Jobs/PostLoginTruck";
-        //	string url = $"http://10.0.2.2:56596/api/Jobs/PostLoginTruck";
-
-        //	var jsonTruckRegistration = JsonConvert.SerializeObject(truckRegistration);
-        //	var data = new StringContent(jsonTruckRegistration, Encoding.UTF8, "application/json");
-
-        //	using (var client = new HttpClient())
-        //	{
-        //		try
-        //		{
-        //			client.BaseAddress = new Uri(url);
-
-        //			//client.DefaultRequestHeaders.Add("ContentType", "application/json");
-
-        //			var userToAuthorize = truckRegistration.TruckNumber;
-        //			var passwordToUse = truckRegistration.ApiKey;
-
-        //			var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{userToAuthorize}:{passwordToUse}");
-        //			string val = System.Convert.ToBase64String(plainTextBytes);
-        //			client.DefaultRequestHeaders.Add("Authorization", "Basic " + val);
-
-        //			var method = new HttpMethod("GET");
-
-        //			HttpResponseMessage response = client.GetAsync(url).Result;
-        //			//string content = string.Empty;
-
-
-        //			//using (StreamReader stream = new StreamReader(response.Content.ReadAsStreamAsync().Result, System.Text.Encoding.GetEncoding()))
-        //			//{
-        //			//	content = stream.ReadToEnd();
-        //			//}
-
-        //			var result = response.Content.ReadAsStringAsync();
-        //			return Task.FromResult(result);
-        //		}
-        //		catch (Exception ex)
-        //		{
-        //			var error = ex.Message;
-        //			throw;
-        //		}
-
-        //	}
-        //}
 
         //public async Task<bool> PostClockInAsync(Job job)
         //{
