@@ -15,6 +15,8 @@ using System.Web;
 using System.Text;
 using RaskTrip.Utility.Security;
 using NLog.Fluent;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace RaskTrip.API.Controllers
 {
@@ -197,7 +199,6 @@ namespace RaskTrip.API.Controllers
 		{
 			// TODO: verify basic authentication from http header (write a common method to do this)
 
-			var clockOutTime = DateTime.Now;
 			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockOut.JobId));
 
 			if (job != null
@@ -209,23 +210,58 @@ namespace RaskTrip.API.Controllers
 					try
 					{
 						job.ActualClockOut = DateTime.Now;
-						// TODO: Find the PropertyFlatRate corresponding to the JobPropertyFlatRateId.  Lookup the "sibling" if the Dto's JobServiceName is different??
-						// Clarify this TODO with David. Why do we need this here??				
-						var propertyFlatRate = db.PropertyFlatRates.FirstOrDefault(p => p.PropertyFlatRateId.Equals(job.JobPropertyFlatRateId));
 						
+						if (clockOut.ActualServicePerformed.ToLower() == job.JobServiceName.ToLower())
+						{
+							job.ActualPropertyFlatRateId = job.JobPropertyFlatRateId;
+						}
+						else
+						{
+							var propertyFlatRateContractId = db.PropertyFlatRates.FirstOrDefault(p => p.PropertyFlatRateId.Equals(job.JobPropertyFlatRateId)).PropertyContractId;
+							List<PropertyFlatRate> propertyFlatRateList = db.PropertyFlatRates.Where(p=> p.PropertyContractId == propertyFlatRateContractId).ToList();
+							foreach (var item in propertyFlatRateList)
+							{
+								if (item.ExpirationDate == null)
+								{
+									// TODO: Pending call with Daniel on the potential bad data we are looking at in this loop
+									// TODO: finish logic of comparing the clockOut dto service with the job.servicename
+									switch (item.ShortName)
+									{
+										case "Standard/Partial":
+											job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+											break;
+										case "Full":
+											job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+											break;
+										case "SkippedNotPlowed":
+											job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+											break;
+										case "SkippedNoAccess":
+											job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+											break;
+										default:
+											job.ActualPropertyFlatRateId = job.JobPropertyFlatRateId;
+											break;
+									}
+									//if (item.ShortName.ToLower().Contains(clockOut.ActualServicePerformed))
+									//{
+									//	job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+									//}
+								}
+							}
+						}
+
+						// TODO: Update the status like below, but might need to account for a variation as above in the loop
 						if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNotPlowed.ToString())
 						{
-							job.TripRoute.TripStatusId = Enums.TripStatusEnum.SkippedNotPlowed.GetHashCode();
 							job.TripStatusId = Enums.TripStatusEnum.SkippedNotPlowed.GetHashCode();
 						}
 						else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNoAccess.ToString())
 						{
-							job.TripRoute.TripStatusId = Enums.TripStatusEnum.SkippedNoAccess.GetHashCode();
 							job.TripStatusId = Enums.TripStatusEnum.SkippedNoAccess.GetHashCode();
 						}
 						else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.Completed.ToString())
 						{
-							job.TripRoute.TripStatusId = Enums.TripStatusEnum.Completed.GetHashCode();
 							job.TripStatusId = Enums.TripStatusEnum.Completed.GetHashCode();
 						}
 						
