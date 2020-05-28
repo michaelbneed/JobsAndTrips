@@ -14,7 +14,7 @@ namespace RaskTrip
 			InitializeComponent();
 			SetTabBarIsVisible(this, false);
 			SetNavBarIsVisible(this, false);
-			
+			Navigation.PushAsync(new RegisterLoginPage());
 		}
 
 		private async void ButtonDriveClick(object sender, EventArgs e)

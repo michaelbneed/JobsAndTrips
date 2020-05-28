@@ -29,7 +29,7 @@ namespace RaskTrip.Views
 			truckRegistration.TruckId = 1;
 			ApiClient.ApiClient client = new ApiClient.ApiClient();
 
-			nextJob = client.GetNextJob(truckRegistration).Result;
+			nextJob = client.GetNextJob(truckRegistration);
 
 			lblCompanyTitle.Text = nextJob.PropertyName.ToString();
 
