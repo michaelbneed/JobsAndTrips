@@ -90,7 +90,7 @@ namespace RaskTrip.API.Controllers
 				}
 				else
 				{
-					Log.Info("JobID: " + job.JobId + "Failed to find a qualified job!");
+					Log.Info("Failed to find a qualified job for truckID: " + truckId.ToString());
 					return NotFound();
 				}
 				
