@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using XLabs.Forms.Services;
 using Xamarin.Forms.Xaml;
 using RaskTrip.Views;
+using RaskTrip.BusinessObjects;
 
 namespace RaskTrip
 {
@@ -14,7 +15,17 @@ namespace RaskTrip
 			InitializeComponent();
 			SetTabBarIsVisible(this, false);
 			SetNavBarIsVisible(this, false);
-			Navigation.PushAsync(new RegisterLoginPage());
+			var truckCredentials = CredentialsManager.GetLoginCredentials();
+			if (truckCredentials.TruckId > 0)
+			{
+				var validCredentials = CredentialsManager.VerifyCredentials(truckCredentials);
+				if (validCredentials.TruckId > 0)
+					Navigation.PushAsync(new DirectionsPage());
+				else
+					Navigation.PushAsync(new RegisterLoginPage());
+			}
+			else
+				Navigation.PushAsync(new RegisterLoginPage());
 		}
 
 		private async void ButtonDriveClick(object sender, EventArgs e)

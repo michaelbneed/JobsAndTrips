@@ -28,30 +28,61 @@ namespace RaskTrip.Views
 			//webView.Source = $"https://www.google.com/maps/dir/?q= {position.Latitude}, {position.Longitude}";
 			
 			// TODO: remove this:
-			webView.Source = $"https://www.google.com/maps/dir/?q= 39.9220717, -85.9815329";
+			//webView.Source = $"https://www.google.com/maps/dir/?q= 39.9220717, -85.9815329";
 
 			// TODO: Get data from storage
 			JobDto nextJob = new JobDto();
-			TruckDto truckRegistration = new TruckDto();
-			truckRegistration.TruckId = 1;
-			ApiClient.ApiClient client = new ApiClient.ApiClient();
+			TruckDto truckRegistration = CredentialsManager.GetLoginCredentials();
+			if (truckRegistration.TruckId == 0)
+			{
+				// Redirect to the RegisterLoginPage page. For some reason we don't have credentials, but we should by the time we get here.
+				Navigation.PopToRootAsync().RunSynchronously();
+				Navigation.PushAsync(new RegisterLoginPage()).RunSynchronously();
+			}
+			else
+			{
+				ApiClient.ApiClient client = new ApiClient.ApiClient(truckRegistration.TruckNumber, truckRegistration.ApiKey);
+				nextJob = client.GetNextJob(truckRegistration.TruckId);
+				if (nextJob != null && nextJob.JobId > 0)
+				{
+					lblPropertyName.Text = nextJob.PropertyName;
+					lblPropertyAddress.Text = (nextJob.Street1 ?? "") + " " + (nextJob.Street2 ?? "") + "n\n" +
+						" " + (nextJob.City ?? "") + ", " + (nextJob.State ?? "") + " " + (nextJob.ZipCode ?? "");
 
-			nextJob = client.GetNextJob(truckRegistration);
+					lblOpsContactName.Text = nextJob.OperationsContactName ?? "";
+					lblOpsContactPhone.Text = nextJob.SalesRepPhone ?? "";
 
-			lblCompanyTitle.Text = nextJob.PropertyName.ToString();
+					lblServiceName.Text = nextJob.JobServiceName ?? "";
+					lblAccountManager.Text = nextJob.SalesRepContactName ?? "";
+					// lblAccountManagerPhone.Text = nextJob.SalesRepPhone ?? "";
 
-			lblPropertyAddress.Text = nextJob.Street1.ToString() + " " + nextJob.Street2.ToString() + "n\n" +
-				" " + nextJob.City.ToString() + ", " + nextJob.State.ToString() + " " + nextJob.ZipCode.ToString();
+					if (nextJob.GpsLatitude != 0.0 && nextJob.GpsLongitude != 0.0)
+					{
+						webView.Source = $"https://www.google.com/maps?saddr=My+Location&daddr={nextJob.GpsLatitude},{nextJob.GpsLongitude}";
+					}
+					else
+					{
+						webView.Source = $"https://www.google.com/maps?saddr=My+Location&daddr={nextJob.Street1}+{nextJob.City}+{nextJob.State}+{nextJob.ZipCode}";
+					}
+					
+				}
+				else
+				{
+					// TODO: Should we display a modal with the nextJob.SpecialInstructions in it and allow them to re-try, 
+					// TODO: or should we stay on this page and add a Retry button??
+					lblOpsContactName.Text = "";
+					lblPropertyAddress.Text = "";
+					lblOpsContactPhone.Text = "";
+					lblServiceName.Text = nextJob?.SpecialInstructions;
+					lblAccountManager.Text = "";
+					lblPropertyName.Text = "No More Properties";
 
-			lblPropertyPhone.Text = nextJob.SalesRepPhone.ToString();
-
-			lblServiceName.Text = nextJob.JobServiceName.ToString();
-
-			lblAccountManager.Text = nextJob.SalesRepContactName.ToString();
-
-			lblPropertyName.Text = nextJob.PropertyName.ToString();
+					position = GetLocationAsync().Result;
+					webView.Source = $"https://www.google.com/maps/dir/?q= {position.Latitude}, {position.Longitude}";
+				}
+			}
 		}
-
+		
 		public async Task<Position> GetLocationAsync()
 		{
 			var position = await Geolocation.GetLastKnownLocationAsync();
@@ -108,9 +139,9 @@ namespace RaskTrip.Views
 			var call = CrossMessaging.Current.PhoneDialer;
 			if (call.CanMakePhoneCall)
 			{
-				if (lblPropertyPhone.Text != string.Empty)
+				if (lblOpsContactPhone.Text != string.Empty)
 				{
-					call.MakePhoneCall(lblPropertyPhone.Text);
+					call.MakePhoneCall(lblOpsContactPhone.Text);
 				}
 			}
 		}

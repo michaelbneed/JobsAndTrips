@@ -20,29 +20,31 @@ namespace RaskTrip.Views
 		public SiteMapPage()
 		{
 			InitializeComponent();
-			webView.Source = $"https://www.sitefotos.com/vpics/guestmapdev?y3v7h0";
 			btnClockInClick.Text = "Clock In \n (" + DateTime.Now + ")";
 
 			// TODO: Get data from storage
 			JobDto nextJob = new JobDto();
-			TruckDto truckRegistration = new TruckDto();
+			TruckDto truckRegistration = CredentialsManager.GetLoginCredentials();
 			truckRegistration.TruckId = 1;
-			ApiClient.ApiClient client = new ApiClient.ApiClient();
+			ApiClient.ApiClient client = new ApiClient.ApiClient(truckRegistration.TruckNumber, truckRegistration.ApiKey);
 
-			nextJob = client.GetNextJob(truckRegistration);
+			nextJob = client.GetNextJob(truckRegistration.TruckId);
 
-			lblCompanyTitle.Text = nextJob.PropertyName.ToString();
+			lblCompanyTitle.Text = nextJob.PropertyName ?? "";
 
-			lblPropertyAddress.Text = nextJob.Street1.ToString() + " " + nextJob.Street2.ToString() + "n\n" +
-				" " + nextJob.City.ToString() + ", " + nextJob.State.ToString() + " " + nextJob.ZipCode.ToString();
+			lblPropertyAddress.Text = (nextJob.Street1 ?? "") + " " + (nextJob.Street2 ?? "") + "n\n" +
+				" " + (nextJob.City ?? "" ) + ", " + (nextJob.State ?? "") + " " + (nextJob.ZipCode ?? "");
 
-			lblPropertyPhone.Text = nextJob.SalesRepPhone.ToString();
+			lblPropertyPhone.Text = nextJob.SalesRepPhone ?? "";
 
-			lblServiceName.Text = nextJob.JobServiceName.ToString();
+			lblServiceName.Text = nextJob.JobServiceName ?? "";
 
-			lblAccountManager.Text = nextJob.SalesRepContactName.ToString();
+			lblAccountManager.Text = nextJob.SalesRepContactName ?? "";
 
-			lblPropertyName.Text = nextJob.PropertyName.ToString();
+			lblPropertyName.Text = nextJob.PropertyName ?? "";
+
+			// TODO: figure out what should be used if there is no sitefotos url
+			webView.Source = nextJob.SiteFotosUrl ?? "https://www.sitefotos.com/vpics/guestmapdev?y3v7h0";
 		}
 
 		public void OnClockInOutClicked(object sender, EventArgs e)

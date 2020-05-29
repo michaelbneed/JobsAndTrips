@@ -15,7 +15,7 @@ namespace RaskTrip.ApiClient
 {
 	public class ApiClient
 	{
-		private string TripApiUrlBase = "http://dev3.adaptivesys.com/RaskTripApi-DEV/api/Jobs/";
+		private string TripApiUrlBase = "https://dev3.adaptivesys.com/RaskTripApi-DEV/api/Jobs/";
 		// private string TripApiUrlBase = "http://10.0.2.2:56596/api/Jobs/";
 		// private string TripApiUrlBase = "https://10.0.2.2:56596/api/Jobs/";
 
@@ -25,47 +25,61 @@ namespace RaskTrip.ApiClient
 		#region Constructors
 		public ApiClient() { }
 
-		public ApiClient(string username, string apiKey)
+		public ApiClient(string truckNumber, string apiKey)
 		{
-			Username = username;
-			ApiKey = apiKey;
+			// TODO: enable Basic auth in API and client
+			//Username = truckNumber;
+			//ApiKey = apiKey;
 		}
 		#endregion
 
 		#region GetNextJob
-		public JobDto GetNextJob(TruckDto truckRegistration)
+		/// <summary>
+		/// Calls GetNextJob?truckId={truckId} to get the next (or currently incomplete) job.
+		/// Emulator: 
+		/// </summary>
+		/// <param name="truckId"></param>
+		/// <returns>A jobDto with JobId > 0 is a job to be displayed. A jobId of 0 has SpecialInstructions explaining why there isn't a next job.</returns>
+		public JobDto GetNextJob(int truckId)
 		{
-
-			// TEST IN BROWSER -  http://localhost:56596/api/Jobs/GetNextJob?truckId=1
-
 			JobDto job = new JobDto();
-
 			try
 			{
 				using (var client = new HttpClient())
 				{
 					client.BaseAddress = new Uri(TripApiUrlBase);
-					var response = client.GetStringAsync($"GetNextJob?truckId={truckRegistration.TruckId}");
-					job = JsonConvert.DeserializeObject<JobDto>(response.Result);
+					string requestUrl = $"GetNextJob?truckId={truckId}";
+					var request = GetRequestHeaders(HttpMethod.Get, requestUrl);
+					var result = client.SendAsync(request).Result;
+					if (result.IsSuccessStatusCode)
+					{
+						string serializedJson = result.Content.ReadAsStringAsync().Result;
+						job = JsonConvert.DeserializeObject<JobDto>(serializedJson);
+					}
+					else if (result.StatusCode == HttpStatusCode.NotFound)
+					{
+						job.JobId = 0;
+						job.SpecialInstructions = "There are no more jobs scheduled for you at this time.";
+					}
 				}
 			}
 			catch (HttpRequestException ex)
 			{
-				var error = ex.Message;
-				throw;
+				job.JobId = 0;
+				job.SpecialInstructions = $"The request to get the next job failed. Check your internet connectivity and try again: {ex.Message}";
 			}
 			catch (AggregateException ex)
 			{
-				var error = ex.Message;
-				throw;
+				job.JobId = 0;
+				job.SpecialInstructions = $"An error occurred trying to get the next job. Check your internet connectivity and try again: {ex.Message}";
 			}
 
 			return job;
 		}
 		#endregion
 
-		#region RegisterTruckAsync
-		public async Task<TruckDto> PostRegisterTruckAsync(TruckDto truckRegistration)
+		#region RegisterTruck
+		public TruckDto RegisterTruck(TruckDto truckRegistration)
 		{
 			try
 			{
@@ -73,17 +87,14 @@ namespace RaskTrip.ApiClient
 				{
 					client.BaseAddress = new Uri(TripApiUrlBase);
 					var request = GetRequestHeaders(HttpMethod.Post, "PostRegisterTruck");
-					//client.DefaultRequestHeaders.Add("ContentType", "application/json");
-					//var json = JsonConvert.SerializeObject(truckRegistration);
-					//var content = new StringContent(json, Encoding.UTF8, "application/json");
 					SetRequestContent<TruckDto>(request, truckRegistration);
 					var result = client.SendAsync(request).Result;
-					//var result = await client.PostAsync($"PostRegisterTruck", content);
+					
 					if (result.IsSuccessStatusCode)
 					{
 						string serializedJson = result.Content.ReadAsStringAsync().Result;
 						TruckDto registeredTruck = JsonConvert.DeserializeObject<TruckDto>(serializedJson);
-						return await Task.FromResult(registeredTruck);
+						return registeredTruck;
 					}
 					else
 					{
@@ -98,91 +109,8 @@ namespace RaskTrip.ApiClient
 				truckRegistration.TruckId = 0;
 			}
 			return truckRegistration;
-
-			//using (var client = new HttpClient())
-			//{
-			//	client.PostAsJsonAsync(url, truckRegistration);
-
-			//	//var content = new StringContent(truckRegistration.ToString(), Encoding.UTF8, "application/json");
-			//	//content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-			//	//var result = client.PostAsync(url, content).Result;
-
-			//	//var content = new StringContent(JsonConvert.SerializeObject(jsonTruckRegistration), System.Text.Encoding.UTF8, "application/json");
-
-			//	// content = new HttpContent(truckRegistration);
-
-			//	//var result = client.PostAsJsonAsync(url, truckRegistration).Result;
-			//	return truckRegistration;
-
-
-			//	//using (var content = new StringContent(JsonConvert.SerializeObject(jsonTruckRegistration), System.Text.Encoding.UTF8, "application/json"))
-			//	//{
-			//	//	try
-			//	//	{
-			//	//		HttpResponseMessage result = client.PostAsync(url, content).Result;
-
-			//	//		if (result.StatusCode == System.Net.HttpStatusCode.Created)
-			//	//			return truckRegistration;
-
-			//	//		string returnValue = result.Content.ReadAsStringAsync().Result;
-
-			//	//		throw new Exception($"Failed to POST data: ({result.StatusCode}): {returnValue}");
-			//	//	}
-			//	//	catch (Exception ex)
-			//	//	{
-			//	//		var error = ex.Message;
-			//	//		throw;
-			//	//	}
-			//	//}
-			//}				
 		}
         #endregion
-
-        //public async Task<bool> PostLoginTruck(TruckDto truckRegistration)
-        //{
-        //	//string url = $"https://localhost:44357/api/Jobs/PostLoginTruck";
-        //	string url = $"http://10.0.2.2:56596/api/Jobs/PostLoginTruck";
-
-        //	var jsonTruckRegistration = JsonConvert.SerializeObject(truckRegistration);
-        //	var data = new StringContent(jsonTruckRegistration, Encoding.UTF8, "application/json");
-
-        //	using (var client = new HttpClient())
-        //	{
-        //		try
-        //		{
-        //			client.BaseAddress = new Uri(url);
-
-        //			//client.DefaultRequestHeaders.Add("ContentType", "application/json");
-
-        //			var userToAuthorize = truckRegistration.TruckNumber;
-        //			var passwordToUse = truckRegistration.ApiKey;
-
-        //			var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{userToAuthorize}:{passwordToUse}");
-        //			string val = System.Convert.ToBase64String(plainTextBytes);
-        //			client.DefaultRequestHeaders.Add("Authorization", "Basic " + val);
-
-        //			var method = new HttpMethod("GET");
-
-        //			HttpResponseMessage response = client.GetAsync(url).Result;
-        //			//string content = string.Empty;
-
-
-        //			//using (StreamReader stream = new StreamReader(response.Content.ReadAsStreamAsync().Result, System.Text.Encoding.GetEncoding()))
-        //			//{
-        //			//	content = stream.ReadToEnd();
-        //			//}
-
-        //			var result = response.Content.ReadAsStringAsync();
-        //			return Task.FromResult(result);
-        //		}
-        //		catch (Exception ex)
-        //		{
-        //			var error = ex.Message;
-        //			throw;
-        //		}
-
-        //	}
-        //}
 
         //public async Task<bool> PostClockInAsync(Job job)
         //{
