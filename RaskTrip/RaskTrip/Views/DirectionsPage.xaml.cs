@@ -36,8 +36,8 @@ namespace RaskTrip.Views
 			if (truckRegistration.TruckId == 0)
 			{
 				// Redirect to the RegisterLoginPage page. For some reason we don't have credentials, but we should by the time we get here.
-				Navigation.PopToRootAsync().RunSynchronously();
-				Navigation.PushAsync(new RegisterLoginPage()).RunSynchronously();
+				Navigation.PopToRootAsync();
+				Navigation.PushAsync(new RegisterLoginPage());
 			}
 			else
 			{

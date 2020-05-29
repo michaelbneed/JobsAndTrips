@@ -40,7 +40,7 @@ namespace RaskTrip.Views
 				{
 					message = CredentialsManager.SaveLoginCredentials(result);
 					if (!message.StartsWith("Error:"))
-						Navigation.PushAsync(new DirectionsPage()).RunSynchronously();
+						Navigation.PushAsync(new DirectionsPage());
 				}
 			}
 			else

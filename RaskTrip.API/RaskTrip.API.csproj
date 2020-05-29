@@ -169,7 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\DEV.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RaskTrip.BusinessObjects\RaskTrip.BusinessObjects.csproj">

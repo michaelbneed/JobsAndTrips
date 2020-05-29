@@ -23,9 +23,9 @@ namespace RaskTrip
 			string message = $"Truck {truckCredentials.TruckNumber} was successfully registered and saved to your device.";
 			try
 			{
-				SecureStorage.SetAsync("TruckId", truckCredentials.TruckId.ToString()).RunSynchronously();
-				SecureStorage.SetAsync("TruckNumber", truckCredentials.TruckNumber).RunSynchronously();
-				SecureStorage.SetAsync("TruckApiKey", truckCredentials.ApiKey).RunSynchronously();
+				SecureStorage.SetAsync("TruckId", truckCredentials.TruckId.ToString());
+				SecureStorage.SetAsync("TruckNumber", truckCredentials.TruckNumber);
+				SecureStorage.SetAsync("TruckApiKey", truckCredentials.ApiKey);
 			}
 			catch (Exception ex)
 			{
