@@ -25,10 +25,11 @@ namespace RaskTrip.Views
 			// TODO: Get data from storage
 			JobDto nextJob = new JobDto();
 			TruckDto truckRegistration = CredentialsManager.GetLoginCredentials();
-			truckRegistration.TruckId = 1;
 			ApiClient.ApiClient client = new ApiClient.ApiClient(truckRegistration.TruckNumber, truckRegistration.ApiKey);
 
 			nextJob = client.GetNextJob(truckRegistration.TruckId);
+
+			btnClockInClick.CommandParameter = nextJob.JobId.ToString();
 
 			lblCompanyTitle.Text = nextJob.PropertyName ?? "";
 
@@ -51,8 +52,21 @@ namespace RaskTrip.Views
 		{
 			if ((sender as Button).Text.Contains("Clock In"))
 			{
-				(sender as Button).Text = "Clock Out \n (" + DateTime.Now + ")"; ;
-				(sender as Button).BackgroundColor = Color.Red;
+				ClockInDto clockInDto = new ClockInDto();
+				clockInDto.JobId = long.Parse((sender as Button).CommandParameter.ToString());
+				clockInDto.ActualClockIn = DateTime.Now;
+				clockInDto.ActualWeightIn = null;  // TODO: need to get weigh in from UI
+				TruckDto truckRegistration = CredentialsManager.GetLoginCredentials();
+				ApiClient.ApiClient client = new ApiClient.ApiClient(truckRegistration.TruckNumber, truckRegistration.ApiKey);
+				if (client.ClockIn(clockInDto))
+				{
+					(sender as Button).Text = "Clock Out \n (" + DateTime.Now + ")"; ;
+					(sender as Button).BackgroundColor = Color.Red;
+				}
+				else
+				{
+					(sender as Button).Text = "Clock In failed. Please re-try. \n (" + DateTime.Now + ")";
+				}
 			}
 			else
 			{
