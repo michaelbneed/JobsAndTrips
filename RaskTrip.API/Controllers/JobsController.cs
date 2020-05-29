@@ -17,6 +17,7 @@ using RaskTrip.Utility.Security;
 using NLog.Fluent;
 using System.Collections.Generic;
 using System.Collections;
+using System.ServiceModel.Channels;
 
 namespace RaskTrip.API.Controllers
 {
@@ -28,6 +29,7 @@ namespace RaskTrip.API.Controllers
         #region GetNextJob
         [SwaggerResponse(HttpStatusCode.OK, Type = typeof(JobDto))]
 		[SwaggerResponse(HttpStatusCode.Unauthorized)]
+		[SwaggerResponse(HttpStatusCode.NotFound)]
 		[HttpGet]
 		public IHttpActionResult GetNextJob(int truckId)
 		{
@@ -173,8 +175,8 @@ namespace RaskTrip.API.Controllers
         [HttpPost]
 		public IHttpActionResult PostClockIn([FromBody] ClockInDto clockIn)
 		{
-			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockIn.JobId));
 			Log.Info($"Clock In for job {clockIn.JobId.ToString()} at {clockIn.ActualClockIn.ToString()}");
+			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockIn.JobId));
 			if (VerifyBasicAuthCredentials(job.ActualTruckId.Value))
 			{
 				if (job != null
@@ -186,7 +188,7 @@ namespace RaskTrip.API.Controllers
 					{
 						try
 						{
-							job.ActualClockIn = DateTime.Now;
+							job.ActualClockIn = clockIn.ActualClockIn;
 							job.ActualDriverVendorWorkerId = job.TripRoute.Trip.DriverVendorWorkerId;
 							job.TripRoute.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
 							job.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
@@ -219,6 +221,7 @@ namespace RaskTrip.API.Controllers
         [HttpPost]
 		public IHttpActionResult PostClockOut([FromBody] ClockOutDto clockOut)
 		{
+			Log.Info($"Clock Out for job {clockOut.JobId.ToString()} at {clockOut.ActualClockOut.ToString()}, service: {clockOut.ActualServicePerformed}, weight: {(clockOut.ActualWeightOut.HasValue? clockOut.ActualWeightOut.Value.ToString(): "null")}");
 			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockOut.JobId));
 
 			if (VerifyBasicAuthCredentials(job.ActualTruckId.Value))
@@ -333,12 +336,26 @@ namespace RaskTrip.API.Controllers
 			{
 				string basicAuthHeader = request.Headers.Get("Authorization");
 				string basicAuthBase64 = (!String.IsNullOrEmpty(basicAuthHeader) && basicAuthHeader.StartsWith("Basic ")) ? basicAuthHeader.Replace("Basic ", "") : String.Empty;
-				var basicAuthBinary = Convert.FromBase64String(basicAuthBase64);
-				var basicAuth = ASCIIEncoding.ASCII.GetString(basicAuthBinary);
-				var username = $"TRUCK_{basicAuth.Split(':')[0]}";
-				var password = basicAuth.Split(':')[1];
-				return VerifyAuthentication(username, password, truckId);
+				if (!string.IsNullOrEmpty(basicAuthBase64))
+				{
+					try
+					{
+						var basicAuthBinary = Convert.FromBase64String(basicAuthBase64);
+						var basicAuth = ASCIIEncoding.ASCII.GetString(basicAuthBinary);
+						var username = $"TRUCK_{basicAuth.Split(':')[0]}";
+						var password = basicAuth.Split(':')[1];
+						return VerifyAuthentication(username, password, truckId);
+					}
+					catch (Exception ex)
+					{
+						string message = ex.Message;
+						Log.Error($"Basic Authentication header from truck ID {truckId} is bad. Error: {message}");
+					}
+				}
+				else
+					Log.Error($"Authorization header value is missing or not supported for truck ID {truckId}");
 			}
+			Log.Error($"Authorization header is missing for truck ID {truckId}");
 			return result;
 		}
         #endregion
