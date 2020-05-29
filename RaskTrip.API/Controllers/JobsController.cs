@@ -25,7 +25,8 @@ namespace RaskTrip.API.Controllers
 		RaskTrip_Entities db = new RaskTrip_Entities();
 		Enums enums = new Enums();
 
-		[SwaggerResponse(HttpStatusCode.OK, Type = typeof(JobDto))]
+        #region GetNextJob
+        [SwaggerResponse(HttpStatusCode.OK, Type = typeof(JobDto))]
 		[SwaggerResponse(HttpStatusCode.Unauthorized)]
 		[HttpGet]
 		public IHttpActionResult GetNextJob(int truckId)
@@ -112,8 +113,10 @@ namespace RaskTrip.API.Controllers
 				return Unauthorized();
 			}			
 		}
+        #endregion
 
-		[HttpPost]
+        #region PostRegisterTruck
+        [HttpPost]
 		public HttpResponseMessage PostRegisterTruck([FromBody] TruckDto truckDto)
 		{
 			Truck truck = null;
@@ -164,16 +167,19 @@ namespace RaskTrip.API.Controllers
 			}
 			return message;
 		}
+        #endregion
 
-		[HttpPost]
+        #region PostClockIn
+        [HttpPost]
 		public IHttpActionResult PostClockIn([FromBody] ClockInDto clockIn)
 		{
 			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockIn.JobId));
-
+			Log.Info($"Clock In for job {clockIn.JobId.ToString()} at {clockIn.ActualClockIn.ToString()}");
 			if (VerifyBasicAuthCredentials(job.ActualTruckId.Value))
 			{
 				if (job != null
-				&& job.TripRoute.TripStatusId == Enums.TripStatusEnum.Dispatched.GetHashCode()
+				&& job.TripRoute.TripStatusId >= Enums.TripStatusEnum.Dispatched.GetHashCode()
+				&& job.TripRoute.TripStatusId < Enums.TripStatusEnum.Completed.GetHashCode()
 				&& job.TripStatusId == Enums.TripStatusEnum.Dispatched.GetHashCode())
 				{
 					if (job.JobId == clockIn.JobId)
@@ -207,8 +213,10 @@ namespace RaskTrip.API.Controllers
 			}
 			return NotFound();
 		}
+        #endregion
 
-		[HttpPost]
+        #region PostClockOut
+        [HttpPost]
 		public IHttpActionResult PostClockOut([FromBody] ClockOutDto clockOut)
 		{
 			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockOut.JobId));
@@ -302,16 +310,17 @@ namespace RaskTrip.API.Controllers
 			}			
 			return NotFound();
 		}
+        #endregion
 
-
-		/// <summary>
-		/// Verifies the basic authentication credentials passed in the HttpRequest header. The format of the basic auth is illustrated by the 
-		/// following code, which a client would use to add the header to a request:
-		/// request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(UserName + ":" + Password)));
-		/// </summary>
-		/// <param name="truckId"></param>
-		/// <returns></returns>
-		private bool VerifyBasicAuthCredentials(int truckId)
+        #region VerifyBasicAuthCredentials
+        /// <summary>
+        /// Verifies the basic authentication credentials passed in the HttpRequest header. The format of the basic auth is illustrated by the 
+        /// following code, which a client would use to add the header to a request:
+        /// request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(UserName + ":" + Password)));
+        /// </summary>
+        /// <param name="truckId"></param>
+        /// <returns></returns>
+        private bool VerifyBasicAuthCredentials(int truckId)
 		{
 			bool result = false;
 			var request = HttpContext.Current.Request;
@@ -332,8 +341,10 @@ namespace RaskTrip.API.Controllers
 			}
 			return result;
 		}
+        #endregion
 
-		private bool VerifyAuthentication(string username, string password, int truckId)
+        #region VerifyAuthentication
+        private bool VerifyAuthentication(string username, string password, int truckId)
 		{
 			bool result = false;
 			var user = db.Users.FirstOrDefault(u => u.Username == username && u.IsActive && !u.IsLockedOut);
@@ -347,5 +358,6 @@ namespace RaskTrip.API.Controllers
 			}
 			return result;
 		}
+		#endregion
 	}
 }

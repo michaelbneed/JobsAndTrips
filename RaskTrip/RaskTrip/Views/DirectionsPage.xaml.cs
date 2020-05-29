@@ -46,15 +46,14 @@ namespace RaskTrip.Views
 				if (nextJob != null && nextJob.JobId > 0)
 				{
 					lblPropertyName.Text = nextJob.PropertyName;
-					lblPropertyAddress.Text = (nextJob.Street1 ?? "") + " " + (nextJob.Street2 ?? "") + "n\n" +
-						" " + (nextJob.City ?? "") + ", " + (nextJob.State ?? "") + " " + (nextJob.ZipCode ?? "");
+					lblPropertyAddress.Text = $"{nextJob.Street1 ?? ""} {nextJob.Street2 ?? ""}\n {nextJob.City ?? ""}, {nextJob.State ?? ""} {nextJob.ZipCode ?? ""}";
 
 					lblOpsContactName.Text = nextJob.OperationsContactName ?? "";
-					lblOpsContactPhone.Text = nextJob.SalesRepPhone ?? "";
+					lblOpsContactPhone.Text = nextJob.OperationsContactPhone ?? "";
 
 					lblServiceName.Text = nextJob.JobServiceName ?? "";
-					lblAccountManager.Text = nextJob.SalesRepContactName ?? "";
-					// lblAccountManagerPhone.Text = nextJob.SalesRepPhone ?? "";
+					lblAccountManagerName.Text = nextJob.SalesRepContactName ?? "";
+					lblAccountManagerPhone.Text = nextJob.SalesRepPhone ?? "";
 
 					if (nextJob.GpsLatitude != 0.0 && nextJob.GpsLongitude != 0.0)
 					{
@@ -71,10 +70,11 @@ namespace RaskTrip.Views
 					// TODO: Should we display a modal with the nextJob.SpecialInstructions in it and allow them to re-try, 
 					// TODO: or should we stay on this page and add a Retry button??
 					lblOpsContactName.Text = "";
-					lblPropertyAddress.Text = "";
 					lblOpsContactPhone.Text = "";
+					lblPropertyAddress.Text = "";
 					lblServiceName.Text = nextJob?.SpecialInstructions;
-					lblAccountManager.Text = "";
+					lblAccountManagerName.Text = "";
+					lblAccountManagerPhone.Text = "";
 					lblPropertyName.Text = "No More Properties";
 
 					position = GetLocationAsync().Result;
@@ -124,24 +124,28 @@ namespace RaskTrip.Views
 			}
 		}
 		
-		private async void ButtonSiteMapClick(object sender, EventArgs e)
+		private async void ButtonSiteMap_Click(object sender, EventArgs e)
 		{
 			await Navigation.PushAsync(new SiteMapPage());
 		}
 
-		private async void ButtonRegisterTruckClick(object sender, EventArgs e)
+		private void BtnCallOps_Click(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new RegisterLoginPage());
+			InitiatePhoneCall(lblOpsContactPhone.Text);
+		}
+		private void BtnCallAccountManager_Click(object sender, EventArgs e)
+		{
+			InitiatePhoneCall(lblAccountManagerPhone.Text);
 		}
 
-		private void BtnCall_Click(object sender, EventArgs e)
+		private void InitiatePhoneCall( string phoneNumber )
 		{
 			var call = CrossMessaging.Current.PhoneDialer;
 			if (call.CanMakePhoneCall)
 			{
-				if (lblOpsContactPhone.Text != string.Empty)
+				if (!string.IsNullOrEmpty(phoneNumber))
 				{
-					call.MakePhoneCall(lblOpsContactPhone.Text);
+					call.MakePhoneCall(phoneNumber);
 				}
 			}
 		}

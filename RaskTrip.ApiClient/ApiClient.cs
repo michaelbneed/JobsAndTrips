@@ -27,9 +27,9 @@ namespace RaskTrip.ApiClient
 
 		public ApiClient(string truckNumber, string apiKey)
 		{
-			// TODO: enable Basic auth in API and client
-			//Username = truckNumber;
-			//ApiKey = apiKey;
+			// enable Basic auth in API and client
+			Username = truckNumber;
+			ApiKey = apiKey;
 		}
 		#endregion
 
@@ -112,31 +112,69 @@ namespace RaskTrip.ApiClient
 		}
         #endregion
 
-        //public async Task<bool> PostClockInAsync(Job job)
-        //{
-        //	string url = $"https://localhost:44357/api/Jobs/PostClockIn"; // what will my api url look like - move to config file	
+        #region ClockIn
+        public bool ClockIn(ClockInDto clockInDto)
+		{
+			try
+			{
+				using (var client = new HttpClient())
+				{
+					client.BaseAddress = new Uri(TripApiUrlBase);
+					string requestUrl = $"PostClockIn";
+					var request = GetRequestHeaders(HttpMethod.Get, requestUrl);
+					var jsonContent = JsonConvert.SerializeObject(clockInDto);
+					request.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+					var result = client.SendAsync(request).Result;
+					if (result.IsSuccessStatusCode)
+					{
+						string serializedJson = result.Content.ReadAsStringAsync().Result;
+						clockInDto = JsonConvert.DeserializeObject<ClockInDto>(serializedJson);
+						return true;
+					}
+					else
+						return false;
+				}
+			}
+			catch (Exception ex)
+			{
+				var message = ex.Message;
+				return false;
+			}
+		}
+		#endregion
 
-        //	var jsonJob = JsonConvert.SerializeObject(job);
-        //	var data = new StringContent(jsonJob, Encoding.UTF8, "application/json");
-        //	var response = await httpClient.PostAsync(url, data);
+		#region ClockOut
+		public bool ClockOut(ClockInDto clockOutDto)
+		{
+			try
+			{
+				using (var client = new HttpClient())
+				{
+					client.BaseAddress = new Uri(TripApiUrlBase);
+					string requestUrl = $"PostClockOut";
+					var request = GetRequestHeaders(HttpMethod.Get, requestUrl);
+					var jsonContent = JsonConvert.SerializeObject(clockOutDto);
+					request.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+					var result = client.SendAsync(request).Result;
+					if (result.IsSuccessStatusCode)
+					{
+						string serializedJson = result.Content.ReadAsStringAsync().Result;
+						clockOutDto = JsonConvert.DeserializeObject<ClockInDto>(serializedJson);
+						return true;
+					}
+					else
+						return false;
+				}
+			}
+			catch (Exception ex)
+			{
+				var message = ex.Message;
+				return false;
+			}
+		}
+		#endregion
 
-        //	var result = response.Content.IsHttpResponseMessageContent();
-        //	return result;
-        //}
-
-        //public async Task<bool> PostClockOut(Job job)
-        //{
-        //	string url = $"https://localhost:44357/api/Jobs/PostClockOut"; // what will my api url look like - move to config file	
-
-        //	var jsonJob = JsonConvert.SerializeObject(job);
-        //	var data = new StringContent(jsonJob, Encoding.UTF8, "application/json");
-        //	var response = await httpClient.PostAsync(url, data);
-
-        //	var result = response.Content.IsHttpResponseMessageContent();
-        //	return result;
-        //}
-
-        private HttpRequestMessage GetRequestHeaders(HttpMethod httpMethod, string url)
+		private HttpRequestMessage GetRequestHeaders(HttpMethod httpMethod, string url)
 		{
 			var request = new HttpRequestMessage(httpMethod, url);
 			request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
