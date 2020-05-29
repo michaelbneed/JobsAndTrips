@@ -31,76 +31,86 @@ namespace RaskTrip.API.Controllers
 		public IHttpActionResult GetNextJob(int truckId)
 		{
 			db.Configuration.ProxyCreationEnabled = false;
-			// TODO: verify the auth header in the HttpRequest.
-			// TODO: Create an ENUM for the TripRouteStatus values...
-			const int TripRouteStatusEnumInProcess = 3;
-			var job = db.Jobs.Include("Property").Include("PropertyAddress").Include("PropertyWorkType").Include("TripRoute.Trip")
-				.OrderBy(r => r.TripRoute.TripRouteOrder).ThenBy(o => o.JobStopOrder)
-				.Where(q => q.TripRoute.Trip.TruckId == truckId && q.TripRoute.IsPublished 
-						&& q.TripRoute.TripStatusId <= TripRouteStatusEnumInProcess  && q.TripStatusId <= TripRouteStatusEnumInProcess)
-				.FirstOrDefault(j => j.ActualTruckId == truckId);
-			JobDto jobDto = new JobDto();
 
-			try
+			if (VerifyBasicAuthCredentials(truckId))
 			{
-				if (job != null)
+				var stausInProgress = Enums.TripStatusEnum.InProcess.GetHashCode();
+				var job = db.Jobs.Include("Property")
+					.Include("PropertyAddress")
+					.Include("PropertyWorkType")
+					.Include("TripRoute.Trip")
+					.OrderBy(r => r.TripRoute.TripRouteOrder).ThenBy(o => o.JobStopOrder)
+					.Where(q => q.TripRoute.Trip.TruckId == truckId && q.TripRoute.IsPublished
+							&& q.TripRoute.TripStatusId <= stausInProgress && q.TripStatusId <= stausInProgress)
+					.FirstOrDefault(j => j.ActualTruckId == truckId);
+				JobDto jobDto = new JobDto();
+
+				try
 				{
-					jobDto.JobId = job.JobId;
-					jobDto.JobServiceName = job.JobServiceName;
-					jobDto.PropertyName = job.PropertyName;
-					jobDto.Street1 = job.PropertyAddress.Street1;
-					jobDto.Street2 = job.PropertyAddress.Street2;
-					jobDto.City = job.PropertyAddress.City;
-					jobDto.State = db.States.FirstOrDefault(s => s.StateId == job.PropertyAddress.StateId).StateName;
-					jobDto.ZipCode = job.PropertyAddress.ZipCode;
-					jobDto.GpsLatitude = (job.PropertyAddress.GpsLatitude.HasValue) ? job.PropertyAddress.GpsLatitude.Value : 0.0;
-					jobDto.GpsLongitude = (job.PropertyAddress.GpsLongitude.HasValue) ? job.PropertyAddress.GpsLongitude.Value : 0.0;
-					jobDto.GpsRadius = (job.PropertyAddress.GpsRadius.HasValue) ? job.PropertyAddress.GpsRadius.Value : 0.0;
-					jobDto.JobRequiresWeighInOut = job.JobRequiresWeighInOut;
-					jobDto.SiteFotosUrl = job.Property.SitefotosUrl;
-
-					if (job.SalesRepUserId.HasValue)
+					if (job != null)
 					{
-						var salesRep = db.Users.FirstOrDefault(u => u.UserId == job.SalesRepUserId.Value);
-						if (salesRep != null)
-						{
-							jobDto.SalesRepContactName = salesRep.FirstName + " " + salesRep.LastName;
-							jobDto.SalesRepPhone = salesRep.MobilePhone;
-						}
-					}
+						jobDto.JobId = job.JobId;
+						jobDto.JobServiceName = job.JobServiceName;
+						jobDto.PropertyName = job.PropertyName;
+						jobDto.Street1 = job.PropertyAddress.Street1;
+						jobDto.Street2 = job.PropertyAddress.Street2;
+						jobDto.City = job.PropertyAddress.City;
+						jobDto.State = db.States.FirstOrDefault(s => s.StateId == job.PropertyAddress.StateId).StateName;
+						jobDto.ZipCode = job.PropertyAddress.ZipCode;
+						jobDto.GpsLatitude = (job.PropertyAddress.GpsLatitude.HasValue) ? job.PropertyAddress.GpsLatitude.Value : 0.0;
+						jobDto.GpsLongitude = (job.PropertyAddress.GpsLongitude.HasValue) ? job.PropertyAddress.GpsLongitude.Value : 0.0;
+						jobDto.GpsRadius = (job.PropertyAddress.GpsRadius.HasValue) ? job.PropertyAddress.GpsRadius.Value : 0.0;
+						jobDto.JobRequiresWeighInOut = job.JobRequiresWeighInOut;
+						jobDto.SiteFotosUrl = job.Property.SitefotosUrl;
 
-					if (job.OperationsUserId.HasValue)
-					{
-						var operationsUser = db.Users.FirstOrDefault(u => u.UserId == job.OperationsUserId.Value);
-						if (operationsUser != null)
+						if (job.SalesRepUserId.HasValue)
 						{
-							jobDto.OperationsContactName = operationsUser.FirstName + " " + operationsUser.LastName;
-							jobDto.OperationsContactPhone = operationsUser.MobilePhone;
+							var salesRep = db.Users.FirstOrDefault(u => u.UserId == job.SalesRepUserId.Value);
+							if (salesRep != null)
+							{
+								jobDto.SalesRepContactName = salesRep.FirstName + " " + salesRep.LastName;
+								jobDto.SalesRepPhone = salesRep.MobilePhone;
+							}
 						}
-					}
 
-					if (job.PropertyWorkType != null && !string.IsNullOrEmpty(job.PropertyWorkType.Notes))
-						jobDto.SpecialInstructions = job.PropertyWorkType.Notes;
+						if (job.OperationsUserId.HasValue)
+						{
+							var operationsUser = db.Users.FirstOrDefault(u => u.UserId == job.OperationsUserId.Value);
+							if (operationsUser != null)
+							{
+								jobDto.OperationsContactName = operationsUser.FirstName + " " + operationsUser.LastName;
+								jobDto.OperationsContactPhone = operationsUser.MobilePhone;
+							}
+						}
+
+						if (job.PropertyWorkType != null && !string.IsNullOrEmpty(job.PropertyWorkType.Notes))
+							jobDto.SpecialInstructions = job.PropertyWorkType.Notes;
+						else
+							jobDto.SpecialInstructions = "";
+
+						job.TripRoute.TripStatusId = Enums.TripStatusEnum.Dispatched.GetHashCode();
+						job.TripStatusId = Enums.TripStatusEnum.Dispatched.GetHashCode();
+						job.ActualTruckId = truckId;
+						db.SaveChanges();
+					}
 					else
-						jobDto.SpecialInstructions = "";
+					{
+						Log.Info("Failed to find a qualified job!");
+						return NotFound();
+					}
 
-					job.TripRoute.TripStatusId = Enums.TripStatusEnum.Dispatched.GetHashCode();
-					job.TripStatusId = Enums.TripStatusEnum.Dispatched.GetHashCode();
-					db.SaveChanges();
+					return Ok(jobDto);
 				}
-				else
+				catch (Exception ex)
 				{
-					Log.Info("JobID: " + job.JobId + "Failed to find a qualified job!");
-					return NotFound();
+					Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
+					throw;
 				}
-				
-				return Ok(jobDto);
 			}
-			catch (Exception ex)
+			else
 			{
-				Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
-				throw;
-			}
+				return Unauthorized();
+			}			
 		}
 
 		[HttpPost]
@@ -129,7 +139,6 @@ namespace RaskTrip.API.Controllers
 								truckDto.TruckId = truck.TruckId;
 								truckDto.Message = "Successful Registration";
 								message = Request.CreateResponse<TruckDto>(HttpStatusCode.Created, truckDto);
-								//return Ok(response);
 							}
 						}
 						else
@@ -159,37 +168,42 @@ namespace RaskTrip.API.Controllers
 		[HttpPost]
 		public IHttpActionResult PostClockIn([FromBody] ClockInDto clockIn)
 		{
-			// TODO: verify basic authentication from http header (write a common method to do this)
-
 			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockIn.JobId));
-						
-			if (job != null
+
+			if (VerifyBasicAuthCredentials(job.ActualTruckId.Value))
+			{
+				if (job != null
 				&& job.TripRoute.TripStatusId == Enums.TripStatusEnum.Dispatched.GetHashCode()
 				&& job.TripStatusId == Enums.TripStatusEnum.Dispatched.GetHashCode())
-			{
-				if (job.JobId == clockIn.JobId)
 				{
-					try
+					if (job.JobId == clockIn.JobId)
 					{
-						job.ActualClockIn = DateTime.Now;
-						job.ActualDriverVendorWorkerId = job.TripRoute.Trip.DriverVendorWorkerId;
-						job.TripRoute.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
-						job.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
-
-						if (job.JobRequiresWeighInOut)
+						try
 						{
-							job.ActualWeightIn = clockIn.ActualWeightIn;
-						}
+							job.ActualClockIn = DateTime.Now;
+							job.ActualDriverVendorWorkerId = job.TripRoute.Trip.DriverVendorWorkerId;
+							job.TripRoute.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
+							job.TripStatusId = Enums.TripStatusEnum.InProcess.GetHashCode();
 
-						db.SaveChanges();
-						return Ok(clockIn);
-					}
-					catch (Exception ex)
-					{
-						Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
-						return NotFound();
+							if (job.JobRequiresWeighInOut)
+							{
+								job.ActualWeightIn = clockIn.ActualWeightIn;
+							}
+
+							db.SaveChanges();
+							return Ok(clockIn);
+						}
+						catch (Exception ex)
+						{
+							Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
+							return NotFound();
+						}
 					}
 				}
+			}
+			else
+			{
+				return Unauthorized();
 			}
 			return NotFound();
 		}
@@ -197,90 +211,95 @@ namespace RaskTrip.API.Controllers
 		[HttpPost]
 		public IHttpActionResult PostClockOut([FromBody] ClockOutDto clockOut)
 		{
-			// TODO: verify basic authentication from http header (write a common method to do this)
-
 			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockOut.JobId));
 
-			if (job != null
+			if (VerifyBasicAuthCredentials(job.ActualTruckId.Value))
+			{
+				if (job != null
 				&& job.TripRoute.TripStatusId == Enums.TripStatusEnum.InProcess.GetHashCode()
 				&& job.TripStatusId == Enums.TripStatusEnum.InProcess.GetHashCode())
-			{
-				if (job.JobId == clockOut.JobId)
 				{
-					try
+					if (job.JobId == clockOut.JobId)
 					{
-						job.ActualClockOut = DateTime.Now;
-						
-						if (clockOut.ActualServicePerformed.ToLower() == job.JobServiceName.ToLower())
+						try
 						{
-							job.ActualPropertyFlatRateId = job.JobPropertyFlatRateId;
-						}
-						else
-						{
-							var propertyFlatRateContractId = db.PropertyFlatRates.FirstOrDefault(p => p.PropertyFlatRateId.Equals(job.JobPropertyFlatRateId)).PropertyContractId;
-							List<PropertyFlatRate> propertyFlatRateList = db.PropertyFlatRates.Where(p=> p.PropertyContractId == propertyFlatRateContractId).ToList();
-							foreach (var item in propertyFlatRateList)
+							job.ActualClockOut = DateTime.Now;
+
+							if (clockOut.ActualServicePerformed.ToLower() == job.JobServiceName.ToLower())
 							{
-								if (item.ExpirationDate == null)
+								job.ActualPropertyFlatRateId = job.JobPropertyFlatRateId;
+							}
+							else
+							{
+								var propertyFlatRateContractId = db.PropertyFlatRates.FirstOrDefault(p => p.PropertyFlatRateId.Equals(job.JobPropertyFlatRateId)).PropertyContractId;
+								List<PropertyFlatRate> propertyFlatRateList = db.PropertyFlatRates.Where(p => p.PropertyContractId == propertyFlatRateContractId).ToList();
+								foreach (var item in propertyFlatRateList)
 								{
-									// TODO: Pending call with Daniel on the potential bad data we are looking at in this loop
-									// TODO: finish logic of comparing the clockOut dto service with the job.servicename
-									switch (item.ShortName)
+									if (item.ExpirationDate == null)
 									{
-										case "Standard/Partial":
-											job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-											break;
-										case "Full":
-											job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-											break;
-										case "SkippedNotPlowed":
-											job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-											break;
-										case "SkippedNoAccess":
-											job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-											break;
-										default:
-											job.ActualPropertyFlatRateId = job.JobPropertyFlatRateId;
-											break;
+										// TODO: Pending call with Daniel on the potential bad data we are looking at in this loop
+										// TODO: finish logic of comparing the clockOut dto service with the job.servicename
+										switch (item.ShortName)
+										{
+											case "Standard/Partial":
+												job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+												break;
+											case "Full":
+												job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+												break;
+											case "SkippedNotPlowed":
+												job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+												break;
+											case "SkippedNoAccess":
+												job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+												break;
+											default:
+												job.ActualPropertyFlatRateId = job.JobPropertyFlatRateId;
+												break;
+										}
+										//if (item.ShortName.ToLower().Contains(clockOut.ActualServicePerformed))
+										//{
+										//	job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
+										//}
 									}
-									//if (item.ShortName.ToLower().Contains(clockOut.ActualServicePerformed))
-									//{
-									//	job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-									//}
 								}
 							}
-						}
 
-						// TODO: Update the status like below, but might need to account for a variation as above in the loop
-						if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNotPlowed.ToString())
-						{
-							job.TripStatusId = Enums.TripStatusEnum.SkippedNotPlowed.GetHashCode();
-						}
-						else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNoAccess.ToString())
-						{
-							job.TripStatusId = Enums.TripStatusEnum.SkippedNoAccess.GetHashCode();
-						}
-						else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.Completed.ToString())
-						{
-							job.TripStatusId = Enums.TripStatusEnum.Completed.GetHashCode();
-						}
-						
-						if (job.JobRequiresWeighInOut)
-						{
-							job.ActualWeightOut = clockOut.ActualWeightOut;
-							job.ActualTonnage = job.ActualWeightIn = clockOut.ActualWeightOut;
-						}
+							// TODO: Update the status like below, but might need to account for a variation as above in the loop
+							if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNotPlowed.ToString())
+							{
+								job.TripStatusId = Enums.TripStatusEnum.SkippedNotPlowed.GetHashCode();
+							}
+							else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNoAccess.ToString())
+							{
+								job.TripStatusId = Enums.TripStatusEnum.SkippedNoAccess.GetHashCode();
+							}
+							else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.Completed.ToString())
+							{
+								job.TripStatusId = Enums.TripStatusEnum.Completed.GetHashCode();
+							}
 
-						db.SaveChanges();
-						return Ok(clockOut);
-					}
-					catch (Exception ex)
-					{
-						Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
-						return NotFound();
+							if (job.JobRequiresWeighInOut)
+							{
+								job.ActualWeightOut = clockOut.ActualWeightOut;
+								job.ActualTonnage = job.ActualWeightIn = clockOut.ActualWeightOut;
+							}
+
+							db.SaveChanges();
+							return Ok(clockOut);
+						}
+						catch (Exception ex)
+						{
+							Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
+							return NotFound();
+						}
 					}
 				}
-			}
+				else
+				{
+					return Unauthorized();
+				}
+			}			
 			return NotFound();
 		}
 
@@ -296,13 +315,18 @@ namespace RaskTrip.API.Controllers
 		{
 			bool result = false;
 			var request = HttpContext.Current.Request;
+			
+			//Add a test...
+			//In the below request header add statement change the truck number and apikey (user and password)
+			//request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes("4210" + ":" + "dev")));  4210 is trucknum and dev is apikey
+			
 			if (request.Headers.HasKeys() && !String.IsNullOrEmpty(request.Headers.Get("Authorization")))
 			{
 				string basicAuthHeader = request.Headers.Get("Authorization");
 				string basicAuthBase64 = (!String.IsNullOrEmpty(basicAuthHeader) && basicAuthHeader.StartsWith("Basic ")) ? basicAuthHeader.Replace("Basic ", "") : String.Empty;
 				var basicAuthBinary = Convert.FromBase64String(basicAuthBase64);
 				var basicAuth = ASCIIEncoding.ASCII.GetString(basicAuthBinary);
-				var username = basicAuth.Split(':')[0];
+				var username = $"TRUCK_{basicAuth.Split(':')[0]}";
 				var password = basicAuth.Split(':')[1];
 				return VerifyAuthentication(username, password, truckId);
 			}
