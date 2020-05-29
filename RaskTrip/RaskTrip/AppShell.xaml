@@ -29,7 +29,7 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <TabBar>
+    <TabBar x:Name="LowerTab">
         <Tab Title="Drive" Icon="tab_geo.png">
             <ShellContent ContentTemplate="{DataTemplate local:DirectionsPage}" />
         </Tab>
@@ -38,12 +38,12 @@
         </Tab>
     </TabBar>
     
-    <Shell.FlyoutHeaderTemplate>
+    <!--<Shell.FlyoutHeaderTemplate x:Uid="FlyOut">
         <DataTemplate>
             <StackLayout>
                 <Button x:Name="btnSiteMap" Text="Site Map" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="DarkRed" 
                         TextColor="White" Clicked="ButtonSiteMapClick" ImageSource="tab_geo.png" WidthRequest="200"></Button>
             </StackLayout>
         </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
+    </Shell.FlyoutHeaderTemplate>-->
 </Shell>

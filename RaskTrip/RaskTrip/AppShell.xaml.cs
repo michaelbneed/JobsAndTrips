@@ -13,19 +13,9 @@ namespace RaskTrip
 		public AppShell()
 		{
 			InitializeComponent();
+			
 			SetTabBarIsVisible(this, false);
 			SetNavBarIsVisible(this, false);
-			var truckCredentials = CredentialsManager.GetLoginCredentials();
-			if (truckCredentials.TruckId > 0)
-			{
-				var validCredentials = CredentialsManager.VerifyCredentials(truckCredentials);
-				if (validCredentials.TruckId > 0)
-					Navigation.PushAsync(new DirectionsPage());
-				else
-					Navigation.PushAsync(new RegisterLoginPage());
-			}
-			else
-				Navigation.PushAsync(new RegisterLoginPage());
 		}
 
 		private async void ButtonDriveClick(object sender, EventArgs e)
