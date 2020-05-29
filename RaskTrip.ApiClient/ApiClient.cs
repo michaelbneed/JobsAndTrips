@@ -25,47 +25,61 @@ namespace RaskTrip.ApiClient
 		#region Constructors
 		public ApiClient() { }
 
-		public ApiClient(string username, string apiKey)
+		public ApiClient(string truckNumber, string apiKey)
 		{
-			Username = username;
-			ApiKey = apiKey;
+			// TODO: enable Basic auth in API and client
+			//Username = truckNumber;
+			//ApiKey = apiKey;
 		}
 		#endregion
 
 		#region GetNextJob
-		public JobDto GetNextJob(TruckDto truckRegistration)
+		/// <summary>
+		/// Calls GetNextJob?truckId={truckId} to get the next (or currently incomplete) job.
+		/// Emulator: 
+		/// </summary>
+		/// <param name="truckId"></param>
+		/// <returns>A jobDto with JobId > 0 is a job to be displayed. A jobId of 0 has SpecialInstructions explaining why there isn't a next job.</returns>
+		public JobDto GetNextJob(int truckId)
 		{
-
-			// TEST IN BROWSER -  http://localhost:56596/api/Jobs/GetNextJob?truckId=1
-
 			JobDto job = new JobDto();
-
 			try
 			{
 				using (var client = new HttpClient())
 				{
 					client.BaseAddress = new Uri(TripApiUrlBase);
-					var response = client.GetStringAsync($"GetNextJob?truckId={truckRegistration.TruckId}");
-					job = JsonConvert.DeserializeObject<JobDto>(response.Result);
+					string requestUrl = $"GetNextJob?truckId={truckId}";
+					var request = GetRequestHeaders(HttpMethod.Get, requestUrl);
+					var result = client.SendAsync(request).Result;
+					if (result.IsSuccessStatusCode)
+					{
+						string serializedJson = result.Content.ReadAsStringAsync().Result;
+						job = JsonConvert.DeserializeObject<JobDto>(serializedJson);
+					}
+					else if (result.StatusCode == HttpStatusCode.NotFound)
+					{
+						job.JobId = 0;
+						job.SpecialInstructions = "There are no more jobs scheduled for you at this time.";
+					}
 				}
 			}
 			catch (HttpRequestException ex)
 			{
-				var error = ex.Message;
-				throw;
+				job.JobId = 0;
+				job.SpecialInstructions = $"The request to get the next job failed. Check your internet connectivity and try again: {ex.Message}";
 			}
 			catch (AggregateException ex)
 			{
-				var error = ex.Message;
-				throw;
+				job.JobId = 0;
+				job.SpecialInstructions = $"An error occurred trying to get the next job. Check your internet connectivity and try again: {ex.Message}";
 			}
 
 			return job;
 		}
 		#endregion
 
-		#region RegisterTruckAsync
-		public async Task<TruckDto> PostRegisterTruckAsync(TruckDto truckRegistration)
+		#region RegisterTruck
+		public TruckDto RegisterTruck(TruckDto truckRegistration)
 		{
 			try
 			{
@@ -80,7 +94,7 @@ namespace RaskTrip.ApiClient
 					{
 						string serializedJson = result.Content.ReadAsStringAsync().Result;
 						TruckDto registeredTruck = JsonConvert.DeserializeObject<TruckDto>(serializedJson);
-						return await Task.FromResult(registeredTruck);
+						return registeredTruck;
 					}
 					else
 					{

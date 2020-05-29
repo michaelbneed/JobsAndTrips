@@ -27,6 +27,7 @@ namespace RaskTrip.API.Controllers
 
 		[SwaggerResponse(HttpStatusCode.OK, Type = typeof(JobDto))]
 		[SwaggerResponse(HttpStatusCode.Unauthorized)]
+		[SwaggerResponse(HttpStatusCode.NotFound)]
 		[HttpGet]
 		public IHttpActionResult GetNextJob(int truckId)
 		{

@@ -23,7 +23,7 @@ namespace RaskTrip.Views
 
 		}
 
-		private async void ButtonRegisterTruck(object sender, EventArgs e)
+		private void ButtonRegisterTruck(object sender, EventArgs e)
 		{
 			string message = "Attempting to register the truck";
 			messageLabel.Text = message;
@@ -32,13 +32,15 @@ namespace RaskTrip.Views
 			newTruck.TruckNumber = usernameEntry.Text;
 			newTruck.ApiKey = passwordEntry.Text;
 
-			var result = await CredentialsManager.VerifyCredentials(newTruck);
+			var result = CredentialsManager.VerifyCredentials(newTruck);
 			if (result != null)
 			{
 				message = result.Message;
 				if (result.TruckId > 0)
 				{
-					message = await CredentialsManager.SaveLoginCredentials(result);
+					message = CredentialsManager.SaveLoginCredentials(result);
+					if (!message.StartsWith("Error:"))
+						Navigation.PushAsync(new DirectionsPage()).RunSynchronously();
 				}
 			}
 			else

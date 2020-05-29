@@ -18,18 +18,18 @@ namespace RaskTrip
 		/// <param name="truckNumber">The truck number entered by the user during truck registration</param>
 		/// <param name="apiKey">The API key (password) entered by the user during truck registration</param>
 		/// <returns>a message as to weather the credentials were saved</returns>
-		public static async Task<string> SaveLoginCredentials(TruckDto truckCredentials)
+		public static string SaveLoginCredentials(TruckDto truckCredentials)
 		{
 			string message = $"Truck {truckCredentials.TruckNumber} was successfully registered and saved to your device.";
 			try
 			{
-				await SecureStorage.SetAsync("TruckId", truckCredentials.TruckId.ToString());
-				await SecureStorage.SetAsync("TruckNumber", truckCredentials.TruckNumber);
-				await SecureStorage.SetAsync("TruckApiKey", truckCredentials.ApiKey);
+				SecureStorage.SetAsync("TruckId", truckCredentials.TruckId.ToString()).RunSynchronously();
+				SecureStorage.SetAsync("TruckNumber", truckCredentials.TruckNumber).RunSynchronously();
+				SecureStorage.SetAsync("TruckApiKey", truckCredentials.ApiKey).RunSynchronously();
 			}
 			catch (Exception ex)
 			{
-				message = "Registration credentials could not be saved: " + ex.Message;
+				message = "Error: Registration credentials could not be saved: " + ex.Message;
 			}
 			return message;
 		}
@@ -38,20 +38,20 @@ namespace RaskTrip
 		/// Returns saved login credentials in a TruckDto object.
 		/// </summary>
 		/// <returns>TruckDto with non-zero TruckId if there are saved credentials. TruckId = 0 otherwise.</returns>
-		public static async Task<TruckDto> GetLoginCredentials()
+		public static TruckDto GetLoginCredentials()
 		{
 			TruckDto truckCreds = new TruckDto();
 			try
 			{
-				string truckid = await SecureStorage.GetAsync("TruckId");
+				string truckid = SecureStorage.GetAsync("TruckId").Result;
 				int intTruckId = 0;
 				if (int.TryParse(truckid, out intTruckId))
 					truckCreds.TruckId = intTruckId;
 				else
 					truckCreds.TruckId = 0;
 
-				truckCreds.TruckNumber = await SecureStorage.GetAsync("TruckNumber");
-				truckCreds.ApiKey = await SecureStorage.GetAsync("TruckApiKey");
+				truckCreds.TruckNumber = SecureStorage.GetAsync("TruckNumber").Result;
+				truckCreds.ApiKey = SecureStorage.GetAsync("TruckApiKey").Result;
 			}
 			catch (Exception ex)
 			{
@@ -65,10 +65,10 @@ namespace RaskTrip
 		/// </summary>
 		/// <param name="truckCredentials"></param>
 		/// <returns>the TruckDto -- TruckId > 0 for a successful login.</returns>
-		public static async Task<TruckDto> VerifyCredentials(TruckDto truckCredentials)
+		public static TruckDto VerifyCredentials(TruckDto truckCredentials)
 		{
 			ApiClient.ApiClient client = new ApiClient.ApiClient();
-			var result = await client.PostRegisterTruckAsync(truckCredentials);
+			var result = client.RegisterTruck(truckCredentials);
 			if (result != null)
 			{
 				return result;

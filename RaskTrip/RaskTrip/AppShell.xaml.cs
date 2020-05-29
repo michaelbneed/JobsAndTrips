@@ -15,10 +15,10 @@ namespace RaskTrip
 			InitializeComponent();
 			SetTabBarIsVisible(this, false);
 			SetNavBarIsVisible(this, false);
-			var truckCredentials = CredentialsManager.GetLoginCredentials().Result;
+			var truckCredentials = CredentialsManager.GetLoginCredentials();
 			if (truckCredentials.TruckId > 0)
 			{
-				var validCredentials = CredentialsManager.VerifyCredentials(truckCredentials).Result;
+				var validCredentials = CredentialsManager.VerifyCredentials(truckCredentials);
 				if (validCredentials.TruckId > 0)
 					Navigation.PushAsync(new DirectionsPage());
 				else
