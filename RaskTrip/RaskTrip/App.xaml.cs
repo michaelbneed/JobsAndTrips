@@ -13,7 +13,7 @@ namespace RaskTrip
 			InitializeComponent();
 
 			MainPage = new AppShell();
-			OnStart();
+			//OnStart();
 		}
 
 		protected override void OnStart()

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Plugin.Messaging;
 using RaskTrip.ApiClient;
 using RaskTrip.BusinessObjects.Models;
+using System.Web;
 
 namespace RaskTrip.Views
 {
@@ -48,22 +49,33 @@ namespace RaskTrip.Views
 					lblPropertyName.Text = nextJob.PropertyName;
 					lblPropertyAddress.Text = $"{nextJob.Street1 ?? ""} {nextJob.Street2 ?? ""}\n {nextJob.City ?? ""}, {nextJob.State ?? ""} {nextJob.ZipCode ?? ""}";
 
-					lblOpsContactName.Text = nextJob.OperationsContactName ?? "";
+					lblOpsContactName.Text = "Operations: " + (nextJob.OperationsContactName ?? "");
 					lblOpsContactPhone.Text = nextJob.OperationsContactPhone ?? "";
+					BtnCallOps.IsVisible = !string.IsNullOrEmpty(nextJob.OperationsContactPhone);
 
 					lblServiceName.Text = nextJob.JobServiceName ?? "";
-					lblAccountManagerName.Text = nextJob.SalesRepContactName ?? "";
+
+					lblAccountManagerName.Text = "Sales: " + (nextJob.SalesRepContactName ?? "");
 					lblAccountManagerPhone.Text = nextJob.SalesRepPhone ?? "";
+					BtnCallAccountManager.IsVisible = !string.IsNullOrEmpty(nextJob.SalesRepPhone);
 
 					if (nextJob.GpsLatitude != 0.0 && nextJob.GpsLongitude != 0.0)
 					{
-						webView.Source = $"https://www.google.com/maps?saddr=My+Location&daddr={nextJob.GpsLatitude},{nextJob.GpsLongitude}";
+						position = GetLocationAsync().Result;
+						var here = $"{position.Latitude}%2C{position.Longitude}";
+						var there = $"{nextJob.GpsLatitude}%2C{nextJob.GpsLongitude}";
+						webView.Source = $"https://www.google.com/maps/dir/?api=1&origin={here}&destination={there}&travelmode=driving&dir_action=navigate";
+
+						//webView.Source = $"https://www.google.com/maps/dir/?api=1&q={nextJob.GpsLatitude},{nextJob.GpsLongitude}";
+
+						btnNavigate.CommandParameter = HttpUtility.UrlEncode($"{nextJob.GpsLatitude}|{nextJob.GpsLongitude}|{nextJob.PropertyName}");
 					}
 					else
 					{
-						webView.Source = $"https://www.google.com/maps?saddr=My+Location&daddr={nextJob.Street1}+{nextJob.City}+{nextJob.State}+{nextJob.ZipCode}";
+						var dest = HttpUtility.UrlEncode($"{nextJob.Street1}+{nextJob.City}+{nextJob.State}+{nextJob.ZipCode}");
+						webView.Source = $"https://www.google.com/maps/dir/?api=1&origin=My+Location&destination={dest}";
+						//webView.Source = $"https://www.google.com/maps?saddr=My+Location&daddr={nextJob.Street1}+{nextJob.City}+{nextJob.State}+{nextJob.ZipCode}";
 					}
-					
 				}
 				else
 				{
@@ -124,6 +136,15 @@ namespace RaskTrip.Views
 			}
 		}
 		
+		private async void btnNavigate_Click(object sender, EventArgs e)
+		{
+			var target = HttpUtility.UrlDecode((sender as Button)?.CommandParameter?.ToString())?.Split('|');
+			if (target.Length == 3)
+			{
+				var mapOptions = new MapLaunchOptions() { Name = target[2], NavigationMode = NavigationMode.Driving};
+				await Xamarin.Essentials.Map.OpenAsync(double.Parse(target[0]), double.Parse(target[1]), mapOptions);
+			}
+		}
 		private async void ButtonSiteMap_Click(object sender, EventArgs e)
 		{
 			await Navigation.PushAsync(new SiteMapPage());

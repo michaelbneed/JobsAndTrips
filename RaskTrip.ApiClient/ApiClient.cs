@@ -144,7 +144,7 @@ namespace RaskTrip.ApiClient
 		#endregion
 
 		#region ClockOut
-		public bool ClockOut(ClockInDto clockOutDto)
+		public bool ClockOut(ClockOutDto clockOutDto)
 		{
 			try
 			{
@@ -159,7 +159,7 @@ namespace RaskTrip.ApiClient
 					if (result.IsSuccessStatusCode)
 					{
 						string serializedJson = result.Content.ReadAsStringAsync().Result;
-						clockOutDto = JsonConvert.DeserializeObject<ClockInDto>(serializedJson);
+						clockOutDto = JsonConvert.DeserializeObject<ClockOutDto>(serializedJson);
 						return true;
 					}
 					else

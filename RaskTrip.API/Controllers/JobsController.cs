@@ -176,6 +176,7 @@ namespace RaskTrip.API.Controllers
 		public IHttpActionResult PostClockIn([FromBody] ClockInDto clockIn)
 		{
 			Log.Info($"Clock In for job {clockIn.JobId.ToString()} at {clockIn.ActualClockIn.ToString()}");
+
 			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockIn.JobId));
 			if (VerifyBasicAuthCredentials(job.ActualTruckId.Value))
 			{
@@ -184,8 +185,6 @@ namespace RaskTrip.API.Controllers
 				&& job.TripRoute.TripStatusId < Enums.TripStatusEnum.Completed.GetHashCode()
 				&& job.TripStatusId == Enums.TripStatusEnum.Dispatched.GetHashCode())
 				{
-					if (job.JobId == clockIn.JobId)
-					{
 						try
 						{
 							job.ActualClockIn = clockIn.ActualClockIn;
@@ -206,7 +205,6 @@ namespace RaskTrip.API.Controllers
 							Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
 							return NotFound();
 						}
-					}
 				}
 			}
 			else
@@ -222,7 +220,7 @@ namespace RaskTrip.API.Controllers
 		public IHttpActionResult PostClockOut([FromBody] ClockOutDto clockOut)
 		{
 			Log.Info($"Clock Out for job {clockOut.JobId.ToString()} at {clockOut.ActualClockOut.ToString()}, service: {clockOut.ActualServicePerformed}, weight: {(clockOut.ActualWeightOut.HasValue? clockOut.ActualWeightOut.Value.ToString(): "null")}");
-			var job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockOut.JobId));
+			Job job = db.Jobs.Include("TripRoute.Trip").FirstOrDefault(j => j.JobId.Equals(clockOut.JobId));
 
 			if (VerifyBasicAuthCredentials(job.ActualTruckId.Value))
 			{
@@ -230,80 +228,60 @@ namespace RaskTrip.API.Controllers
 				&& job.TripRoute.TripStatusId == Enums.TripStatusEnum.InProcess.GetHashCode()
 				&& job.TripStatusId == Enums.TripStatusEnum.InProcess.GetHashCode())
 				{
-					if (job.JobId == clockOut.JobId)
+					try
 					{
-						try
+						job.ActualClockOut = clockOut.ActualClockOut;
+						if (clockOut.ActualServicePerformed.ToLower() == job.JobServiceName.ToLower())
 						{
-							job.ActualClockOut = DateTime.Now;
-
-							if (clockOut.ActualServicePerformed.ToLower() == job.JobServiceName.ToLower())
+							job.ActualPropertyFlatRateId = job.JobPropertyFlatRateId;
+							job.TripStatusId = Enums.TripStatusEnum.Completed.GetHashCode();
+						}
+						else if (!clockOut.ActualServicePerformed.ToLower().StartsWith("skipped"))
+						{
+							var propertyFlatRateContract = db.PropertyFlatRates.FirstOrDefault(p => p.PropertyFlatRateId.Equals(job.JobPropertyFlatRateId));
+							job.ActualPropertyFlatRateId = LookupAltService(propertyFlatRateContract, clockOut.ActualServicePerformed);
+							
+							if (!job.ActualPropertyFlatRateId.HasValue)
 							{
-								job.ActualPropertyFlatRateId = job.JobPropertyFlatRateId;
+								job.IsFlaggedForReview = true;
+								job.Comments += $" Actual Service performed was {clockOut.ActualServicePerformed}. Cannot determine the matching Flat Rate.";
 							}
 							else
 							{
-								var propertyFlatRateContractId = db.PropertyFlatRates.FirstOrDefault(p => p.PropertyFlatRateId.Equals(job.JobPropertyFlatRateId)).PropertyContractId;
-								List<PropertyFlatRate> propertyFlatRateList = db.PropertyFlatRates.Where(p => p.PropertyContractId == propertyFlatRateContractId).ToList();
-								foreach (var item in propertyFlatRateList)
-								{
-									if (item.ExpirationDate == null)
-									{
-										// TODO: Pending call with Daniel on the potential bad data we are looking at in this loop
-										// TODO: finish logic of comparing the clockOut dto service with the job.servicename
-										switch (item.ShortName)
-										{
-											case "Standard/Partial":
-												job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-												break;
-											case "Full":
-												job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-												break;
-											case "SkippedNotPlowed":
-												job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-												break;
-											case "SkippedNoAccess":
-												job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-												break;
-											default:
-												job.ActualPropertyFlatRateId = job.JobPropertyFlatRateId;
-												break;
-										}
-										//if (item.ShortName.ToLower().Contains(clockOut.ActualServicePerformed))
-										//{
-										//	job.ActualPropertyFlatRateId = item.PropertyFlatRateId;
-										//}
-									}
-								}
+								job.IsFlaggedForReview = true;
+								job.Comments += $" Actual service {clockOut.ActualServicePerformed} is different than requested service {job.JobServiceName}.";
 							}
-
-							// TODO: Update the status like below, but might need to account for a variation as above in the loop
-							if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNotPlowed.ToString())
-							{
-								job.TripStatusId = Enums.TripStatusEnum.SkippedNotPlowed.GetHashCode();
-							}
-							else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNoAccess.ToString())
-							{
-								job.TripStatusId = Enums.TripStatusEnum.SkippedNoAccess.GetHashCode();
-							}
-							else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.Completed.ToString())
-							{
-								job.TripStatusId = Enums.TripStatusEnum.Completed.GetHashCode();
-							}
-
-							if (job.JobRequiresWeighInOut)
-							{
-								job.ActualWeightOut = clockOut.ActualWeightOut;
-								job.ActualTonnage = job.ActualWeightIn = clockOut.ActualWeightOut;
-							}
-
-							db.SaveChanges();
-							return Ok(clockOut);
 						}
-						catch (Exception ex)
+						else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNotPlowed.ToString())
 						{
-							Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
-							return NotFound();
+							job.TripStatusId = Enums.TripStatusEnum.SkippedNotPlowed.GetHashCode();
 						}
+						else if (clockOut.ActualServicePerformed == Enums.TripStatusEnum.SkippedNoAccess.ToString())
+						{
+							job.TripStatusId = Enums.TripStatusEnum.SkippedNoAccess.GetHashCode();
+						}
+
+						if (job.JobRequiresWeighInOut)
+						{
+							job.ActualWeightOut = clockOut.ActualWeightOut;
+							bool compliant = (job.ActualWeightOut.HasValue && job.ActualWeightIn.HasValue);
+							job.ActualTonnage =  compliant? job.ActualWeightOut - job.ActualWeightIn : null;
+							if (!compliant)
+							{
+								job.IsFlaggedForReview = true;
+								job.Comments += $" Property requires Weigh In and Out but one or both were not provided.";
+							}
+						}
+						job.TripRoute.CompletedStops++;
+						if (job.TripRoute.CompletedStops == job.TripRoute.ScheduledStops)
+							job.TripRoute.TripStatusId = Enums.TripStatusEnum.Completed.GetHashCode();
+						db.SaveChanges();
+						return Ok(clockOut);
+					}
+					catch (Exception ex)
+					{
+						Log.Error("Error: " + ex.InnerException + "Message: " + ex.Message + "StackTrace: " + ex.StackTrace);
+						return NotFound();
 					}
 				}
 				else
@@ -312,6 +290,43 @@ namespace RaskTrip.API.Controllers
 				}
 			}			
 			return NotFound();
+		}
+        #endregion
+
+        #region LookupAltService
+        /// <summary>
+        /// When the actual service performed was not the one requested for the job given by the entity propertyFlatRate, there should be only one alternative.
+        /// For example, suppose a property contract has 3 pair of flat lot salt rates, such as "Standard Automatic", "Full Automatic", "Standard Customer Call", "Full Customer Call"
+        /// and "Standard Per Ton", "Full Per Ton". Since the mobile app is given the chosen JobPropertyFlatRateId and its Short Name, the alternate service is the one with the same 
+        /// qualifying verbiage in its description, but with "Standard" exchanged with "Full" or vice versa. Of course, there are effective and expiration dates to consider...
+        /// </summary>
+        /// <param name="propertyFlatRate">the requested service to be performed for the job</param>
+        /// <param name="actualServiceName">the actual short name of the service performed</param>
+        /// <returns>the alternate service</returns>
+        private int? LookupAltService(PropertyFlatRate propertyFlatRate, string actualServiceName)
+		{
+			// just in case the actual service is the same...
+			if (actualServiceName.ToLower() == propertyFlatRate.ShortName)
+				return propertyFlatRate.PropertyFlatRateId;
+
+			int? altPropertyFlatRateId = null;
+			string altServiceName = propertyFlatRate.Description.ToLower().Replace(propertyFlatRate.ShortName.ToLower(), actualServiceName.ToLower());
+			// check if the substitution worked.  That is, if the ShortName was contained within the Description the two strings would be different now.
+			if (altServiceName != propertyFlatRate.Description.ToLower())
+			{
+				var now = DateTime.Now;
+				// find the alternate service, if it exists...
+				var altFlatRates = db.PropertyFlatRates.Where(r => r.PropertyContractId == propertyFlatRate.PropertyContractId
+						&& r.ShortName == actualServiceName
+						&& r.Description == altServiceName
+						&& r.EffectiveDate <= now
+						&& (r.ExpirationDate == null || r.ExpirationDate >= now)
+						&& r.WorkTypeId == propertyFlatRate.WorkTypeId
+						).OrderByDescending(o => (o.ExpirationDate ?? o.EffectiveDate)).ToList();
+				if (altFlatRates.Count == 1)
+					altPropertyFlatRateId = altFlatRates[0].PropertyFlatRateId;
+			}
+			return altPropertyFlatRateId;
 		}
         #endregion
 

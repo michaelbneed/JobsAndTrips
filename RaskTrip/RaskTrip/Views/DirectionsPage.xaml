@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RaskTrip.Views.DirectionsPage"
              Title="Driving">
-    <StackLayout Margin="10">
+    <StackLayout Margin="5">
         <Grid x:Name="grdCurrentSite">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
@@ -12,23 +12,30 @@
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <StackLayout x:Name="s1" BackgroundColor="White" Grid.Row="0" Grid.Column="0" BindingContext="{x:Reference Name=s1}"  >
                 <Label x:Name="lblOpsContactName" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Operations" />
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                    <Label x:Name="lblOpsContactPhone" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="" />
+                    <Label x:Name="lblOpsContactPhone" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Phone" />
                     <ImageButton x:Name="BtnCallOps" Source="callIcon.png" Clicked="BtnCallOps_Click" BackgroundColor="White" HorizontalOptions="CenterAndExpand" />
                 </StackLayout>
+                <Button x:Name="btnNavigate" TextColor="Black" Text="Start Driving" Clicked="btnNavigate_Click" HorizontalOptions="CenterAndExpand" />
             </StackLayout>
             <StackLayout x:Name="s2" BackgroundColor="White" Grid.Row="0" Grid.Column="1" BindingContext="{x:Reference Name=s2}">
-                <Label x:Name="lblPropertyName" TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Text="" />
+                <Label x:Name="lblPropertyName" TextColor="Black" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Text="" />
                 <Label x:Name="lblPropertyAddress" TextColor="Black" FontAttributes="Bold" HorizontalOptions="FillAndExpand" Text="" />
             </StackLayout>
-            <StackLayout x:Name="s3" BackgroundColor="White" Grid.Row="0" Grid.Column="2" BindingContext="{x:Reference Name=s3}">
-                <Label x:Name="lblAccountManagerName" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Account Manager" />
-                <Label x:Name="lblAccountManagerPhone" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Phone" />
-                <ImageButton x:Name="BtnCallAccountManager" Source="callIcon.png" Clicked="BtnCallAccountManager_Click" BackgroundColor="White" HorizontalOptions="CenterAndExpand" />
+            <StackLayout x:Name="s23" BackgroundColor="White" Grid.Row="0" Grid.Column="2" BindingContext="{x:Reference Name=s23}">
+                <Label x:Name="lblService" TextColor="DarkGray" HorizontalOptions="CenterAndExpand" Text="Service: " />
                 <Label x:Name="lblServiceName" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text=""/>
+            </StackLayout>
+            <StackLayout x:Name="s3" BackgroundColor="White" Grid.Row="0" Grid.Column="3" BindingContext="{x:Reference Name=s3}">
+                <Label x:Name="lblAccountManagerName" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Account Manager" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Label x:Name="lblAccountManagerPhone" TextColor="Black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Text="Phone" />
+                    <ImageButton x:Name="BtnCallAccountManager" Source="callIcon.png" Clicked="BtnCallAccountManager_Click" BackgroundColor="White" HorizontalOptions="CenterAndExpand" />
+                </StackLayout>
                 <Button Clicked="ButtonSiteMap_Click" Text="Arrived At Site"></Button>
             </StackLayout>
         </Grid>
