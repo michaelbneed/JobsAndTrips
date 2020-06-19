@@ -17,6 +17,8 @@ namespace RaskTrip.Views
 	[DesignTimeVisible(true)]
 	public partial class SiteMapPage : ContentPage
 	{
+		static bool requireWeighIn = false;
+
 		public SiteMapPage()
 		{
 			InitializeComponent();
@@ -46,6 +48,8 @@ namespace RaskTrip.Views
 			// TODO: figure out what should be used if there is no sitefotos url
 			webView.Source = nextJob.SiteFotosUrl ?? "https://www.sitefotos.com/vpics/guestmapdev?y3v7h0";
 
+			requireWeighIn = nextJob.JobRequiresWeighInOut;
+
 			stkWeighOut.IsVisible = nextJob.JobRequiresWeighInOut;
 		}
 
@@ -56,6 +60,12 @@ namespace RaskTrip.Views
 				ClockInDto clockInDto = new ClockInDto();
 				clockInDto.JobId = long.Parse((sender as Button).CommandParameter.ToString());
 				clockInDto.ActualClockIn = DateTime.Now;
+
+				if (requireWeighIn)
+				{
+					weighInEntry.IsVisible = true;
+				}
+
 				clockInDto.ActualWeightIn = null;  // TODO: need to get weigh in from UI
 				TruckDto truckRegistration = CredentialsManager.GetLoginCredentials();
 				ApiClient.ApiClient client = new ApiClient.ApiClient(truckRegistration.TruckNumber, truckRegistration.ApiKey);
@@ -77,6 +87,8 @@ namespace RaskTrip.Views
 				lblSpcInstructions.IsVisible = false;
 				webView.IsVisible = false;
 			}
+
+			weighInEntry.IsVisible = false;
 		}
 
 		public void ButtonConfirmServiceClicked(object sender, EventArgs e)
@@ -111,8 +123,13 @@ namespace RaskTrip.Views
 			clockOutDto.ActualClockOut = DateTime.Now;
 			clockOutDto.ActualServicePerformed = actualServicePerformed;
 			double weight = 0.0;
-			if (double.TryParse(txtWeightOut.Text, out weight))
-				clockOutDto.ActualWeightOut = weight;
+
+			if (requireWeighIn)
+			{
+				if (double.TryParse(txtWeightOut.Text, out weight))
+					clockOutDto.ActualWeightOut = weight;
+			}
+			
 			var truckCredentials = CredentialsManager.GetLoginCredentials();
 			var client = new ApiClient.ApiClient(truckCredentials.TruckNumber, truckCredentials.ApiKey);
 			bool success = client.ClockOut(clockOutDto);

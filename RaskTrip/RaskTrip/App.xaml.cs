@@ -18,17 +18,20 @@ namespace RaskTrip
 
 		protected override void OnStart()
 		{
-			var truckCredentials = CredentialsManager.GetLoginCredentials();
-			if (truckCredentials.TruckId > 0)
-			{
-				var validCredentials = CredentialsManager.VerifyCredentials(truckCredentials);
-				if (validCredentials.TruckId > 0)
-					MainPage.Navigation.PushAsync(new DirectionsPage());
-				else
-					MainPage.Navigation.PushAsync(new RegisterLoginPage());
-			}
-			else
-				MainPage.Navigation.PushAsync(new RegisterLoginPage());
+			//MainPage.Navigation.PushAsync(new DirectionsPage());
+			//var truckCredentials = CredentialsManager.GetLoginCredentials();
+			//if (truckCredentials.TruckId > 0)
+			//{
+			//	var validCredentials = CredentialsManager.VerifyCredentials(truckCredentials);
+			//	if (validCredentials.TruckId > 0)
+			//		MainPage.Navigation.PushAsync(new DirectionsPage());
+			//	else
+			//		MainPage.Navigation.PushAsync(new RegisterLoginPage());
+			//}
+			//else
+			//{
+			//	MainPage.Navigation.PushAsync(new RegisterLoginPage());
+			//}
 		}
 
 		protected override void OnSleep()
