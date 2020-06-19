@@ -12,27 +12,25 @@ using Plugin.Messaging;
 using RaskTrip.ApiClient;
 using RaskTrip.BusinessObjects.Models;
 using System.Web;
+using System.Threading;
 
 namespace RaskTrip.Views
 {
 	public partial class DirectionsPage : ContentPage
 	{
-		Geocoder geoCoder;
+		private JobDto job = null;
+		public JobDto CurrentJob
+		{ get { return job; } set { job = value; } }
+
 		public DirectionsPage()
 		{
 			InitializeComponent();
-			geoCoder = new Geocoder();
-
-			var position = GetLocationAsync().Result;
-
-			// Real coord locator - uncomment when ready
-			//webView.Source = $"https://www.google.com/maps/dir/?q= {position.Latitude}, {position.Longitude}";
-			
+		
 			// TODO: remove this:
 			//webView.Source = $"https://www.google.com/maps/dir/?q= 39.9220717, -85.9815329";
 
 			// TODO: Get data from storage
-			JobDto nextJob = new JobDto();
+			CurrentJob = new JobDto();
 			TruckDto truckRegistration = CredentialsManager.GetLoginCredentials();
 			if (truckRegistration.TruckId == 0)
 			{
@@ -43,36 +41,36 @@ namespace RaskTrip.Views
 			else
 			{
 				ApiClient.ApiClient client = new ApiClient.ApiClient(truckRegistration.TruckNumber, truckRegistration.ApiKey);
-				nextJob = client.GetNextJob(truckRegistration.TruckId);
-				if (nextJob != null && nextJob.JobId > 0)
+				CurrentJob = client.GetNextJob(truckRegistration.TruckId);
+				if (CurrentJob != null && CurrentJob.JobId > 0)
 				{
-					lblPropertyName.Text = nextJob.PropertyName;
-					lblPropertyAddress.Text = $"{nextJob.Street1 ?? ""} {nextJob.Street2 ?? ""}\n {nextJob.City ?? ""}, {nextJob.State ?? ""} {nextJob.ZipCode ?? ""}";
+					lblPropertyName.Text = CurrentJob.PropertyName;
+					lblPropertyAddress.Text = $"{CurrentJob.Street1 ?? ""} {CurrentJob.Street2 ?? ""}\n {CurrentJob.City ?? ""}, {CurrentJob.State ?? ""} {CurrentJob.ZipCode ?? ""}";
 
-					lblOpsContactName.Text = "Operations: " + (nextJob.OperationsContactName ?? "");
-					lblOpsContactPhone.Text = nextJob.OperationsContactPhone ?? "";
-					BtnCallOps.IsVisible = !string.IsNullOrEmpty(nextJob.OperationsContactPhone);
+					lblOpsContactName.Text = "Operations: " + (CurrentJob.OperationsContactName ?? "");
+					lblOpsContactPhone.Text = CurrentJob.OperationsContactPhone ?? "";
+					BtnCallOps.IsVisible = !string.IsNullOrEmpty(CurrentJob.OperationsContactPhone);
 
-					lblServiceName.Text = nextJob.JobServiceName ?? "";
+					lblServiceName.Text = CurrentJob.JobServiceName ?? "";
 
-					lblAccountManagerName.Text = "Sales: " + (nextJob.SalesRepContactName ?? "");
-					lblAccountManagerPhone.Text = nextJob.SalesRepPhone ?? "";
-					BtnCallAccountManager.IsVisible = !string.IsNullOrEmpty(nextJob.SalesRepPhone);
+					lblAccountManagerName.Text = "Sales: " + (CurrentJob.SalesRepContactName ?? "");
+					lblAccountManagerPhone.Text = CurrentJob.SalesRepPhone ?? "";
+					BtnCallAccountManager.IsVisible = !string.IsNullOrEmpty(CurrentJob.SalesRepPhone);
 
-					if (nextJob.GpsLatitude != 0.0 && nextJob.GpsLongitude != 0.0)
+					if (CurrentJob.GpsLatitude != 0.0 && CurrentJob.GpsLongitude != 0.0)
 					{
-						position = GetLocationAsync().Result;
-						var here = $"{position.Latitude}%2C{position.Longitude}";
-						var there = $"{nextJob.GpsLatitude}%2C{nextJob.GpsLongitude}";
+						var location = Geolocation.GetLastKnownLocationAsync().Result;
+						var here = $"{location.Latitude}%2C{location.Longitude}";
+						var there = $"{CurrentJob.GpsLatitude}%2C{CurrentJob.GpsLongitude}";
 						webView.Source = $"https://www.google.com/maps/dir/?api=1&origin={here}&destination={there}&travelmode=driving&dir_action=navigate";
 
 						//webView.Source = $"https://www.google.com/maps/dir/?api=1&q={nextJob.GpsLatitude},{nextJob.GpsLongitude}";
 
-						btnNavigate.CommandParameter = HttpUtility.UrlEncode($"{nextJob.GpsLatitude}|{nextJob.GpsLongitude}|{nextJob.PropertyName}");
+						btnNavigate.CommandParameter = HttpUtility.UrlEncode($"{CurrentJob.GpsLatitude}|{CurrentJob.GpsLongitude}|{CurrentJob.PropertyName}");
 					}
 					else
 					{
-						var dest = HttpUtility.UrlEncode($"{nextJob.Street1}+{nextJob.City}+{nextJob.State}+{nextJob.ZipCode}");
+						var dest = HttpUtility.UrlEncode($"{CurrentJob.Street1}+{CurrentJob.City}+{CurrentJob.State}+{CurrentJob.ZipCode}");
 						webView.Source = $"https://www.google.com/maps/dir/?api=1&origin=My+Location&destination={dest}";
 						//webView.Source = $"https://www.google.com/maps?saddr=My+Location&daddr={nextJob.Street1}+{nextJob.City}+{nextJob.State}+{nextJob.ZipCode}";
 					}
@@ -84,26 +82,26 @@ namespace RaskTrip.Views
 					lblOpsContactName.Text = "";
 					lblOpsContactPhone.Text = "";
 					lblPropertyAddress.Text = "";
-					lblServiceName.Text = nextJob?.SpecialInstructions;
+					lblServiceName.Text = CurrentJob?.SpecialInstructions;
 					lblAccountManagerName.Text = "";
 					lblAccountManagerPhone.Text = "";
 					lblPropertyName.Text = "No More Properties";
 
-					position = GetLocationAsync().Result;
-					webView.Source = $"https://www.google.com/maps/dir/?q= {position.Latitude}, {position.Longitude}";
+					var location = Geolocation.GetLastKnownLocationAsync().Result;
+					webView.Source = $"https://www.google.com/maps/dir/?q= {location.Latitude}, {location.Longitude}";
 				}
 			}
 		}
 		
-		public async Task<Position> GetLocationAsync()
-		{
-			var position = await Geolocation.GetLastKnownLocationAsync();
-			if (position != null)
-			{
-				return new Position(position.Latitude, position.Longitude);
-			}
-			return new Position();
-		}
+		//public async Task<Position> GetLocationAsync()
+		//{
+		//	var position = await Geolocation.GetLastKnownLocationAsync();
+		//	if (position != null)
+		//	{
+		//		return new Position(position.Latitude, position.Longitude);
+		//	}
+		//	return new Position();
+		//}
 
 		void webOnNavigating(object sender, WebNavigatingEventArgs e)
 		{
@@ -142,7 +140,13 @@ namespace RaskTrip.Views
 			if (target.Length == 3)
 			{
 				var mapOptions = new MapLaunchOptions() { Name = target[2], NavigationMode = NavigationMode.Driving};
+				//var watcher = new LocationArrivalWatcher(CurrentJob);
+				//var watcherTask = watcher.Run().ConfigureAwait(true);
 				await Xamarin.Essentials.Map.OpenAsync(double.Parse(target[0]), double.Parse(target[1]), mapOptions);
+				//if (watcherTask.GetAwaiter().GetResult())
+				//{
+				//	await Navigation.PushAsync(new SiteMapPage());
+				//}
 			}
 		}
 		private async void ButtonSiteMap_Click(object sender, EventArgs e)

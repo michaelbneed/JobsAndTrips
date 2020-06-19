@@ -30,12 +30,15 @@
     </Shell.Resources>
 
     <TabBar x:Name="LowerTab">
-        <Tab Title="Drive" Icon="tab_geo.png">
+        <Tab Title="Startup" Icon="tab_about.png">
+            <ShellContent ContentTemplate="{DataTemplate local:SplashPage}" />
+        </Tab>
+        <!--<Tab Title="Drive" Icon="tab_geo.png">
             <ShellContent ContentTemplate="{DataTemplate local:DirectionsPage}" />
         </Tab>
         <Tab Title="Site Map" Icon="tab_photo.png">
             <ShellContent ContentTemplate="{DataTemplate local:SiteMapPage}" />
-        </Tab>
+        </Tab>-->
     </TabBar>
     
     <!--<Shell.FlyoutHeaderTemplate x:Uid="FlyOut">
