@@ -56,7 +56,7 @@ x:Class="RaskTrip.Views.SiteMapPage" Title="Site Map">
 
                     <StackLayout x:Name="stkWeighOut" BackgroundColor="Khaki" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                         <Label x:Name="lblWeightOut" TextColor="Black" FontSize="Large" Text="Weight Out: " />
-                        <Entry x:Name="txtWeightOut" BackgroundColor="Yellow" TextColor="Black"  FontSize="Large" HorizontalOptions="CenterAndExpand" Text="Scale Weight" />
+                        <Entry x:Name="txtWeightOut" BackgroundColor="Yellow" TextColor="Black"  FontSize="Large" HorizontalOptions="CenterAndExpand" Placeholder="Scale Weight" />
                     </StackLayout>
                     <Label Text="" FontSize="Large" />
                     
@@ -88,7 +88,8 @@ x:Class="RaskTrip.Views.SiteMapPage" Title="Site Map">
             </StackLayout>
 
             <StackLayout x:Name="btnClockIn" BackgroundColor="White" Grid.Row="2" Grid.Column="1" Margin="-5" BindingContext="{x:Reference Name=btnClockIn}" IsVisible="True">
-                <Button x:Name="btnClockInClick" Text="Clock In" BackgroundColor="Green" TextColor="White"  Clicked="OnClockInOutClicked" />
+                <Entry x:Name="weighInEntry" Placeholder="Weigh-In..." />
+                <Button x:Name="btnClockInClick" HeightRequest="200" Text="Clock In" BackgroundColor="Green" TextColor="White"  Clicked="OnClockInOutClicked" />
             </StackLayout>
             <Label x:Name="lblServiceCompleteMsg" TextColor="DarkGreen" HorizontalOptions="CenterAndExpand" VerticalOptions="Fill" Text="Complete" FontSize="Large" IsVisible="False"/>
 
