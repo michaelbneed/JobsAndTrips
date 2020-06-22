@@ -18,8 +18,8 @@
             <!--<Button Clicked="ButtonRegisterTruck"></Button>-->
 
             <StackLayout x:Name="stkRegister" BackgroundColor="White" Grid.Row="0" Grid.Column="1" BindingContext="{x:Reference Name=stkRegister}">
-                <!--<Label Text="Username" />-->
-                <Entry x:Name="usernameEntry" Placeholder="Truck Number (user)..." />
+                <Label Text="Please enter your truck number and password. Then then touch the Register button." FontSize="Large"/>
+                <Entry x:Name="usernameEntry" Placeholder="Truck Number..." />
                 <!--<Label Text="Password" />-->
                 <Entry x:Name="passwordEntry" IsPassword="true" Placeholder="Access Key (password)..." />
                 <!--<Button Text="Login" Clicked="OnLoginButtonClicked" />-->

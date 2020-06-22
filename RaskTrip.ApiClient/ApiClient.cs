@@ -78,6 +78,51 @@ namespace RaskTrip.ApiClient
 		}
 		#endregion
 
+		#region GetNextJobAsync
+		/// <summary>
+		/// Calls GetNextJob?truckId={truckId} to get the next (or currently incomplete) job.
+		/// Emulator: 
+		/// </summary>
+		/// <param name="truckId"></param>
+		/// <returns>A jobDto with JobId > 0 is a job to be displayed. A jobId of 0 has SpecialInstructions explaining why there isn't a next job.</returns>
+		public async Task<JobDto> GetNextJobAsync(int truckId)
+		{
+			JobDto job = new JobDto();
+			try
+			{
+				using (var client = new HttpClient())
+				{
+					client.BaseAddress = new Uri(TripApiUrlBase);
+					string requestUrl = $"GetNextJob?truckId={truckId}";
+					var request = GetRequestHeaders(HttpMethod.Get, requestUrl);
+					var result = await client.SendAsync(request).ConfigureAwait(false);
+					if (result.IsSuccessStatusCode)
+					{
+						string serializedJson = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+						job = JsonConvert.DeserializeObject<JobDto>(serializedJson);
+					}
+					else if (result.StatusCode == HttpStatusCode.NotFound)
+					{
+						job.JobId = 0;
+						job.SpecialInstructions = "There are no more jobs scheduled for you at this time.";
+					}
+				}
+			}
+			catch (HttpRequestException ex)
+			{
+				job.JobId = 0;
+				job.SpecialInstructions = $"The request to get the next job failed. Check your internet connectivity and try again: {ex.Message}";
+			}
+			catch (AggregateException ex)
+			{
+				job.JobId = 0;
+				job.SpecialInstructions = $"An error occurred trying to get the next job. Check your internet connectivity and try again: {ex.Message}";
+			}
+
+			return job;
+		}
+		#endregion
+
 		#region RegisterTruck
 		public TruckDto RegisterTruck(TruckDto truckRegistration)
 		{
@@ -93,6 +138,40 @@ namespace RaskTrip.ApiClient
 					if (result.IsSuccessStatusCode)
 					{
 						string serializedJson = result.Content.ReadAsStringAsync().Result;
+						TruckDto registeredTruck = JsonConvert.DeserializeObject<TruckDto>(serializedJson);
+						return registeredTruck;
+					}
+					else
+					{
+						truckRegistration.Message = $"Truck Registration Failed with status {result.StatusCode} and reason {result.ReasonPhrase}";
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				//Logger.Log(ex);  log to a file on HD - put in a helper
+				truckRegistration.Message = "Truck Registration Failed: " + ex.Message;
+				truckRegistration.TruckId = 0;
+			}
+			return truckRegistration;
+		}
+        #endregion
+
+        #region RegisterTruckAsync
+        public async Task<TruckDto> RegisterTruckAsync(TruckDto truckRegistration)
+		{
+			try
+			{
+				using (var client = new HttpClient())
+				{
+					client.BaseAddress = new Uri(TripApiUrlBase);
+					var request = GetRequestHeaders(HttpMethod.Post, "PostRegisterTruck");
+					SetRequestContent<TruckDto>(request, truckRegistration);
+					var result = await client.SendAsync(request).ConfigureAwait(false);
+
+					if (result.IsSuccessStatusCode)
+					{
+						string serializedJson = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
 						TruckDto registeredTruck = JsonConvert.DeserializeObject<TruckDto>(serializedJson);
 						return registeredTruck;
 					}
@@ -143,6 +222,37 @@ namespace RaskTrip.ApiClient
 		}
 		#endregion
 
+		#region ClockInAsync
+		public async Task<bool> ClockInAsync(ClockInDto clockInDto)
+		{
+			try
+			{
+				using (var client = new HttpClient())
+				{
+					client.BaseAddress = new Uri(TripApiUrlBase);
+					string requestUrl = $"PostClockIn";
+					var request = GetRequestHeaders(HttpMethod.Get, requestUrl);
+					var jsonContent = JsonConvert.SerializeObject(clockInDto);
+					request.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+					var result = await client.SendAsync(request).ConfigureAwait(false);
+					if (result.IsSuccessStatusCode)
+					{
+						string serializedJson = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
+						clockInDto = JsonConvert.DeserializeObject<ClockInDto>(serializedJson);
+						return true;
+					}
+					else
+						return false;
+				}
+			}
+			catch (Exception ex)
+			{
+				var message = ex.Message;
+				return false;
+			}
+		}
+		#endregion
+
 		#region ClockOut
 		public bool ClockOut(ClockOutDto clockOutDto)
 		{
@@ -159,6 +269,37 @@ namespace RaskTrip.ApiClient
 					if (result.IsSuccessStatusCode)
 					{
 						string serializedJson = result.Content.ReadAsStringAsync().Result;
+						clockOutDto = JsonConvert.DeserializeObject<ClockOutDto>(serializedJson);
+						return true;
+					}
+					else
+						return false;
+				}
+			}
+			catch (Exception ex)
+			{
+				var message = ex.Message;
+				return false;
+			}
+		}
+		#endregion
+
+		#region ClockOutAsync
+		public async Task<bool> ClockOutAsync(ClockOutDto clockOutDto)
+		{
+			try
+			{
+				using (var client = new HttpClient())
+				{
+					client.BaseAddress = new Uri(TripApiUrlBase);
+					string requestUrl = $"PostClockOut";
+					var request = GetRequestHeaders(HttpMethod.Get, requestUrl);
+					var jsonContent = JsonConvert.SerializeObject(clockOutDto);
+					request.Content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+					var result = await client.SendAsync(request).ConfigureAwait(false);
+					if (result.IsSuccessStatusCode)
+					{
+						string serializedJson = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
 						clockOutDto = JsonConvert.DeserializeObject<ClockOutDto>(serializedJson);
 						return true;
 					}

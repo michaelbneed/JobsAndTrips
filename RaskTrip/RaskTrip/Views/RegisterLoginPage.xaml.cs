@@ -20,10 +20,9 @@ namespace RaskTrip.Views
 		public RegisterLoginPage()
 		{
 			InitializeComponent();
-
 		}
 
-		private void ButtonRegisterTruck(object sender, EventArgs e)
+		private async void ButtonRegisterTruck(object sender, EventArgs e)
 		{
 			string message = "Attempting to register the truck";
 			messageLabel.Text = message;
@@ -32,21 +31,27 @@ namespace RaskTrip.Views
 			newTruck.TruckNumber = usernameEntry.Text;
 			newTruck.ApiKey = passwordEntry.Text;
 
-			var result = CredentialsManager.VerifyCredentials(newTruck);
+			var result = await TripContext.VerifyCredentials(newTruck);
 			if (result != null)
 			{
 				message = result.Message;
 				if (result.TruckId > 0)
 				{
+					//message = await CredentialsManager.SaveLoginCredentials(result);
 					message = CredentialsManager.SaveLoginCredentials(result);
 					if (!message.StartsWith("Error:"))
-						Navigation.PushAsync(new DirectionsPage());
+					{
+						messageLabel.Text = message;
+						TripContext.Credentials = result;
+						var jobChanged = await TripContext.GetNextJob();
+						TripContext.CurrentPage = "DirectionsPage";
+						await Navigation.PushAsync(new DirectionsPage());
+					}
 				}
 			}
 			else
 				message += " failed";
 			messageLabel.Text = message;
 		}
-
 	}
 }

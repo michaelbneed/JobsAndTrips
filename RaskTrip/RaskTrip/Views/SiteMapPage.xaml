@@ -88,7 +88,10 @@ x:Class="RaskTrip.Views.SiteMapPage" Title="Site Map">
             </StackLayout>
 
             <StackLayout x:Name="btnClockIn" BackgroundColor="White" Grid.Row="2" Grid.Column="1" Margin="-5" BindingContext="{x:Reference Name=btnClockIn}" IsVisible="True">
-                <Entry x:Name="weighInEntry" Placeholder="Weigh-In..." />
+                <StackLayout x:Name="stkWeighIn" BackgroundColor="Khaki" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <Label x:Name="lblWeighIn"  HeightRequest="200" TextColor="Black" FontSize="Large" Text="WEIGH IN IS REQUIRED: " />
+                    <Entry x:Name="weighInEntry" HeightRequest="200" BackgroundColor="Yellow" TextColor="Black"  FontSize="Large" HorizontalOptions="CenterAndExpand" Placeholder="Scale Weight" />
+                </StackLayout>
                 <Button x:Name="btnClockInClick" HeightRequest="200" Text="Clock In" BackgroundColor="Green" TextColor="White"  Clicked="OnClockInOutClicked" />
             </StackLayout>
             <Label x:Name="lblServiceCompleteMsg" TextColor="DarkGreen" HorizontalOptions="CenterAndExpand" VerticalOptions="Fill" Text="Complete" FontSize="Large" IsVisible="False"/>

@@ -2,45 +2,56 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using RaskTrip.Views;
+using System.Threading.Tasks;
+using RaskTrip.BusinessObjects.Models;
+using RaskTrip.ApiClient;
 
 namespace RaskTrip
 {
 	public partial class App : Application
 	{
-
 		public App()
 		{
 			InitializeComponent();
 
-			MainPage = new AppShell();
-			//OnStart();
+			//MainPage = new SplashPage();
+			MainPage = new AppShell();	
 		}
 
-		protected override void OnStart()
+		protected override async void OnStart()
 		{
-			var truckCredentials = CredentialsManager.GetLoginCredentials();
-			if (truckCredentials.TruckId > 0)
-			{
-				var validCredentials = CredentialsManager.VerifyCredentials(truckCredentials);
-				if (validCredentials.TruckId > 0)
-					MainPage.Navigation.PushAsync(new DirectionsPage());
-				else
-					MainPage.Navigation.PushAsync(new RegisterLoginPage());
-			}
-			else
-			{
-				MainPage.Navigation.PushAsync(new RegisterLoginPage());
-			}
+			var isValid = await TripContext.EstablishVerifiedCredentials();
+			if (!isValid)
+				await MainPage.Navigation.PushAsync(new RegisterLoginPage());
+			OnResume();
 		}
 
 		protected override void OnSleep()
 		{
-			// Handle when your app sleeps
+			// Stop any background services...
 		}
 
-		protected override void OnResume()
+		protected override async void OnResume()
 		{
-			// Handle when your app resumes
+			bool jobChanged = false;
+			if (TripContext.Credentials != null && TripContext.Credentials.TruckId > 0)
+			{
+				// TODO: should we call GetNextJob unconditionally to see if the current job assignment has changed? 
+				if (TripContext.CurrentJob == null || TripContext.CurrentJob.JobId == 0)
+				{
+					jobChanged = await TripContext.GetNextJob();
+				}
+				if (TripContext.CurrentJob != null)
+				{
+					if (string.IsNullOrEmpty(TripContext.CurrentPage) || TripContext.CurrentPage == "DirectionsPage" || jobChanged)
+					{
+						TripContext.CurrentPage = "DirectionsPage";
+						await MainPage.Navigation.PushAsync(new DirectionsPage());
+					}
+					else if (TripContext.CurrentPage == "SiteMapPage")
+						await MainPage.Navigation.PushAsync(new SiteMapPage());
+				}
+			}
 		}
 	}
 }
