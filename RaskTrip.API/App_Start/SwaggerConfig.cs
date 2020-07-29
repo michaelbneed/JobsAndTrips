@@ -1,11 +1,11 @@
 using System.Web.Http;
 using WebActivatorEx;
-using RaskTrip.API;
+using Trip.API;
 using Swashbuckle.Application;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
-namespace RaskTrip.API
+namespace Trip.API
 {
     public class SwaggerConfig
     {
@@ -32,7 +32,7 @@ namespace RaskTrip.API
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "RaskTrip.API");
+                        c.SingleApiVersion("v1", "Trip.API");
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //

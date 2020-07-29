@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RaskTrip.BusinessObjects.Models
+namespace Trip.BusinessObjects.Models
 {
 	/// <summary>
 	/// Purpose: Use this during registration of a truck. This DTO verifies that a valid pairing of a TruckNumber with an ApiKey is being made.

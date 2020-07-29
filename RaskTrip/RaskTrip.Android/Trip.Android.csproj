@@ -101,9 +101,9 @@
     <AndroidResource Include="Resources\drawable\tab_feed.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RaskTrip\RaskTrip.csproj">
-      <Project>{2D886BF3-BB8B-4C4B-8B86-49379B1FAAC7}</Project>
-      <Name>RaskTrip</Name>
+    <ProjectReference Include="..\RaskTrip\Trip.csproj">
+      <Project>{542A6FFF-5CA2-4FAE-9BF2-B6E20886B0FF}</Project>
+      <Name>Trip</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

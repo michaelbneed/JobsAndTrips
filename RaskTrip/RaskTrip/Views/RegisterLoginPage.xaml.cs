@@ -2,18 +2,18 @@
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using RaskTrip.ViewModels;
+using Trip.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms.Maps;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.Messaging;
-using RaskTrip.ApiClient;
-using RaskTrip.BusinessObjects.Models;
+using Trip.ApiClient;
+using Trip.BusinessObjects.Models;
 using System.Text;
 
-namespace RaskTrip.Views
+namespace Trip.Views
 {
 	public partial class RegisterLoginPage : ContentPage
 	{

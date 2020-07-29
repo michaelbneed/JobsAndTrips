@@ -172,17 +172,17 @@
     <None Include="Properties\PublishProfiles\DEV.pubxml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RaskTrip.BusinessObjects\RaskTrip.BusinessObjects.csproj">
+    <ProjectReference Include="..\RaskTrip.BusinessObjects\Trip.BusinessObjects.csproj">
       <Project>{16df2586-b114-465f-8c53-6c04de9f0798}</Project>
-      <Name>RaskTrip.BusinessObjects</Name>
+      <Name>Trip.BusinessObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RaskTrip.DataAccess\RaskTrip.DataAccess.csproj">
+    <ProjectReference Include="..\RaskTrip.DataAccess\Trip.DataAccess.csproj">
       <Project>{3985fa19-47fa-4b8f-868b-14927b2e36f5}</Project>
-      <Name>RaskTrip.DataAccess</Name>
+      <Name>Trip.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RaskTrip.Utility\RaskTrip.Utility.csproj">
+    <ProjectReference Include="..\RaskTrip.Utility\Trip.Utility.csproj">
       <Project>{2040687e-3964-42d4-a3d6-a5357aa22603}</Project>
-      <Name>RaskTrip.Utility</Name>
+      <Name>Trip.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

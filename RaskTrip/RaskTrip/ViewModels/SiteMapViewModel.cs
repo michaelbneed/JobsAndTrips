@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 using Xamarin.Forms;
 
-namespace RaskTrip.ViewModels
+namespace Trip.ViewModels
 {
 	public class SiteMapViewModel : BaseViewModel
 	{

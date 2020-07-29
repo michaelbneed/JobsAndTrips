@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Plugin.Messaging;
-using RaskTrip.ApiClient;
-using RaskTrip.BusinessObjects.Models;
+using Trip.ApiClient;
+using Trip.BusinessObjects.Models;
 using Xamarin.Essentials;
 
-namespace RaskTrip
+namespace Trip
 {
 	public static class CredentialsManager
 	{

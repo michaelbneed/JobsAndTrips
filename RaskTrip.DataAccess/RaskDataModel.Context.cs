@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RaskTrip.DataAccess
+namespace Trip.DataAccess
 {
     using System;
     using System.Data.Entity;
@@ -15,10 +15,10 @@ namespace RaskTrip.DataAccess
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class RaskTrip_Entities : DbContext
+    public partial class Trip_Entities : DbContext
     {
-        public RaskTrip_Entities()
-            : base("name=RaskTrip_Entities")
+        public Trip_Entities()
+            : base("name=Trip_Entities")
         {
         }
     
@@ -108,14 +108,14 @@ namespace RaskTrip.DataAccess
         public virtual DbSet<C__TerritoryPushForeman> C__TerritoryPushForeman { get; set; }
         public virtual DbSet<vwForemanAlia> vwForemanAlias { get; set; }
     
-        [DbFunction("RaskTrip_Entities", "fn_GetSeparateValues")]
+        [DbFunction("Trip_Entities", "fn_GetSeparateValues")]
         public virtual IQueryable<fn_GetSeparateValues_Result> fn_GetSeparateValues(string ids)
         {
             var idsParameter = ids != null ?
                 new ObjectParameter("ids", ids) :
                 new ObjectParameter("ids", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_GetSeparateValues_Result>("[RaskTrip_Entities].[fn_GetSeparateValues](@ids)", idsParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_GetSeparateValues_Result>("[Trip_Entities].[fn_GetSeparateValues](@ids)", idsParameter);
         }
     
         public virtual ObjectResult<f_Company_GetActiveByCompanyTypeId_Result> f_Company_GetActiveByCompanyTypeId(Nullable<int> companyTypeId)

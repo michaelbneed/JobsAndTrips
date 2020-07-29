@@ -8,7 +8,7 @@ using System.Text;
 
 #endregion
 
-namespace RaskTrip.Utility.Security
+namespace Trip.Utility.Security
 {
     public class PasswordHelper
     {

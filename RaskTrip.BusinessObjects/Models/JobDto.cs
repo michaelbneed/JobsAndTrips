@@ -1,4 +1,4 @@
-﻿namespace RaskTrip.BusinessObjects.Models
+﻿namespace Trip.BusinessObjects.Models
 {
 	/// <summary>
 	/// The JobDto communicates the next job to perform to the mobile app. It includes all information to be displayed, and to be used for navigation to the site, 

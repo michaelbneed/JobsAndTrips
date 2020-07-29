@@ -5,17 +5,17 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using RaskTrip.BusinessObjects.Models;
+using Trip.BusinessObjects.Models;
 using System.IO;
 using Newtonsoft.Json;
 using System.Net.Security;
 
 
-namespace RaskTrip.ApiClient
+namespace Trip.ApiClient
 {
 	public class ApiClient
 	{
-		private string TripApiUrlBase = "https://dev3.adaptivesys.com/RaskTripApi-DEV/api/Jobs/";
+		private string TripApiUrlBase = "https://dev3.NeedIT.com/TripApi-DEV/api/Jobs/";
 		// private string TripApiUrlBase = "http://10.0.2.2:56596/api/Jobs/";
 		// private string TripApiUrlBase = "https://10.0.2.2:56596/api/Jobs/";
 

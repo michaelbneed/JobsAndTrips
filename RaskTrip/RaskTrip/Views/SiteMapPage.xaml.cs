@@ -2,17 +2,17 @@
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using RaskTrip.ViewModels;
+using Trip.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms.Maps;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.Messaging;
-//using RaskTrip.ApiClient;
-using RaskTrip.BusinessObjects.Models;
+//using Trip.ApiClient;
+using Trip.BusinessObjects.Models;
 
-namespace RaskTrip.Views
+namespace Trip.Views
 {
 	[DesignTimeVisible(true)]
 	public partial class SiteMapPage : ContentPage

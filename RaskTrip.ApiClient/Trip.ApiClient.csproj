@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RaskTrip.BusinessObjects\RaskTrip.BusinessObjects.csproj" />
+    <ProjectReference Include="..\Trip.BusinessObjects\Trip.BusinessObjects.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using XLabs.Forms.Services;
 using Xamarin.Forms.Xaml;
-using RaskTrip.Views;
-using RaskTrip.BusinessObjects;
+using Trip.Views;
+using Trip.BusinessObjects;
 
-namespace RaskTrip
+namespace Trip
 {
 	public partial class AppShell : Xamarin.Forms.Shell
 	{

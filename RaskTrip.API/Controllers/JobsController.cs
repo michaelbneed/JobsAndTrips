@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using RaskTrip.DataAccess;
-using RaskTrip.BusinessObjects.Models;
-using RaskTrip.BusinessObjects.Enums;
+using Trip.DataAccess;
+using Trip.BusinessObjects.Models;
+using Trip.BusinessObjects.Enums;
 using System.Linq;
 using System.Data.Entity;
 using Newtonsoft.Json;
@@ -13,17 +13,17 @@ using NLog;
 using Swashbuckle.Swagger.Annotations;
 using System.Web;
 using System.Text;
-using RaskTrip.Utility.Security;
+using Trip.Utility.Security;
 using NLog.Fluent;
 using System.Collections.Generic;
 using System.Collections;
 using System.ServiceModel.Channels;
 
-namespace RaskTrip.API.Controllers
+namespace Trip.API.Controllers
 {
 	public class JobsController : ApiController
 	{
-		RaskTrip_Entities db = new RaskTrip_Entities();
+		Trip_Entities db = new Trip_Entities();
 		Enums enums = new Enums();
 
         #region GetNextJob

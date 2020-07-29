@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RaskTrip.DataAccess
+namespace Trip.DataAccess
 {
     using System;
     using System.Collections.Generic;

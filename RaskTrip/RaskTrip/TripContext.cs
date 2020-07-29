@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using RaskTrip.BusinessObjects.Models;
-using RaskTrip.ApiClient;
+using Trip.BusinessObjects.Models;
+using Trip.ApiClient;
 
-namespace RaskTrip
+namespace Trip
 {
     public static class TripContext
     {

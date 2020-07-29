@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace RaskTrip.Views
+namespace Trip.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SplashPage : ContentPage

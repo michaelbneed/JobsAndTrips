@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RaskTrip.DataAccess
+namespace Trip.DataAccess
 {
 	class DataAccess
 	{

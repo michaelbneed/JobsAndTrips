@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
 
-namespace RaskTrip.API
+namespace Trip.API
 {
 	public static class WebApiConfig
 	{

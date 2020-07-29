@@ -1,4 +1,4 @@
-﻿using RaskTrip.BusinessObjects.Models;
+﻿using Trip.BusinessObjects.Models;
 using System;
 using System.Text;
 using System.Linq;
@@ -8,7 +8,7 @@ using Xamarin.Forms.Maps;
 using System.Collections;
 using Xamarin.Forms;
 
-namespace RaskTrip
+namespace Trip
 {
     public class LocationArrivalOptions
     {

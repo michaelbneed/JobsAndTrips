@@ -1,12 +1,12 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using RaskTrip.Views;
+using Trip.Views;
 using System.Threading.Tasks;
-using RaskTrip.BusinessObjects.Models;
-using RaskTrip.ApiClient;
+using Trip.BusinessObjects.Models;
+using Trip.ApiClient;
 
-namespace RaskTrip
+namespace Trip
 {
 	public partial class App : Application
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RaskTrip.BusinessObjects.Models
+namespace Trip.BusinessObjects.Models
 {
     public class ClockInDto
     {

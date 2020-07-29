@@ -4,9 +4,9 @@
        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        mc:Ignorable="d"
-       xmlns:local="clr-namespace:RaskTrip.Views"
-       Title="RaskTrip"
-       x:Class="RaskTrip.AppShell">
+       xmlns:local="clr-namespace:Trip.Views"
+       Title="Trip"
+       x:Class="Trip.AppShell">
 
     <!-- 
         Styles and Resources 

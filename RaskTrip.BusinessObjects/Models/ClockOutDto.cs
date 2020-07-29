@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RaskTrip.BusinessObjects.Models
+namespace Trip.BusinessObjects.Models
 {
     public class ClockOutDto
     {
